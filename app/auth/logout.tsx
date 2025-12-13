@@ -17,7 +17,7 @@ import { auth } from "../firebaseConfig";
 // Custom styles
 // Blurhash placeholder for progressive image loading
 import { BLUR_HASH_DATA } from "@/constants/blur-hash-data";
-import logInImage from "@/assets/meditation-images/log-in-image.webp";
+import logInImage from "@/assets/app-images/log-in-image.webp";
 import Colors from "@/constants/Colors";
 import { styles } from "@/styles/App.styles";
 
