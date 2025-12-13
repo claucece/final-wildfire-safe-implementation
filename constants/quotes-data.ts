@@ -2,7 +2,7 @@ import images from "@/constants/quotes-images";
 
 const QUOTES_DATA = [
     {
-        title: "On Wisdom",
+        title: "Emergency Kit",
         data: [
             {
                 id: 1,
@@ -19,15 +19,10 @@ const QUOTES_DATA = [
                 text: "Even the small person can change the course of the future.",
                 image: images.quoteImageThree,
             },
-            {
-                id: 4,
-                text: "Even the small person can change the course of the future.",
-                image: images.quoteImageFour,
-            },
         ],
     },
     {
-        title: "On Courage",
+        title: "Prepare your home",
         data: [
             {
                 id: 5,
@@ -44,15 +39,10 @@ const QUOTES_DATA = [
                 text: "Courage will now be your best defense against the storm that is at hand—that and such hope as I bring.",
                 image: images.quoteImageTwo,
             },
-            {
-                id: 8,
-                text: "There is no such thing as luck: it is not your heart that matters, but the strength of your spirit.",
-                image: images.quoteImageThree,
-            },
         ],
     },
     {
-        title: "On Facing Fear",
+        title: "Evacuation",
         data: [
             {
                 id: 9,
@@ -67,36 +57,6 @@ const QUOTES_DATA = [
             {
                 id: 11,
                 text: "Together, my friends, we will not fail.",
-                image: images.quoteImageOne,
-            },
-            {
-                id: 12,
-                text: "The deeds will not be less valiant because they are unpraised.",
-                image: images.quoteImageTwo,
-            },
-        ],
-    },
-    {
-        title: "On Love",
-        data: [
-            {
-                id: 13,
-                text: "You must trust yourself, trust your own strength.",
-                image: images.quoteImageTwo,
-            },
-            {
-                id: 14,
-                text: "It is not despair, for despair is only for those who see the end beyond all doubt.",
-                image: images.quoteImageThree,
-            },
-            {
-                id: 15,
-                text: "Together, my friends, we will not fail.",
-                image: images.quoteImageFour,
-            },
-            {
-                id: 16,
-                text: "The deeds will not be less valiant because they are unpraised.",
                 image: images.quoteImageOne,
             },
         ],

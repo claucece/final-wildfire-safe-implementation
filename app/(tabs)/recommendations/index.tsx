@@ -27,10 +27,7 @@ const Recommendations = () => {
                     {/* Header with main quote */}
                     <View style={styles.textContainerQuote}>
                         <Text style={styles.textQuoteStyle} accessible={true} accessibilityLabel="Main quote text">
-                            Read 8-bit quotes!
-                        </Text>
-                        <Text style={styles.textQuoteSmallStyle} accessible={true} accessibilityLabel="Secondary quote text">
-                            We have quotes for you: click on the images and read them!
+                           We have information for you!
                         </Text>
                     </View>
 

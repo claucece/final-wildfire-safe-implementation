@@ -3,7 +3,7 @@ import "@/global.css";
 import React from "react";
 import { Stack } from "expo-router";
 
-const QuotesLayout = () => {
+const ResourcesLayout = () => {
   return (
     <Stack>
       {/* Main screen */}
@@ -11,11 +11,11 @@ const QuotesLayout = () => {
         name="index"
         options={{
           headerShown: false,
-          accessibilityLabel: "Main screen for displaying a list of quotes",
+          accessibilityLabel: "Main screen for displaying a list of resources",
         }}
       />
     </Stack>
   );
 };
 
-export default QuotesLayout;
+export default ResourcesLayout;

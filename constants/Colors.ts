@@ -22,9 +22,11 @@ export default {
   gradientMid: "rgba(0, 0, 0, 0.3)",
   gradientLight: "rgba(92, 0, 0, 0.8)",
   gradientDarkLight: "rgba(100, 10, 100, 0.4)",
-  gradientQuoteLight: "rgba(50, 50, 100, 0.9)",
-  gradientQuote: "rgba(75, 75, 50, 0.6)",
-  gradientQuoteDark: "rgba(40, 10, 60, 0.8)",
+
+gradientQuoteLight: "rgba(135, 140, 195, 0.85)",  // soft periwinkle glow
+gradientQuote:      "rgba(110, 115, 175, 0.88)",  // main slate-blue
+gradientQuoteDark:  "rgba(70, 75, 130, 0.95)",    // deep indigo anchor
+
   gradientBlue: "rgba(76, 102, 159, 0)",
   gradientBlueLight: "rgba(59, 89, 152, 0)",
   gradientBlueDark: "rgba(25, 47, 93, 0)",

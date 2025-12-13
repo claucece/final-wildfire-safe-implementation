@@ -15,7 +15,7 @@ import QUOTES_DATA from "@/constants/quotes-data.ts";
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
-const Quotes = () => {
+const Resources = () => {
     const insets = useSafeAreaInsets(); // Safearea inset
 
     return (
@@ -27,25 +27,12 @@ const Quotes = () => {
                     {/* Header with main quote */}
                     <View style={styles.textContainerQuote}>
                         <Text style={styles.textQuoteStyle} accessible={true} accessibilityLabel="Main quote text">
-                            Read 8-bit quotes!
+                            We have recommendations!
                         </Text>
                         <Text style={styles.textQuoteSmallStyle} accessible={true} accessibilityLabel="Secondary quote text">
-                            We have quotes for you: click on the images and read them!
                         </Text>
                     </View>
 
-                    {/* Gallery section to display quotes */}
-                    <View style={{ paddingTop: insets.top }}>
-                        {QUOTES_DATA.map((i) => (
-                            <Gallery
-                                key={i.title}
-                                title={i.title}
-                                items={i.data}
-                                accessible={true}
-                                accessibilityLabel={`Gallery section: ${i.title}`} // Accessibility for gallery sections
-                            />
-                        ))}
-                    </View>
                 </ScrollView>
             </CustomGradient>
 
@@ -55,4 +42,4 @@ const Quotes = () => {
     );
 };
 
-export default Quotes;
+export default Resources;

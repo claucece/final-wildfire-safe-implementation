@@ -9,10 +9,12 @@ import { GalleryData } from "@/constants/models/Category"; // Model for gallery 
 interface QuotesGalleryProps {
     title: string;
     items: GalleryData[]; // List of items in the gallery
+    hrefForItem: (item: GalleryData) => string;
+    accessibilityLabel?: string;
 }
 
 // Gallery component
-const Gallery = memo(({ title, items }: QuotesGalleryProps) => {
+const Gallery = memo(({ title, items, hrefForItem, accessibilityLabel }: GalleryProps) => {
 
     // Memoized key extractor function for FlatList to avoid re-creating
     const keyExtractor = useCallback((item: GalleryData) => item.id.toString(), []);
@@ -20,11 +22,11 @@ const Gallery = memo(({ title, items }: QuotesGalleryProps) => {
     // Memoized renderItem function for rendering each item
     const renderItem = useCallback(({ item }: { item: GalleryData }) => (
         // Link to navigate to the individual quote page
-        <Link href={`/quote/${item.id}`} asChild>
+        <Link href={hrefForItem(item)} asChild>
             <Pressable
                 accessibilityRole="button"
-                accessibilityLabel={`View quote ${item.id}`}
-                accessibilityHint="Click to open the full quote"
+                accessibilityLabel={`View ${item.id}`}
+                accessibilityHint="Click to open"
                 // Ripple effect for Android
                 android_ripple={{ color: "#ddd", borderless: true }}
             >
@@ -35,13 +37,14 @@ const Gallery = memo(({ title, items }: QuotesGalleryProps) => {
                         source={item.image}
                         resizeMode="cover"
                         accessibilityRole="image"
-                        accessibilityLabel={`Image of quote ${item.id}`} // Description for screen readers
+                        accessibilityLabel={`Image for ${item.id}`} // Description for screen readers
                         style={styles.quotesImage}
                     />
                 </View>
             </Pressable>
         </Link>
-    ), []);
+    ), [hrefForItem]
+    );
 
     return (
         <View style={styles.galleryContainer}>
@@ -62,7 +65,7 @@ const Gallery = memo(({ title, items }: QuotesGalleryProps) => {
                 horizontal
                 showsHorizontalScrollIndicator={false} // Hide horizontal scrollbar
                 accessible
-                accessibilityLabel="Scrollable gallery of relaxing quotes"
+                accessibilityLabel={accessibilityLabel ?? "Scrollable gallery"}
                 // Optimization to calculate item positions for efficient scrolling
                 getItemLayout={(_, index) => ({
                     length: 150, // Height of each item

@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import Timer from "@/context/Timer";
 
 import { SplashScreen, Stack } from "expo-router";
@@ -6,7 +8,9 @@ import { useFonts } from "expo-font";
 import "@/global.css";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useEffect } from "react";
+
 
 export default function BaseLayout() {
    // Prevent flickering by ensuring the splash screen does not auto-hide
@@ -33,6 +37,7 @@ export default function BaseLayout() {
    if (!fontsLoaded) return null;
 
    return (
+      <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
          {/* Timer context wraps the app, ensuring time-related management */}
          <Timer>
@@ -49,6 +54,10 @@ export default function BaseLayout() {
                <Stack.Screen
                   name="resources/[itemId]"
                   options={{ headerShown: false, accessibilityLabel: "Resources Session Screen" }}
+               />
+               <Stack.Screen
+                  name="tests/[itemId]"
+                  options={{ headerShown: false, accessibilityLabel: "Tests Session Screen" }}
                />
                <Stack.Screen
                   name="index"
@@ -99,5 +108,6 @@ export default function BaseLayout() {
             </Stack>
          </Timer>
       </SafeAreaProvider>
+      </GestureHandlerRootView>
    );
 }
