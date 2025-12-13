@@ -535,15 +535,20 @@ export const styles = StyleSheet.create({
     borderColor: Colors.mainBorder,
     padding: 12,
     borderRadius: 4,
-    marginTop: 80,
+    marginTop: 200,
+    marginLeft: 10,
+    marginRight: 10,
   },
   pixelCheckListPanel: {
     backgroundColor: "rgba(24,120,200,0.7)",
     borderWidth: 4,
     borderColor: Colors.gradientMainDark,
-    padding: 12,
     borderRadius: 4,
+    padding: 14,
+
     marginTop: 30,
+    marginLeft: 10,
+    marginRight: 10,
   },
   pixelCheckListTitle: {
     color: Colors.secondary,

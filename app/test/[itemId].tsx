@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+
 import { View, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
@@ -6,6 +7,7 @@ import { Image } from "expo-image";
 
 import TESTS_DATA from "@/constants/tests-data";
 import Colors from "@/constants/Colors";
+
 import { styles } from "@/styles/App.styles";
 import BackButton from "@/components/CustomBackButton";
 import { useOrientation } from "@/hooks/useOrientation";
@@ -62,7 +64,7 @@ export default function TestDetail() {
         ]}
       />
       <View contentContainerStyle={{ flex: 1, padding: 12 }}>
-        <BackButton orientation={orientation} size={orientation === "PORTRAIT" ? 50 : 30} />
+        <BackButton orientation={orientation} size={orientation === "PORTRAIT" ? 50 : 30} customStyle={{marginTop: 100}} />
 
         <View style={[styles.pixelTestPanel]}>
           <Text style={[styles.pixelPrepareTitle]}>

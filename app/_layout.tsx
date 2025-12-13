@@ -52,11 +52,11 @@ export default function BaseLayout() {
                   options={{ headerShown: false, accessibilityLabel: "Prepare Task Session Screen" }}
                />
                <Stack.Screen
-                  name="resources/[itemId]"
+                  name="resource/[itemId]"
                   options={{ headerShown: false, accessibilityLabel: "Resources Session Screen" }}
                />
                <Stack.Screen
-                  name="tests/[itemId]"
+                  name="test/[itemId]"
                   options={{ headerShown: false, accessibilityLabel: "Tests Session Screen" }}
                />
                <Stack.Screen
