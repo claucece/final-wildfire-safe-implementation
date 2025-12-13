@@ -36,7 +36,7 @@ gradientQuoteDark:  "rgba(70, 75, 130, 0.95)",    // deep indigo anchor
   gradientMain:      "rgba(150, 65, 55, 0.85)",   // red-orange transition
   gradientMainDark:  "rgba(75, 30, 95, 0.95)",    // deep purple
 
-  mainTitle: "#E6C7BE",
+  mainTitle: "#CFA2BE",
   mainSubTitle: "#4A1A1A",
 
   sutleWhite: "#E2E8F0",
@@ -44,7 +44,7 @@ gradientQuoteDark:  "rgba(70, 75, 130, 0.95)",    // deep indigo anchor
   greenText: "#165E33",
   mainTitleSh: "#FFE5E099",
 
-  transparentM: "rgba(0,0,0,0.6)",
+  transparentM: "rgba(0,0,0,0.3)",
   transparentMid: "rgba(0,0,0,0.5)",
   transparentF: "rgba(0,0,0,0.8)",
 

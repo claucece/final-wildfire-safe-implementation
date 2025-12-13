@@ -43,7 +43,7 @@ const Home = () => {
         <View style={[styles.homeHeaderPanel]}>
         <View style={styles.header}>
           <Text style={styles.titleStyle} accessibilityRole="header">
-            Welcome,{"\n"}{username},{"\n"}to WildFireSafe!
+            Welcome,{"\n"}{username}!
           </Text>
 
           {/* Logout Button with Lottie Animation */}
@@ -54,7 +54,7 @@ const Home = () => {
             accessibilityHint="Navigates to logout screen"
           >
             <LottieView
-              source={require('../../assets/animations/witch.json')}
+              source={require('../../assets/animations/retro-animation.json')}
               loop
               autoPlay
               style={styles.lottieAni}

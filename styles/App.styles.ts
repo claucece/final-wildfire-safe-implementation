@@ -279,13 +279,22 @@ export const styles = StyleSheet.create({
   },
   textSmallStyle: {
     color: Colors.mainSubTitle,
-    marginLeft: 12,
+    marginLeft: 2,
+    marginTop: 4,
     fontSize: Sizes.fontSmall,
     fontWeight: "500" as const,
     textAlign: "left" as const,
   },
   titleStyle: {
     color: Colors.mainTitle,
+    flex: 1,
+    textAlign: "left",
+    paddingRight: 60,
+    fontWeight: "bold",
+    fontSize: Sizes.fontBig,
+  },
+  titleStyleAlt: {
+    color: Colors.blackDeep,
     flex: 1,
     textAlign: "left",
     paddingRight: 60,
@@ -299,6 +308,9 @@ export const styles = StyleSheet.create({
   lottieAni: {
     width: "100",
     height: "100",
+    marginLeft: 5,
+    marginRight: 0,
+    marginBotton: 10,
   },
   logoutIcon: {
     marginTop: -10,
@@ -635,9 +647,10 @@ pixelOrderCheckButton: {
     marginBottom: 0,
   },
   textQuoteStyle: {
-    color: Colors.mainTitle,
+    color: Colors.blackDeep,
     fontSize: 32,
     fontWeight: "bold",
+    marginBottom: 6,
   },
   textQuoteSmallStyle: {
     color: Colors.mainSubTitle,
