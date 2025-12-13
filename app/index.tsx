@@ -85,11 +85,11 @@ const App = () => {
               accessibilityLabel="Get information" // Accessibility label for screen readers
               accessibilityRole="button"
             >
-              <Feather name="info" size={20} color="white" />
+              <Feather name="message-square" size={25} color="white" />
             </Pressable>
             {/* Main app name with custom font */}
             <Text style={styles.appName} className="font-rpixelstart">
-              WildFire {"\n"} Safe
+              WildFire Safe
             </Text>
             {/* Subtitle with centered text */}
             <Text style={[styles.subTitleText, styles.textCenter]}>

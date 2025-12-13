@@ -26,6 +26,7 @@ const Tests = () => {
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContainer}>
                     {/* Header with main test */}
                     <View style={styles.textContainerQuote}>
+        <View style={[styles.homeHeaderPanel]}>
                         <Text style={styles.textQuoteStyle} accessible={true} accessibilityLabel="Main test text">
                             Now test your knowledge!
                         </Text>
@@ -33,9 +34,10 @@ const Tests = () => {
                             We have tests for you: click on the images and try!
                         </Text>
                     </View>
+</View>
 
                     {/* Gallery section to display quotes */}
-                    <View style={{ paddingTop: insets.top }}>
+                    <View style={{ paddingTop: insets.top - 20 }}>
                         {TESTS_DATA.map((section) => (
                             <Gallery
                                 key={section.title}

@@ -74,10 +74,10 @@ export const styles = StyleSheet.create({
     fontSize: Sizes.fontSizeTitle,
     color: Colors.indexPrimary,
     textAlign: "center",
-    lineHeight: 34,
     textShadowColor: "#000",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 0,
+    marginBottom: 20,
   },
   pixelPanel: {
     backgroundColor: "rgba(0,0,0,0.55)",
@@ -643,7 +643,7 @@ pixelOrderCheckButton: {
   },
   // Resources
   textContainerQuote: {
-    marginTop: 30,
+    marginTop: 20,
     marginBottom: 0,
   },
   textQuoteStyle: {

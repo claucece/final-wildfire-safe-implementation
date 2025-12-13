@@ -4,7 +4,7 @@ export default {
   paddingHorizontal: 16,
   bottomSpace: 10,
   topSpace: 100,
-  fontSizeTitle: 30,
+  fontSizeTitle: 35,
   fontSizeTitleSubPages: 30,
   fontSizeSubtitle: 24,
   fontSmall: 18,
