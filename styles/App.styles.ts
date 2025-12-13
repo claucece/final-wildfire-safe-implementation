@@ -1,0 +1,584 @@
+import { StyleSheet, Dimensions, Platform } from "react-native";
+
+import { StatusBar } from "expo-status-bar";
+
+// Custom style constants
+import Colors from "@/constants/Colors";
+import Sizes from "@/constants/Sizes";
+
+// Styles for the app
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    // Ensure content is not getting cut off due to status bar
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  italic: {
+    fontStyle: "italic",
+  },
+  imageContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: Colors.background,
+  },
+  portraitImage: {
+    height: "100%",
+    width: "100%",
+    resizeMode: "cover",
+  },
+  landscapeImage: {
+    height: "100%",
+    width: "100%",
+  },
+  safeAreaContainer: {
+    flex: 1,
+    paddingHorizontal: Sizes.paddingHorizontal,
+    justifyContent: "space-between",
+    backgroundColor: "transparent",
+  },
+  safeAreaContainerAuth: {
+    zIndex: 1,
+  },
+  textContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.shadowBg,
+    padding: 10,
+    paddingTop: 40,
+    marginTop: Sizes.topSpace,
+  },
+  textContainerAuth: {
+    backgroundColor: Colors.shadowBg,
+    marginTop: Sizes.topSpace,
+    marginBottom: 20,
+    padding: 30,
+  },
+  textContainerAuthLandscape: {
+    backgroundColor: Colors.shadowBg,
+    padding: 5,
+    marginTop: 2,
+    marginBottom: 5,
+  },
+  landscapeTextContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.shadowBg,
+    padding: 20,
+    marginTop: 60,
+  },
+  appName: {
+    fontSize: Sizes.fontSizeTitle,
+    color: Colors.indexPrimary,
+    textAlign: "center",
+    lineHeight: 34,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+  },
+  pixelPanel: {
+    backgroundColor: "rgba(0,0,0,0.55)",
+    borderWidth: 4,
+    borderColor: Colors.mainBorder,
+    padding: 12,
+    borderRadius: 4,
+    // “pixel shadow” effect
+    shadowColor: "#000",
+    shadowOffset: { width: 6, height: 6 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 8,
+  },
+  pixelTitle: {
+    color: Colors.indexPrimary,
+    fontWeight: "bold",
+  },
+  pixelSubtleText: {
+    color: Colors.subtitlePrimary,
+    marginTop: 10,
+    textAlign: "center",
+    textShadowColor: "#000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+  },
+formPanel: {
+  marginTop: 12,
+  padding: 12,
+},
+  mainTitle: {
+    fontSize: Sizes.fontSizeTitleSubPages,
+    color: Colors.indexPrimary,
+    textAlign: "center",
+  },
+  mainTitleAuth: {
+    paddingLeft: 15,
+  },
+  subTitleText: {
+    fontSize: 18,
+    letterSpacing: 1,
+    color: Colors.subtitlePrimary,
+    marginTop: 10,
+    textAlign: "center",
+    textShadowColor: "#000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+  },
+  buttonContainer: {
+    marginBottom: 20,
+  },
+  textCenter: {
+    textAlign: "center",
+  },
+  formScroll: {
+    flexGrow: 1,
+    justifyContent: "center",
+  },
+  input: {
+    borderWidth: 4,
+    borderColor: Colors.buttonBorderColor,
+    padding: 8,
+    borderRadius: 4,
+    marginBottom: 16,
+    backgroundColor: Colors.buttonFormBC,
+    color: Colors.buttonFormFont,
+    fontSize: Sizes.fontSmall,
+  },
+  inputLandscape: {
+    borderWidth: 3,
+    borderColor: Colors.buttonBorderColor,
+    padding: 5,
+    borderRadius: 4,
+    marginBottom: Sizes.bottomSpace,
+    backgroundColor: Colors.buttonFormBC,
+    color: Colors.buttonFormFont,
+    fontSize: Sizes.fontSmall,
+  },
+  errorText: {
+    color: Colors.warningColor,
+    fontSize: Sizes.fontSmall * 1.1,
+    marginBottom: Sizes.bottomSpace,
+    textAlign: "center",
+    fontWeight: "bold",
+    backgroundColor: Colors.shadowBg,
+  },
+  buttonText: {
+    fontWeight: "bold",
+    fontSize: Sizes.fontSmall * 1.3,
+  },
+  pressableContainer: {
+    position: "absolute",
+    top: 10,
+    left: 8,
+    zIndex: 10,
+  },
+  pressableContainerLandscape: {
+    position: "absolute",
+    left: 8,
+    zIndex: 10,
+  },
+  activityIndicator: {
+    color: Colors.activityColor,
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.shadowBg,
+  },
+  modalContainer: {
+    width: "80%",
+    padding: 20,
+    backgroundColor: Colors.sutleWhite,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    textAlign: "center",
+    fontSize: Sizes.fontSmall,
+    fontWeight: "bold",
+    color: Colors.blackDepp,
+  },
+  // Main app
+  homeHeaderPanel: {
+    borderWidth: 4,
+    borderColor: Colors.mainBorder,
+    padding: 12,
+    borderRadius: 4,
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 8,
+    marginBottom: 4,
+  },
+
+  header: {
+    flexDirection: "row-reverse",
+    marginTop: 20,
+    marginBottom: Sizes.bottomSpace,
+  },
+  backgroundImage: {
+    flex: 1,
+    borderRadius: 10,
+    justifyContent: "center", // Centers the children vertically
+    alignItems: "center",     // Centers the children horizontally
+    borderWidth: 5,
+    borderColor: Colors.blackDepp,
+  },
+  gradient: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+  },
+  pressableAboutContainer: {
+    position: "absolute",
+    top: 10,
+    right: 12,
+    zIndex: 10,
+  },
+  pressableAboutContainerLandscape: {
+    position: "absolute",
+    top: 5,
+    right: 10,
+    zIndex: 10,
+  },
+  aboutText: {
+    color: Colors.mainTitle,
+    padding: 20,
+    fontSize: 18,
+    textAlign: "center",
+    textAlignVertical: "center",
+    marginBottom: 12,
+    flexShrink: 1,
+  },
+  linkText: {
+    color: Colors.indexPrimary,
+  },
+  list: {
+    paddingBottom: Sizes.bottomSpace,
+  },
+  textStyle: {
+    color: Colors.secondary,
+    position: "relative",
+    textAlign: "center" as const,
+    fontSize: Sizes.fontSizeSubtitle,
+  },
+  textListStyle: {
+    color: Colors.indexPrimary, // burnt orange title
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center" as const,
+    textShadowColor: "rgba(0, 0, 0, 0.85)",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+
+    backgroundColor: "rgba(0, 0, 0, 0.55)",
+    padding: 4,
+  },
+  textSmallStyle: {
+    color: Colors.mainSubTitle,
+    marginLeft: 12,
+    fontSize: Sizes.fontSmall,
+    fontWeight: "500" as const,
+    textAlign: "left" as const,
+  },
+  titleStyle: {
+    color: Colors.mainTitle,
+    flex: 1,
+    textAlign: "left",
+    paddingRight: 60,
+    fontWeight: "bold",
+    fontSize: Sizes.fontBig,
+  },
+  lottiePress: {
+    position: "absolute",
+    flex: 1,
+  },
+  lottieAni: {
+    width: "100",
+    height: "100",
+  },
+  logoutIcon: {
+    marginTop: -10,
+    alignSelf: "center",
+  },
+  pressableMain: {
+    height: 192,
+    marginVertical: 12,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  flatContainer: {
+    flex: 1,
+  },
+  // Prepare Tasks
+  prepareBackground: {
+    flex: 1,
+  },
+  preparePressableBack: {
+    position: "absolute",
+    top: 30,
+    left: 30,
+    zIndex: 10,
+  },
+  prepareContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  prepareContainerLandscape: {
+    flex: 1,
+    marginTop: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  timerContainer: {
+    backgroundColor: Colors.sutleWhite,
+    width: Dimensions.get('window').width * 0.4, // 40% width in portrait
+    height: Dimensions.get('window').width * 0.4,
+    borderRadius: 1000,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  timerContainerLandscape: {
+    backgroundColor: Colors.sutleWhite,
+    width: Dimensions.get('window').height * 0.15, // 15% height in landscape
+    height: Dimensions.get('window').height * 0.15,
+    borderRadius: 1000,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  timerText: {
+    fontSize: 40,
+    color: Colors.greenText,
+  },
+  timerTextLandscape: {
+    fontSize: Sizes.fontBig,
+    color: Colors.greenText,
+  },
+  prepareButtons: {
+    marginTop: "auto",
+    marginBottom: 4,
+  },
+  prepareButtonsLandscape: {
+    marginTop: 3,
+    marginBottom: 1,
+  },
+  creditContainer: {
+    backgroundColor: Colors.mainTitleSh,
+    width: "auto",
+    height: "5%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -25,
+    marginBottom: 20,
+  },
+  creditContainerLandscape: {
+    backgroundColor: Colors.mainTitleSh,
+    width: "auto",
+    height: "5%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: -10,
+    marginBottom: 5,
+  },
+  // Change duration
+  changeDurContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: Sizes.bottomSpace,
+    paddingHorizontal: 20,
+    borderWidth: 5,
+    borderColor: Colors.blackDepp,
+    borderRadius: 20,
+  },
+  headerText: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: Sizes.fontSizeTitle,
+    letterSpacing: 1,
+    color: Colors.mainTitle,
+
+    marginBottom: 50,
+    padding: 20,
+    borderWidth: 2,
+    borderColor: Colors.mainTitle,
+    borderStyle: "dashed", // Dashed border style
+  },
+  headerTextLandscape: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 32,
+    color: Colors.mainTitle,
+
+    marginBottom: 20,
+    letterSpacing: 1.5,
+
+    padding: 5,
+    paddingLeft: 100,
+    paddingRight: 100,
+
+    borderWidth: 2,
+    borderColor: Colors.mainTitle,
+    borderStyle: "dashed", // Dashed border style
+  },
+  buttonGroup: {
+    justifyContent: "center",
+    width: "100%",
+    paddingHorizontal: 10,
+  },
+  buttonGroupLandscape: {
+    justifyContent: "center",
+    width: "100%",
+    fontSize: 15,
+    paddingHorizontal: 20,
+  },
+  button: {
+    backgroundColor: Colors.secondary,
+    paddingVertical: 15,
+    marginBottom: 15,
+    elevation: 5,
+  },
+  buttonLandscape: {
+    backgroundColor: Colors.secondary,
+    elevation: 5,
+  },
+  // Resources
+  textContainerQuote: {
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  textQuoteStyle: {
+    color: Colors.mainTitle,
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+  textQuoteSmallStyle: {
+    color: Colors.mainSubTitle,
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  quoteContainer: {
+    paddingBottom: 200,
+    paddingTop: 200,
+    justifyContent: 'center',
+    alignItems: "center",
+    flexGrow: 1,
+  },
+  quoteTextContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  quoteLinear: {
+    borderWidth: 7,
+    borderColor: Colors.sutleWhite,
+    padding: 2,
+    textAlignVertical: "center",
+    width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  quoteText: {
+    color: Colors.mainTitle,
+    padding: 20,
+    paddingTop: Sizes.bottomSpace,
+    fontSize: 32,
+    textAlign: "center",
+    textAlignVertical: "center",
+    marginBottom: 12,
+    flexShrink: 1,
+  },
+  quoteCredit: {
+    color: Colors.sutleWhite,
+    marginTop: 20,
+    textShadowColor: Colors.shadowBg,
+    textShadowOffset: { width: 6, height: 6 },
+    textShadowRadius: 14,
+  },
+  // Components
+  safeViewContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+  },
+  buttonCompContainer: {
+    backgroundColor: Colors.sutleWhite,
+    minHeight: 62,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 5,
+    borderColor: Colors.blackDepp,
+    elevation: 5,
+  },
+  textButtonComp: {
+    color: Colors.primary,
+    fontWeight: "500" as const,
+    fontSize: Sizes.fontSmall,
+  },
+  linearGradientContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  navButtonText: {
+    fontSize: 20,
+    letterSpacing: 1,
+    color: Colors.subtitlePrimary,
+    textShadowColor: "#000",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+  },
+  navButtonContainer: {
+    marginBottom: Sizes.bottomSpace,
+    backgroundColor: Colors.buttonBg,
+    borderWidth: 4,
+    borderColor: Colors.blackDepp,
+    borderRadius: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 6, height: 6 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 8,
+  },
+  shadowStyle: {
+    shadowColor: Colors.trueShadow,
+    shadowOffset: { width: 6, height: -6 },
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  galleryContainer: {
+    marginTop: 3,
+    marginBottom: 3,
+  },
+  galleryTitleContainer: {
+    marginBottom: Sizes.bottomSpace,
+  },
+  quotesSuperContainer: {
+    marginTop: 5,
+  },
+  quotesContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 5,
+  },
+  quotesImage: {
+    width: Dimensions.get('window').width * 0.4,
+    height: Dimensions.get('window').width * 0.3,
+    margin: 5,
+    borderWidth: 4,
+    borderColor: Colors.blackDepp,
+    borderRadius: 10,
+  },
+  quotesTitle: {
+    borderBottomWidth: 4,
+    borderTopWidth: 4,
+    borderColor: Colors.blackDepp,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+});
