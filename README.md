@@ -1,6 +1,6 @@
 # Welcome to WildFire Safe!
 
-![Wildfire Safe Icon](https://github.com/claucece/final-wildfire-safe-implementation/blob/main/assets/icon.png)
+<img src="https://raw.githubusercontent.com/claucece/final-wildfire-safe-implementation/main/assets/icon.png" width="100" />
 
 ## Get started
 
