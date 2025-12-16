@@ -26,10 +26,11 @@ import { PREPARE_TASK_DATA } from "@/constants/prepare-tasks-data";
 import { useOrientation } from "@/hooks/useOrientation";
 import { useBrightness } from "@/hooks/useBrightness";
 
+// Get width and height
 const { width } = Dimensions.get("window");
 const { height: screenHeight } = Dimensions.get("window");
 
-
+// Each session
 type Page = { key: string; title: string; body: string };
 
 const PrepareTask = () => {

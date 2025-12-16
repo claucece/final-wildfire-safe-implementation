@@ -22,6 +22,7 @@ import { styles } from "@/styles/App.styles";
 import PREPARE_TASK_IMAGES from "@/constants/prepare-tasks-images";
 import { PREPARE_TASK_DATA } from "@/constants/prepare-tasks-data";
 
+// The main entry point of the app: shows the prepardness tasks
 const Home = () => {
   const { username } = useLocalSearchParams() || {};
   const router = useRouter();
@@ -31,7 +32,7 @@ const Home = () => {
     router.push(`/auth/logout`);
   };
 
-  // Navigate to prepare task session
+  // Navigate to individual prepare task session
   const handlePrepareTaskPress = (id: string | number) => {
     router.push(`/prepare/${id}`);
   };
