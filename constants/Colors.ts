@@ -17,15 +17,16 @@ export default {
   buttonFormFont: "#FFF1E6",
   warningColor: "#FFD700",
   activityColor: "#00ff00",
+  pink: "rgba(255,192,203,0.6)",
 
   gradientDark: "rgba(150, 10, 100, 0.4)",
   gradientMid: "rgba(0, 0, 0, 0.3)",
   gradientLight: "rgba(92, 0, 0, 0.8)",
   gradientDarkLight: "rgba(100, 10, 100, 0.4)",
 
-gradientQuoteLight: "rgba(135, 140, 195, 0.85)",  // soft periwinkle glow
-gradientQuote:      "rgba(110, 115, 175, 0.88)",  // main slate-blue
-gradientQuoteDark:  "rgba(70, 75, 130, 0.95)",    // deep indigo anchor
+  gradientQuoteLight: "rgba(135, 140, 195, 0.85)",  // soft periwinkle glow
+  gradientQuote:      "rgba(110, 115, 175, 0.88)",  // main slate-blue
+  gradientQuoteDark:  "rgba(70, 75, 130, 0.95)",    // deep indigo anchor
 
   gradientBlue: "rgba(76, 102, 159, 0)",
   gradientBlueLight: "rgba(59, 89, 152, 0)",

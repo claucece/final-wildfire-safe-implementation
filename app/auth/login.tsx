@@ -66,7 +66,7 @@ export default function Login() {
 
       if (success) {
         setLoading(false);
-        router.push({
+        router.replace({
           pathname: "/home",
           params: { post: "random", username: username }, // Passing the username to the next routes
         });

@@ -27,11 +27,6 @@ const Home = () => {
   const { username } = useLocalSearchParams() || {};
   const router = useRouter();
 
-  // Navigate to logout screen
-  const handlePressLogout = () => {
-    router.push(`/auth/logout`);
-  };
-
   // Navigate to individual prepare task session
   const handlePrepareTaskPress = (id: string | number) => {
     router.push(`/prepare/${id}`);
@@ -40,19 +35,16 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <CustomGradient colors={[Colors.gradientMain, Colors.gradientMain, Colors.gradientMainDark]}>
-        {/* Header with Welcome Message & Logout Button */}
+        {/* Header with Welcome Message */}
         <View style={[styles.homeHeaderPanel]}>
         <View style={styles.header}>
           <Text style={styles.titleStyle} accessibilityRole="header">
             Welcome,{"\n"}{username}!
           </Text>
 
-          {/* Logout Button with Lottie Animation */}
+          {/* Lottie Animation */}
           <Pressable
             style={styles.lottiePress}
-            onPress={handlePressLogout}
-            accessibilityLabel="Logout"
-            accessibilityHint="Navigates to logout screen"
           >
             <LottieView
               source={require('../../assets/animations/retro-animation.json')}

@@ -776,4 +776,50 @@ pixelOrderCheckButton: {
     fontWeight: "bold",
     fontSize: 20,
   },
+  profileSectionCard: {
+    padding: 16,
+    borderWidth: 4,
+    borderColor: Colors.dark,
+
+    marginTop: 16,
+    marginBottom: 16,
+    backgroundColor: "rgba(0, 0, 0, 0.15)",
+  },
+  profileSectionTitle: {
+    fontSize: 18,
+    fontWeight: "700" as const,
+    marginBottom: 8,
+    color: Colors.mainBorder,
+  },
+  profileSectionSubtitle: {
+    fontSize: 12,
+    color: Colors.subtitlePrimary,
+    marginBottom: 10,
+    marginTop: 4,
+  },
+  profileRow: {
+    flexDirection: "row" as const,
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 6,
+  },
+  profileLabel: {
+    fontSize: 14,
+    color: Colors.mainBorder,
+  },
+  profileValue: {
+    fontSize: 15,
+    fontWeight: "600" as const,
+    color: Colors.mainBorder,
+  },
+  profileButton: {
+    marginTop: 12,
+    paddingVertical: 10,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
+    backgroundColor: Colors.pink,
+  },
+  profileButtonText: {
+    fontWeight: "600" as const,
+  },
 });
