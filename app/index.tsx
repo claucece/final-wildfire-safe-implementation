@@ -89,7 +89,7 @@ const App = () => {
             </Pressable>
             {/* Main app name with custom font */}
             <Text style={styles.appName} className="font-rpixelstart">
-              WildFire Safe
+              Wildfire Safe
             </Text>
             {/* Subtitle with centered text */}
             <Text style={[styles.subTitleText, styles.textCenter]}>

@@ -26,7 +26,7 @@ jest.mock('expo-router', () => {
 describe('<Home />', () => {
   it('renders the welcome message with username', () => {
     render(<Home />);
-    expect(screen.getByText('Welcome, TestUser, to \n8-bit reflections!')).toBeTruthy();
+    expect(screen.getByText('Welcome, TestUser')).toBeTruthy();
   });
 
   it('renders the logout button and handles logout press', () => {

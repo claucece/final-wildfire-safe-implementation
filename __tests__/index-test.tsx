@@ -73,8 +73,8 @@ describe('<App />', () => {
     render(<App />);
 
     // Check if text elements are in the document
-    expect(screen.getByText('8-bit \n Reflections')).toBeTruthy();
-    expect(screen.getByText('A Retro Path to Inner Peace')).toBeTruthy();
+    expect(screen.getByText('Wildfire Safe')).toBeTruthy();
+    expect(screen.getByText('Wildfire preparedness, simplified')).toBeTruthy();
     expect(screen.getByLabelText('Log In')).toBeTruthy();
     expect(screen.getByLabelText('Sign Up')).toBeTruthy();
   });
