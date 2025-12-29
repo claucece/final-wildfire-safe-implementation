@@ -113,9 +113,6 @@ export const styles = StyleSheet.create({
     color: Colors.indexPrimary,
     textAlign: "center",
   },
-  mainTitleAuth: {
-    paddingLeft: 15,
-  },
   subTitleText: {
     fontSize: 18,
     letterSpacing: 1,
@@ -246,11 +243,10 @@ export const styles = StyleSheet.create({
   },
   aboutText: {
     color: Colors.mainTitle,
-    padding: 20,
+    padding: 22,
+    paddingLeft: 8,
     fontSize: 18,
-    textAlign: "center",
     textAlignVertical: "center",
-    marginBottom: 12,
     flexShrink: 1,
   },
   linkText: {
@@ -475,6 +471,12 @@ export const styles = StyleSheet.create({
     marginTop: -10,
     marginBottom: 5,
   },
+  quoteCredit: {
+    color: Colors.sutleWhite,
+    textShadowColor: Colors.shadowBg,
+    textShadowOffset: { width: 6, height: 6 },
+    textShadowRadius: 14,
+  },
   // Change duration
   changeDurContainer: {
     flex: 1,
@@ -686,13 +688,6 @@ pixelOrderCheckButton: {
     textAlignVertical: "center",
     marginBottom: 12,
     flexShrink: 1,
-  },
-  quoteCredit: {
-    color: Colors.sutleWhite,
-    marginTop: 20,
-    textShadowColor: Colors.shadowBg,
-    textShadowOffset: { width: 6, height: 6 },
-    textShadowRadius: 14,
   },
   // Components
   safeViewContainer: {

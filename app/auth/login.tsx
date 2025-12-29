@@ -108,7 +108,7 @@ export default function Login() {
               orientation === 'PORTRAIT' ? styles.textContainerAuth : styles.textContainerAuthLandscape
             ]}
           >
-            <Text style={[styles.mainTitle, styles.mainTitleAuth, styles.pixelTitle]}>Log In</Text>
+            <Text style={[styles.mainTitle, styles.pixelTitle]}>Log In</Text>
             <Text style={[styles.pixelSubtleText]}>
               Continue your preparedness progress
             </Text>
