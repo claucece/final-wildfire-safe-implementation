@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<About /> matches snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": undefined,
+      "flex": 1,
+      "paddingTop": 0,
+    }
+  }
+>
+  <Image
+    accessibilityLabel="Cozy background image depicting a fire environment for about page"
+    accessibilityRole="image"
+    accessible={true}
+    contentFit="cover"
+    placeholder={
+      {
+        "blurhash": "LgHnvz~V-pxb-WRkM}kBIWIVIoWB",
+      }
+    }
+    source={
+      {
+        "testUri": "../../../assets/app-images/about-image.webp",
+      }
+    }
+    style={
+      [
+        {
+          "backgroundColor": undefined,
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        {
+          "height": "100%",
+          "resizeMode": "cover",
+          "width": "100%",
+        },
+      ]
+    }
+  />
+  <RCTSafeAreaView
+    style={
+      [
+        {
+          "backgroundColor": "transparent",
+          "flex": 1,
+          "justifyContent": "space-between",
+          "paddingHorizontal": 16,
+        },
+        {
+          "zIndex": 1,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityLabel="Go back"
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "left": 8,
+            "position": "absolute",
+            "top": 10,
+            "zIndex": 10,
+          },
+          undefined,
+        ]
+      }
+    >
+      <FeatherIconMock
+        color="#E2E8F0"
+        name="arrow-left-circle"
+        size={40}
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "backgroundColor": "rgba(0,0,0,0.55)",
+            "borderColor": "#FFFFE0",
+            "borderRadius": 4,
+            "borderWidth": 4,
+            "elevation": 8,
+            "padding": 12,
+            "shadowColor": "#000",
+            "shadowOffset": {
+              "height": 6,
+              "width": 6,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 0,
+          },
+          {
+            "backgroundColor": "#00000080",
+            "marginBottom": 20,
+            "marginTop": 100,
+            "padding": 30,
+          },
+        ]
+      }
+    >
+      <Text
+        accessibilityRole="header"
+        style={
+          [
+            {
+              "color": "#C46A2B",
+              "fontSize": 30,
+              "textAlign": "center",
+            },
+            {
+              "color": "#C46A2B",
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        About Wildfire Safe
+      </Text>
+      <Text
+        accessibilityLabel="Introductory text about our app"
+        style={
+          {
+            "color": "#CFA2BE",
+            "flexShrink": 1,
+            "fontSize": 18,
+            "padding": 22,
+            "paddingLeft": 8,
+            "textAlignVertical": "center",
+          }
+        }
+      >
+        The app you have has been designed to help in wildfire-prone areas to prepare calmly and confidently. We provide you with short, easy-to-follow lessons, interactive checklists and tests, and personalised guidance. We focus specifically on wildfire preparedness, providing clear steps, progress tracking, and supportive design, without overwhelming notifications. Wildfire Safe aims to make wildfire readiness simple, accessible, and stress-free for everyone.
+      </Text>
+    </View>
+    <View>
+      <Text
+        accessibilityLabel="Credit text for the app development"
+        className="font-rpixel"
+        style={
+          {
+            "color": "#E2E8F0",
+            "textShadowColor": "#00000080",
+            "textShadowOffset": {
+              "height": 6,
+              "width": 6,
+            },
+            "textShadowRadius": 14,
+          }
+        }
+      >
+        Credit: Wildfire Safe developers. 2025-2026. Pixel art used with permission from
+         
+        <Text
+          accessibilityHint="Opens NostalgiaTree Patreon page in your browser"
+          accessibilityRole="link"
+          onPress={[Function]}
+          style={
+            {
+              "color": "#C46A2B",
+            }
+          }
+        >
+          NostalgiaTree, 2025.
+        </Text>
+         
+        Animations used with permission from
+         
+        <Text
+          accessibilityHint="Opens Uilsu animation on LottieFiles"
+          accessibilityRole="link"
+          onPress={[Function]}
+          style={
+            {
+              "color": "#C46A2B",
+            }
+          }
+        >
+          Uilsu
+        </Text>
+         
+        and
+         
+        <Text
+          accessibilityHint="Opens Alexander animation on LottieFiles"
+          accessibilityRole="link"
+          onPress={[Function]}
+          style={
+            {
+              "color": "#C46A2B",
+            }
+          }
+        >
+          Alexander, 2025.
+        </Text>
+      </Text>
+    </View>
+  </RCTSafeAreaView>
+</View>
+`;
