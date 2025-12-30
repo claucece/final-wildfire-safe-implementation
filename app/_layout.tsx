@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 
+import * as Notifications from 'expo-notifications';
 import Timer from "@/context/Timer";
 
 import { SplashScreen, Stack } from "expo-router";
@@ -11,6 +12,16 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useEffect } from "react";
 
+import { Platform } from "react-native";
+
+// Controls how notifications behave
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false, // badge
+  }),
+});
 
 export default function BaseLayout() {
    // Prevent flickering by ensuring the splash screen does not auto-hide
@@ -23,6 +34,30 @@ export default function BaseLayout() {
       "Roboto-Mono": require("../assets/fonts/RobotoMono-Regular.ttf"),
    });
 
+  // Request permissions
+  useEffect(() => {
+    async function configureNotifications() {
+      // Ask permission
+      const { status } = await Notifications.getPermissionsAsync();
+      if (status !== "granted") {
+        await Notifications.requestPermissionsAsync();
+      }
+
+      // Android channels
+      if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+      }
+    }
+
+    configureNotifications();
+  }, []);
+
+   // Splash logic
    useEffect(() => {
       if (error) {
          console.error("Font loading error:", error);

@@ -1,11 +1,13 @@
 // Import global CSS: for tailwind and font loading
 import "@/global.css";
 
+import * as Notifications from "expo-notifications";
+
 import { useCallback } from "react";
 import { View, Text, SafeAreaView, Pressable, Platform } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
-import { Image } from 'expo-image';
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
 
@@ -29,22 +31,51 @@ const App = () => {
   // Get the current orientation of the device for responsive design
   const orientation = useOrientation();
 
+  // A test notification
+  const triggerNotification = useCallback(async () => {
+    const { status } = await Notifications.getPermissionsAsync();
+    if (status !== "granted") {
+      const req = await Notifications.requestPermissionsAsync();
+      if (req.status !== "granted") {
+        console.log("Notification permission NOT granted");
+        return;
+      }
+    }
+
+    const id = await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Wildfire Safe",
+        body: "Reminder test: Wildfire preparedness starts with one small task 🌱",
+        sound: "default",
+      },
+      trigger: { seconds: 3 },
+    });
+
+    console.log("Notification scheduled with ID:", id);
+
+    const all = await Notifications.getAllScheduledNotificationsAsync();
+    console.log("All scheduled notifications:", all);
+  }, []);
+
   // Initialize the router for navigation between pages
   const router = useRouter();
 
   // Navigation handler to navigate between screens
-  const handleNavigation = useCallback((route: string, params: Record<string, any> = {}) => {
-    const navigate = async () => {
-      try {
-        // Attempt to navigate to the desired route
-        await router.push({ pathname: route, params });
-      } catch (error) {
-        // Log error in case navigation fails
-        console.log('Navigation failed:', error);
-      }
-    };
-    navigate();
-  }, [router]);
+  const handleNavigation = useCallback(
+    (route: string, params: Record<string, any> = {}) => {
+      const navigate = async () => {
+        try {
+          // Attempt to navigate to the desired route
+          await router.push({ pathname: route, params });
+        } catch (error) {
+          // Log error in case navigation fails
+          console.log("Navigation failed:", error);
+        }
+      };
+      navigate();
+    },
+    [router]
+  );
 
   return (
     <View style={styles.container}>
@@ -52,14 +83,19 @@ const App = () => {
       <Image
         source={homeImage}
         contentFit="cover"
-        placeholder={{ blurhash: BLUR_HASH_DATA[0]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y" }} // Fallback to default blurhash
+        placeholder={{
+          blurhash:
+            BLUR_HASH_DATA[0]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+        }} // Fallback to default blurhash
         accessibilityLabel="Cozy background image depicting a serene retro environment"
         accessible // Makes the image accessible for screen readers
         accessibilityRole="image"
         style={[
           styles.imageContainer,
           // Apply responsive image styles based on orientation (portrait/landscape)
-          orientation === 'PORTRAIT' ? styles.portraitImage : styles.landscapeImage
+          orientation === "PORTRAIT"
+            ? styles.portraitImage
+            : styles.landscapeImage,
         ]}
       />
 
@@ -71,15 +107,19 @@ const App = () => {
           {/* Titles section */}
           <View
             style={[
-              orientation === 'PORTRAIT' ? styles.textContainer : styles.landscapeTextContainer,
-                                           styles.pixelPanel,
+              orientation === "PORTRAIT"
+                ? styles.textContainer
+                : styles.landscapeTextContainer,
+              styles.pixelPanel,
             ]}
             accessibilityRole="header"
           >
             {/* About/information button */}
             <Pressable
               style={[
-              orientation === "PORTRAIT" ? styles.pressableAboutContainer : styles.pressableAboutContainerLandscape,
+                orientation === "PORTRAIT"
+                  ? styles.pressableAboutContainer
+                  : styles.pressableAboutContainerLandscape,
               ]}
               onPress={() => router.push("info/about")} // Direct to the about page
               accessibilityLabel="Get information" // Accessibility label for screen readers
@@ -87,10 +127,12 @@ const App = () => {
             >
               <Feather name="message-square" size={25} color="white" />
             </Pressable>
+
             {/* Main app name with custom font */}
             <Text style={styles.appName} className="font-rpixelstart">
               Wildfire Safe
             </Text>
+
             {/* Subtitle with centered text */}
             <Text style={[styles.subTitleText, styles.textCenter]}>
               Wildfire preparedness, simplified
@@ -108,6 +150,7 @@ const App = () => {
               accessibilityHint="Navigate to the log in page."
               handleNavigation={handleNavigation}
             />
+
             {/* Sign Up button with accessibilityHint */}
             <CustomNavigationButton
               title="Sign Up"
@@ -117,9 +160,20 @@ const App = () => {
               accessibilityHint="Navigate to the sign-up page."
               handleNavigation={handleNavigation}
             />
+
+            <Pressable
+              onPress={triggerNotification}
+              accessibilityLabel="Trigger notification"
+              style={{ marginTop: 15 }}
+            >
+              <Text style={{ color: "white", textAlign: "center" }}>
+                Send Test Notification
+              </Text>
+            </Pressable>
           </View>
+
           {/* Light-themed status bar */}
-          <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+          <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
         </SafeAreaView>
       </CustomGradient>
     </View>
