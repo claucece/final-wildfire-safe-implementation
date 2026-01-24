@@ -8,9 +8,12 @@ import {
   Switch,
   Pressable,
 } from "react-native";
+
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import * as Location from "expo-location"; // for location permission
+import { Alert, Linking } from "react-native";
 
 // Firebase
 import { doc, getDoc } from "firebase/firestore";
@@ -22,6 +25,7 @@ import CustomGradient from "@/components/CustomGradient";
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
+
 const Recommendations = () => {
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -31,9 +35,17 @@ const Recommendations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // UI Preferences
+  // UI Preferences: night mode and locations
   const [nightMode, setNightMode] = useState(false);
   const [allowLocation, setAllowLocation] = useState(false);
+
+  // Ask for location permission
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.getForegroundPermissionsAsync();
+      setAllowLocation(status === "granted");
+    })();
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -76,10 +88,53 @@ const Recommendations = () => {
   };
 
   // Toggle handlers
+  // Night mode
   const handleToggleNightMode = (value: boolean) => setNightMode(value);
-  const handleToggleAllowLocation = (value: boolean) => setAllowLocation(value);
 
-  // ——— Loading UI ———
+  // Location
+  const handleToggleAllowLocation = async (value: boolean) => {
+  // User is turning it OFF: just disable in-app usage.
+  if (!value) {
+    setAllowLocation(false);
+    return;
+  }
+
+  // User is turning it ON: request permission now.
+  try {
+    const existing = await Location.getForegroundPermissionsAsync();
+
+    // If we can't ask again, send them to Settings.
+    if (existing.status !== "granted" && existing.canAskAgain === false) {
+      Alert.alert(
+        "Enable Location in Settings",
+        "Location permission is currently disabled. Please enable it in your phone settings to show fires near you.",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Open Settings", onPress: () => Linking.openSettings() },
+        ]
+      );
+      setAllowLocation(false);
+      return;
+    }
+
+    const req = await Location.requestForegroundPermissionsAsync();
+    const granted = req.status === "granted";
+    setAllowLocation(granted);
+
+    if (!granted) {
+      Alert.alert(
+        "Location not enabled",
+        "You can still use the app by searching for an area, but 'near me' features will be limited."
+      );
+    }
+  } catch (e) {
+    console.log("Location permission error:", e);
+    setAllowLocation(false);
+    Alert.alert("Error", "Could not request location permission.");
+  }
+};
+
+  // Loading UI
   if (loading) {
     return (
       <View style={styles.container}>
@@ -176,7 +231,7 @@ const Recommendations = () => {
             </View>
 
             <Text style={styles.profileSectionSubtitle}>
-              Location is only used to tailor notifications and the map.
+              Location is only used to tailor notifications and for the map.
             </Text>
           </View>
 

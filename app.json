@@ -16,7 +16,9 @@
         "ITSAppUsesNonExemptEncryption": false,
         "UIBackgroundModes": [
           "audio"
-        ]
+        ],
+        "NSLocationWhenInUseUsageDescription": "We use your location to show nearby fires and safety info.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "We use your location to send nearby fire alerts, even if the app is closed."
       }
     },
     "android": {
@@ -24,7 +26,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
