@@ -13,6 +13,7 @@ import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import * as Location from "expo-location"; // for location permission
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert, Linking } from "react-native";
 
 // Firebase
@@ -25,6 +26,23 @@ import CustomGradient from "@/components/CustomGradient";
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
+// To persist the location
+const STORAGE_KEYS = {
+  allowLocation: "prefs.allowLocation",
+  lastCoarseLocation: "prefs.lastCoarseLocation",
+} as const;
+
+type StoredLocation = {
+  latitude: number;
+  longitude: number;
+  accuracyMeters?: number | null;
+  timestamp: number; // Date.now()
+};
+
+const roundTo = (value: number, decimals = 2) => {
+  const p = Math.pow(10, decimals);
+  return Math.round(value * p) / p;
+};
 
 const Recommendations = () => {
   const router = useRouter();
@@ -38,12 +56,41 @@ const Recommendations = () => {
   // UI Preferences: night mode and locations
   const [nightMode, setNightMode] = useState(false);
   const [allowLocation, setAllowLocation] = useState(false);
+  const [locationHint, setLocationHint] = useState<string | null>(null);
 
-  // Ask for location permission
+  // Load persisted prefs (toggle opt-in, last location)
   useEffect(() => {
     (async () => {
-      const { status } = await Location.getForegroundPermissionsAsync();
-      setAllowLocation(status === "granted");
+      try {
+        const [allow, night] = await Promise.all([
+          AsyncStorage.getItem(STORAGE_KEYS.allowLocation),
+        ]);
+
+        if (allow != null) setAllowLocation(allow === "true");
+        if (night != null) setNightMode(night === "true");
+      } catch (e) {
+        console.log("Failed to load preferences:", e);
+      }
+    })();
+  }, []);
+
+  // Sync allowLocation with actual OS permission on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const { status } = await Location.getForegroundPermissionsAsync();
+        const granted = status === "granted";
+
+        // If user opted-in but permission isn't granted anymore, reflect reality.
+        setAllowLocation(granted);
+
+        await AsyncStorage.setItem(
+          STORAGE_KEYS.allowLocation,
+          granted ? "true" : "false"
+        );
+      } catch (e) {
+        console.log("Failed to read location permission:", e);
+      }
     })();
   }, []);
 
@@ -77,7 +124,7 @@ const Recommendations = () => {
     return unsubscribe;
   }, []);
 
-  // ➤ Navigate to logout confirmation
+  // Navigate to logout confirmation
   const handleSignOut = async () => {
     try {
       router.push("/auth/logout");
@@ -87,52 +134,121 @@ const Recommendations = () => {
     }
   };
 
+  const openSettings = () => {
+    // Linking.openSettings exists; if it fails, fallback to URL
+    // @ts-ignore
+    if (Linking.openSettings) {
+      // @ts-ignore
+      Linking.openSettings();
+      return;
+    }
+    Linking.openURL("app-settings:");
+  };
+
+  const saveLastCoarseLocation = async (): Promise<StoredLocation | null> => {
+    try {
+      // Try last known first
+      let pos = await Location.getLastKnownPositionAsync({});
+      if (!pos) {
+        pos = await Location.getCurrentPositionAsync({
+          accuracy: Location.LocationAccuracy.Balanced,
+          // Android: may show system dialog; TS typing differs between SDKs
+          // @ts-ignore
+          mayShowUserSettingsDialog: true,
+        });
+      }
+
+      const stored: StoredLocation = {
+        latitude: roundTo(pos.coords.latitude, 2), // ~1km-ish
+        longitude: roundTo(pos.coords.longitude, 2),
+        accuracyMeters: pos.coords.accuracy ?? null,
+        timestamp: Date.now(),
+      };
+
+      await AsyncStorage.setItem(
+        STORAGE_KEYS.lastCoarseLocation,
+        JSON.stringify(stored)
+      );
+
+      console.log("Saved coarse location:", stored);
+
+      // "Approximate" handling: if accuracy is large, show a hint
+      const acc = pos.coords.accuracy ?? null;
+      if (Platform.OS === "ios" && acc != null && acc > 1000) {
+        setLocationHint(
+          "Location is approximate. Enable Precise Location in Settings for better results."
+        );
+      } else {
+        setLocationHint(null);
+      }
+
+      return stored;
+    } catch (e) {
+      console.log("Failed to store last coarse location:", e);
+      return null;
+    }
+  };
+
   // Toggle handlers
   // Night mode
   const handleToggleNightMode = (value: boolean) => setNightMode(value);
 
   // Location
   const handleToggleAllowLocation = async (value: boolean) => {
-  // User is turning it OFF: just disable in-app usage.
-  if (!value) {
-    setAllowLocation(false);
-    return;
-  }
-
-  // User is turning it ON: request permission now.
-  try {
-    const existing = await Location.getForegroundPermissionsAsync();
-
-    // If we can't ask again, send them to Settings.
-    if (existing.status !== "granted" && existing.canAskAgain === false) {
-      Alert.alert(
-        "Enable Location in Settings",
-        "Location permission is currently disabled. Please enable it in your phone settings to show fires near you.",
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Open Settings", onPress: () => Linking.openSettings() },
-        ]
-      );
+    // Turning OFF: disable in-app usage and persist preference.
+    if (!value) {
       setAllowLocation(false);
+      setLocationHint(null);
+      await AsyncStorage.setItem(STORAGE_KEYS.allowLocation, "false");
       return;
     }
 
-    const req = await Location.requestForegroundPermissionsAsync();
-    const granted = req.status === "granted";
-    setAllowLocation(granted);
+    // Turning ON: request permission now.
+    try {
+      const existing = await Location.getForegroundPermissionsAsync();
 
-    if (!granted) {
-      Alert.alert(
-        "Location not enabled",
-        "You can still use the app by searching for an area, but 'near me' features will be limited."
+      if (existing.status !== "granted" && existing.canAskAgain === false) {
+        Alert.alert(
+          "Enable Location in Settings",
+          "Location permission is disabled. Enable it in Settings to show fires near you.",
+          [
+            { text: "Cancel", style: "cancel" },
+            { text: "Open Settings", onPress: openSettings },
+          ]
+        );
+        setAllowLocation(false);
+        await AsyncStorage.setItem(STORAGE_KEYS.allowLocation, "false");
+        return;
+      }
+
+      const req = await Location.requestForegroundPermissionsAsync();
+      const granted = req.status === "granted";
+
+      setAllowLocation(granted);
+      await AsyncStorage.setItem(
+        STORAGE_KEYS.allowLocation,
+        granted ? "true" : "false"
       );
+
+      if (!granted) {
+        setLocationHint(null);
+        Alert.alert(
+          "Location not enabled",
+          "You can still use the app by searching for an area, but 'near me' features will be limited."
+        );
+        return;
+      }
+
+      // Permission granted: store last known coarse location
+      await saveLastCoarseLocation();
+    } catch (e) {
+      console.log("Location permission error:", e);
+      setAllowLocation(false);
+      setLocationHint(null);
+      await AsyncStorage.setItem(STORAGE_KEYS.allowLocation, "false");
+      Alert.alert("Error", "Could not request location permission.");
     }
-  } catch (e) {
-    console.log("Location permission error:", e);
-    setAllowLocation(false);
-    Alert.alert("Error", "Could not request location permission.");
-  }
-};
+  };
 
   // Loading UI
   if (loading) {
@@ -159,7 +275,7 @@ const Recommendations = () => {
     );
   }
 
-  // ——— Main screen ———
+  // The screen
   return (
     <View style={styles.container}>
       <CustomGradient
