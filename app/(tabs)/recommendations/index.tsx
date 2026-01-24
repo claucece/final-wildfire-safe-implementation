@@ -323,6 +323,7 @@ const Recommendations = () => {
             <View style={styles.profileRow}>
               <Text style={styles.profileLabel}>Night mode</Text>
               <Switch
+	        testID="night-mode-switch"
                 value={nightMode}
                 onValueChange={handleToggleNightMode}
                 thumbColor={nightMode ? Colors.secondary : Colors.mainBorder}
@@ -336,6 +337,7 @@ const Recommendations = () => {
             <View style={styles.profileRow}>
               <Text style={styles.profileLabel}>Allow location</Text>
               <Switch
+	        testID="allow-location-switch"
                 value={allowLocation}
                 onValueChange={handleToggleAllowLocation}
                 thumbColor={allowLocation ? Colors.secondary : Colors.mainBorder}
