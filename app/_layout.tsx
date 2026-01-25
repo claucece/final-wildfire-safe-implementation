@@ -14,6 +14,11 @@ import { useEffect } from "react";
 
 import { Platform } from "react-native";
 
+import DismissBadgeToastOnRouteChange from "@/components/badges/BadgeDismiss";
+import { BadgeProvider } from "@/components/badges/BadgeSystem";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // Controls how notifications behave
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -24,6 +29,17 @@ Notifications.setNotificationHandler({
 });
 
 export default function BaseLayout() {
+
+// Temporary for debugging purposes
+  useEffect(() => {
+    if (!__DEV__) return;
+
+    (async () => {
+      await AsyncStorage.removeItem("badges.v1");
+      console.log("[dev] cleared badges.v1");
+    })();
+   }, []);
+
    // Prevent flickering by ensuring the splash screen does not auto-hide
    SplashScreen.preventAutoHideAsync();
 
@@ -74,6 +90,8 @@ export default function BaseLayout() {
    return (
       <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
+         <BadgeProvider>
+	 <DismissBadgeToastOnRouteChange />
          {/* Timer context wraps the app, ensuring time-related management */}
          <Timer>
             <Stack>
@@ -142,6 +160,7 @@ export default function BaseLayout() {
                />
             </Stack>
          </Timer>
+	 </BadgeProvider>
       </SafeAreaProvider>
       </GestureHandlerRootView>
    );

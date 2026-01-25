@@ -817,4 +817,27 @@ pixelOrderCheckButton: {
   profileButtonText: {
     fontWeight: "600" as const,
   },
+  badgeToast: {
+        position: "absolute",
+        left: 16,
+        right: 16,
+        bottom: 74,
+        padding: 14,
+        backgroundColor: "rgba(130,10,20,0.80)",
+  },
+  badgeToastTitle: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 14,
+  },
+  badgeToastDescription: {
+     color: "rgba(255,255,255,0.85)",
+     marginTop: 10,
+     fontSize: 12,
+  },
+  badgeToastDismiss: {
+     color: "rgba(255,255,255,0.85)",
+     marginTop: 6,
+     fontSize: 10,
+  },
 });
