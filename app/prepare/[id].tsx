@@ -179,7 +179,7 @@ const PrepareTask = () => {
 
 <HighlightedText
   text={item.body}
-  highlights={["wind", "wildfires", "wildfire", "evacuation", "alerts", "slopes", "slope", "fuels", "fuel"]}
+  highlights={["wind", "wildfires", "wildfire", "evacuations", "evacuation", "alerts", "slopes", "slope", "fuels", "fuel", "medication", "firefighters"]}
   style={styles.pixelPrepareTaskSubtleText}
   highlightStyle={{ fontWeight: "800" }}
 />
