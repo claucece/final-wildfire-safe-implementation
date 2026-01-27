@@ -395,10 +395,19 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
+  prepareTaskSwipeText: {
+    marginTop: 24,
+    padding: 5,
+    textAlign: "center",
+    backgroundColor: Colors.pink,
+    color: Colors.subtitlePrimary,
+    textAlign: "center",
+  },
   pixelPrepareTaskSubtleText: {
     color: Colors.subtitlePrimary,
     marginTop: 5,
-    fontSize: 16,
+    paddingLeft: 5,
+    fontSize: 17,
     textAlign: "left",
     lineHeight: 22,
   },
@@ -414,7 +423,7 @@ export const styles = StyleSheet.create({
   },
   progressBarFill: {
     height: "100%",
-    backgroundColor: Colors.indexPrimary,
+    backgroundColor: Colors.highlightYellow,
   },
   progressLottieWrap: {
     position: "absolute",

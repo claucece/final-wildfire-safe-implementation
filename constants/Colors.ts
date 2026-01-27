@@ -7,6 +7,7 @@ export default {
   dark: "#1A1A1A",
   indexPrimary: "#C46A2B",
   blackDepp: "#1A1A1A",
+  highlightYellow: "#F2C14E",
   mainBorder: "#FFFFE0",
   shadowBg: "#00000080",
   trueShadow: "#000000",

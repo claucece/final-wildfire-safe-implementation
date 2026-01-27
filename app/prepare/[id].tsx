@@ -16,6 +16,7 @@ import LottieView from "lottie-react-native";
 
 import CustomGradient from "@/components/CustomGradient";
 import BackButton from "@/components/CustomBackButton";
+import HighlightedText from "@/components/HighlightedText";
 
 import Colors from "@/constants/Colors";
 import { styles } from "@/styles/App.styles";
@@ -168,8 +169,7 @@ const PrepareTask = () => {
                 <View
                   style={[
                     styles.preparePage,
-                    { width: width / 1.1, height: screenHeight * 0.55 },
-                      index > 0 && { marginLeft: 4 },
+                    { width: width / 1.1, height: screenHeight * 0.55 }
                     ]}
 >
                   <View style={[styles.pixelPrepareTaskPanel, { height: "100%" }]}>
@@ -177,17 +177,22 @@ const PrepareTask = () => {
                       {item.title}
                     </Text>
 
-                    <Text
-                      style={[
-                        styles.pixelPrepareTaskSubtleText,
-                      ]}
-                    >
-                      {item.body}
+<HighlightedText
+  text={item.body}
+  highlights={["wind", "wildfires", "wildfire", "evacuation", "alerts", "slopes", "slope", "fuels", "fuel"]}
+  style={styles.pixelPrepareTaskSubtleText}
+  highlightStyle={{ fontWeight: "800" }}
+/>
+{index < 3 && (
+                    <Text style={[styles.prepareTaskSwipeText]}>
+                      Swipe left to continue →
                     </Text>
-
-                    <Text style={[styles.pixelSubtleText, { marginTop: 24, textAlign: "center" }]}>
-                      Swipe to continue →
+)}
+{index == 3 && (
+                    <Text style={[styles.prepareTaskSwipeText]}>
+                      End of the task!{"\n"}You can return to the main screen!
                     </Text>
+)}
                   </View>
                 </View>
               )}
