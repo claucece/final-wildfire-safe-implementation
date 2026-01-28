@@ -134,7 +134,7 @@ const PrepareTask = () => {
               <Text style={[styles.pixelPrepareTitle]}>
                 {task.title}
               </Text>
-              <Text style={styles.pixelPrepareSubtleText}>
+              <Text testID="progress-meta" style={styles.pixelPrepareSubtleText}>
                 {pageIndex + 1}/{total}{" "}
               <Feather name="chevrons-right" size={14} color="#F2C14E" />{" "}
                 {progressPct}%{" "}
@@ -162,6 +162,7 @@ const PrepareTask = () => {
 
             {/* Horizontal pages that the user scrolls left */}
             <FlatList
+	      testID="pages-list"
               ref={listRef}
               data={pages}
               keyExtractor={(p) => p.key}

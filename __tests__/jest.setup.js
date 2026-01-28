@@ -18,9 +18,10 @@ jest.mock('expo-image', () => ({
   Image: 'Image',
 }));
 
+export const mockParams = { username: "testuser" };
 // Mocking expo-router
 jest.mock('expo-router', () => ({
-  useLocalSearchParams: jest.fn(() => ({ username: 'testuser' })),
+  useLocalSearchParams: jest.fn(() => mockParams),
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn(),
     back: jest.fn(),
@@ -49,7 +50,6 @@ jest.mock('@/components/CustomAnimatedButton', () => ({
   ),
 }));
 
-
 // Mocking hooks
 jest.mock('@/hooks/useOrientation', () => ({
   useOrientation: jest.fn(),
@@ -67,3 +67,4 @@ describe('Jest Setup', () => {
     expect(true).toBe(true); // Dummy test that always passes
   });
 });
+
