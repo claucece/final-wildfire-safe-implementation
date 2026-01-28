@@ -13,6 +13,8 @@ import {
 
 import { useLocalSearchParams } from "expo-router";
 import LottieView from "lottie-react-native";
+import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import CustomGradient from "@/components/CustomGradient";
 import BackButton from "@/components/CustomBackButton";
@@ -123,18 +125,21 @@ const PrepareTask = () => {
           <SafeAreaView style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}>
             <BackButton
               orientation={orientation}
-              size={orientation === "PORTRAIT" ? 60 : 40}
+              size={orientation === "PORTRAIT" ? 50 : 30}
               accessibilityLabel="Go back"
             />
 
-            {/* Top panel: Title and Progress */}
+            {/* Top panel: title and progress */}
             <View style={[styles.pixelPreparePanel]}>
               <Text style={[styles.pixelPrepareTitle]}>
                 {task.title}
               </Text>
-
-              <Text style={[styles.pixelPrepareSubtleText]}>
-                {pageIndex + 1}/{total} • {progressPct}% • {minutesLeft} min left
+              <Text style={styles.pixelPrepareSubtleText}>
+                {pageIndex + 1}/{total}{" "}
+              <Feather name="chevrons-right" size={14} color="#F2C14E" />{" "}
+                {progressPct}%{" "}
+              <Feather name="clock" size={14} color="#F2C14E" />{" "}
+                {minutesLeft} min left
               </Text>
 
               {/* Progress bar */}
@@ -177,22 +182,26 @@ const PrepareTask = () => {
                       {item.title}
                     </Text>
 
-<HighlightedText
-  text={item.body}
-  highlights={["wind", "wildfires", "wildfire", "evacuations", "evacuation", "alerts", "slopes", "slope", "fuels", "fuel", "medication", "firefighters"]}
-  style={styles.pixelPrepareTaskSubtleText}
-  highlightStyle={{ fontWeight: "800" }}
-/>
-{index < 3 && (
-                    <Text style={[styles.prepareTaskSwipeText]}>
-                      Swipe left to continue →
-                    </Text>
-)}
-{index == 3 && (
-                    <Text style={[styles.prepareTaskSwipeText]}>
-                      End of the task!{"\n"}You can return to the main screen!
-                    </Text>
-)}
+                    <HighlightedText
+                      text={item.body}
+                      highlights={["wind", "wildfires", "wildfire", "evacuations", "evacuation", "alerts", "slopes", "slope", "fuels", "fuel", "medication", "firefighters"]}
+                      style={styles.pixelPrepareTaskSubtleText}
+                      highlightStyle={{ fontWeight: "800" }}
+                    />
+                    {index < 3 && (
+                      <View style={styles.swipeRow}>
+                        <Text style={styles.prepareTaskSwipeText}>Swipe left to continue</Text>
+                        <Ionicons name="arrow-forward" size={18} color={Colors.subtitlePrimary} />
+                      </View>
+                    )}
+                    {index == 3 && (
+                     <View style={styles.swipeRow}>
+                       <Text style={styles.prepareTaskSwipeText}>
+                         End of the task!{"\n"}You can return to the main screen!
+                       </Text>
+                       <Feather name="home" size={18} color={Colors.subtitlePrimary} style={styles.homeIconSwipe} />
+                     </View>
+                    )}
                   </View>
                 </View>
               )}

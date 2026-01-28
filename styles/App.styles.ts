@@ -345,11 +345,11 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   pixelPreparePanel: {
-    backgroundColor: "rgba(235,110,75,0.85)",
+    backgroundColor: Colors.orangeTitle,
     borderWidth: 4,
     borderColor: Colors.mainBorder,
     padding: 12,
-    marginTop: 100,
+    marginTop: 80,
     marginBottom: 20,
     borderRadius: 4,
     shadowColor: "#000",
@@ -397,11 +397,27 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
-  prepareTaskSwipeText: {
+  swipeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 12,
+    backgroundColor: Colors.swipe,
     marginTop: 24,
     padding: 5,
+  },
+  swipeRowEnd: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    gap: 8,
+  },
+  homeIconSwipe: {
+    marginLeft: 10,
+  },
+  prepareTaskSwipeText: {
     textAlign: "center",
-    backgroundColor: Colors.pink,
     color: Colors.subtitlePrimary,
     textAlign: "center",
   },

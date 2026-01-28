@@ -7,7 +7,6 @@ export default {
   dark: "#1A1A1A",
   indexPrimary: "#C46A2B",
   blackDepp: "#1A1A1A",
-  highlightYellow: "#F2C14E",
   mainBorder: "#FFFFE0",
   shadowBg: "#00000080",
   trueShadow: "#000000",
@@ -19,6 +18,9 @@ export default {
   warningColor: "#FFD700",
   activityColor: "#00ff00",
   pink: "rgba(255,192,203,0.6)",
+  orangeTitle: "#A45B53",
+  highlightYellow: "#F2C14E",
+  swipe: "#663262",
 
   gradientDark: "rgba(150, 10, 100, 0.4)",
   gradientMid: "rgba(0, 0, 0, 0.3)",
