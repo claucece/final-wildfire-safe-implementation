@@ -209,7 +209,9 @@ export const styles = StyleSheet.create({
     elevation: 8,
     marginBottom: 4,
   },
-
+  settingsButton: {
+    left: 300,
+  },
   header: {
     flexDirection: "row-reverse",
     marginTop: 20,
@@ -271,7 +273,7 @@ export const styles = StyleSheet.create({
     textShadowRadius: 0,
 
     backgroundColor: "rgba(0, 0, 0, 0.55)",
-    padding: 4,
+    padding: 5,
   },
   textSmallStyle: {
     color: Colors.mainSubTitle,
@@ -306,7 +308,7 @@ export const styles = StyleSheet.create({
     height: "100",
     marginLeft: 5,
     marginRight: 0,
-    marginBotton: 10,
+    marginBotton: 20,
   },
   logoutIcon: {
     marginTop: -10,

@@ -25,6 +25,7 @@ import { PREPARE_TASK_DATA } from "@/constants/prepare-tasks-data";
 // The main entry point of the app: shows the prepardness tasks
 const Home = () => {
   const { username } = useLocalSearchParams() || {};
+
   const router = useRouter();
 
   // Navigate to individual prepare task session
@@ -35,15 +36,26 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <CustomGradient colors={[Colors.gradientMain, Colors.gradientMain, Colors.gradientMainDark]}>
+
         {/* Header with Welcome Message */}
         <View style={[styles.homeHeaderPanel]}>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Open settings"
+            onPress={() => router.push("/recommendations")}
+            style={styles.settingsButton}
+           >
+            <Feather name="settings" size={22} color="white" />
+        </Pressable>
         <View style={styles.header}>
-          <Text style={styles.titleStyle} accessibilityRole="header">
+          <Text testID="welcome-title" style={styles.titleStyle} accessibilityRole="header">
             Welcome,{"\n"}{username}!
           </Text>
 
           {/* Lottie Animation */}
           <Pressable
+	    accessibilityRole="button"
             style={styles.lottiePress}
           >
             <LottieView
@@ -57,13 +69,14 @@ const Home = () => {
 
         {/* Instruction Text */}
         <Text style={styles.textSmallStyle}>
-          Choose a lesson to build your wildfire readiness step by step.
+          Choose a lesson to build your wildfire preparedness step by step.
         </Text>
         </View>
 
         {/* Prepare Tasks List */}
         <View style={styles.flatContainer}>
           <FlatList
+	    testID="prepare-list"
             data={PREPARE_TASK_DATA}
             contentContainerStyle={styles.list}
             keyExtractor={(item) => item.id.toString()}
@@ -73,6 +86,7 @@ const Home = () => {
             windowSize={5} // Items rendered offscreen
             renderItem={({ item }) => (
               <Pressable
+	        accessibilityRole="button"
                 onPress={() => handlePrepareTaskPress(item.id)}
                 style={styles.pressableMain}
                 accessibilityLabel={`Prepare Task: ${item.title}`}
@@ -99,7 +113,7 @@ const Home = () => {
       </CustomGradient>
 
       {/* Status Bar */}
-      <StatusBar style="light" />
+      <StatusBar barStyle="light" />
     </View>
   );
 };
