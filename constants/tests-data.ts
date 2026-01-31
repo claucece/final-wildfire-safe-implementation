@@ -107,7 +107,7 @@ const TESTS_DATA = [
         title: "Prepare Your Home",
         prompt: "Order these steps from most urgent to least urgent.",
         type: "Drag",
-        image: images.testImageFour,
+        image: images.testImageFive,
         dragItems: [
           { key: "close", label: "Close all windows and doors" },
           { key: "hoses", label: "Connect hoses and fill buckets" },
@@ -127,7 +127,7 @@ const TESTS_DATA = [
         title: "Vehicle Evacuation Checklist",
         prompt: "Check what you should do before leaving by car.",
         type: "Checklist",
-        image: images.testImageTwo,
+        image: images.testImageSeven,
         checklistItems: [
           {
             id: "fuel",
@@ -172,7 +172,7 @@ const TESTS_DATA = [
         title: "Evacuation Exit Plan",
         prompt: "Put these actions in the safest order.",
         type: "Drag",
-        image: images.testImageThree,
+        image: images.testImageSix,
         dragItems: [
           { key: "shoes", label: "Put on long pants and closed-toe shoes" },
           { key: "pets", label: "Secure pets into carriers/leashes" },
@@ -192,7 +192,7 @@ const TESTS_DATA = [
         title: "Smoke Protection Checklist",
         prompt: "Check what helps protect you from wildfire smoke.",
         type: "Checklist",
-        image: images.testImageOne,
+        image: images.testImageNine,
         checklistItems: [
           {
             id: "mask",
@@ -237,7 +237,7 @@ const TESTS_DATA = [
         title: "Respond to AQI Levels Plan",
         prompt: "Drag the responses in order from lowest AQI to highest AQI.",
         type: "Drag",
-        image: images.testImageTwo,
+        image: images.testImageEight,
         dragItems: [
           { key: "good", label: "Good: open windows if needed" },
           { key: "moderate", label: "Moderate: limit long outdoor exertion" },

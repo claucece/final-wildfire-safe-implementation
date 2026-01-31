@@ -5,6 +5,7 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+// Our components
 import Gallery from "@/components/Gallery";
 import CustomGradient from "@/components/CustomGradient";
 
@@ -26,9 +27,9 @@ const Tests = () => {
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContainer}>
                     {/* Header with main test */}
                     <View style={styles.textContainerQuote}>
-        <View style={[styles.homeHeaderPanel]}>
+                      <View style={[styles.homeHeaderPanel]}>
                         <Text style={styles.textQuoteStyle} accessible={true} accessibilityLabel="Main test text">
-                            Now test your knowledge!
+                            Now test your knowledge...
                         </Text>
                         <Text style={styles.textQuoteSmallStyle} accessible={true} accessibilityLabel="Secondary test text">
                             We have tests for you: click on the images and try!
@@ -37,7 +38,7 @@ const Tests = () => {
 </View>
 
                     {/* Gallery section to display quotes */}
-                    <View style={{ paddingTop: insets.top - 20 }}>
+                    <View style={{ paddingTop: insets.top - 30 }}>
                         {TESTS_DATA.map((section) => (
                             <Gallery
                                 key={section.title}

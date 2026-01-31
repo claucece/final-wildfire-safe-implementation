@@ -49,25 +49,14 @@ const Gallery = memo(({ title, items, hrefForItem, accessibilityLabel }: Gallery
                         resizeMode="cover"
                         accessibilityRole="image"
                         accessibilityLabel={`Image for ${item.id}`} // Description for screen readers
-                        style={styles.quotesImage}
+                        style={styles.testsImage}
                     />
             {/* Overlay text on top of the image when hovered */}
             {hoveredId === item.id.toString() && (
               <View
                 pointerEvents="none"
                 style={[
-                  styles.quotesImage, // reuse same width/height
-                  {
-                    position: "absolute",
-                    left: 0,
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: "rgba(0,0,0,0.45)",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    paddingHorizontal: 10,
-                  },
+                  styles.testsImage, styles.feedbackView
                 ]}
               >
                 <Text
@@ -88,7 +77,7 @@ const Gallery = memo(({ title, items, hrefForItem, accessibilityLabel }: Gallery
         <View style={styles.galleryContainer}>
             {/* Title for the gallery, accessible as a header */}
             <Text
-                style={styles.quotesTitle}
+                style={styles.testsTitle}
                 accessibilityRole="header"
                 accessibilityLabel={`Gallery title: ${title}`} // Screen reader label
             >

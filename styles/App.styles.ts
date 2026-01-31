@@ -567,6 +567,24 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   // Tests
+  testsImage: {
+    width: Dimensions.get('window').width * 0.4,
+    height: Dimensions.get('window').width * 0.3,
+    margin: 5,
+    borderWidth: 4,
+    borderColor: Colors.blackDepp,
+    borderRadius: 10,
+  },
+  testsTitle: {
+    borderWidth: 3,
+    borderColor: Colors.blackDepp,
+
+    paddingLeft: 15,
+    paddingTop: 2,
+    paddingBottom: 2,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
   checkList: {
     marginTop: 40,
   },
@@ -575,6 +593,17 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginLeft: 35,
+  },
+  feedbackView: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.45)",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10,
   },
   feedbackItem: {
     marginLeft: 8,
@@ -799,21 +828,6 @@ pixelOrderCheckButton: {
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-  },
-  quotesImage: {
-    width: Dimensions.get('window').width * 0.4,
-    height: Dimensions.get('window').width * 0.3,
-    margin: 5,
-    borderWidth: 4,
-    borderColor: Colors.blackDepp,
-    borderRadius: 10,
-  },
-  quotesTitle: {
-    borderWidth: 4,
-    borderColor: Colors.blackDepp,
-    paddingLeft: 8,
-    fontWeight: "bold",
-    fontSize: 20,
   },
   profileSectionCard: {
     padding: 16,
