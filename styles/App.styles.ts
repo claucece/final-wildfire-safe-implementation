@@ -570,6 +570,15 @@ export const styles = StyleSheet.create({
   checkList: {
     marginTop: 40,
   },
+  feedbackCheckList: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    marginLeft: 35,
+  },
+  feedbackItem: {
+    marginLeft: 8,
+  },
   pixelTestPanel: {
     backgroundColor: "rgba(255,95,0,1)",
     borderWidth: 4,

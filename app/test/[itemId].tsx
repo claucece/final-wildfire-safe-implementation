@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
 
+import { Feather } from "@expo/vector-icons";
+
 import TESTS_DATA from "@/constants/tests-data";
 import Colors from "@/constants/Colors";
 
@@ -12,7 +14,6 @@ import { useOrientation } from "@/hooks/useOrientation";
 
 import { PixelChecklist } from "@/components/tests/PixelChecklist";
 import { PixelOrderingTask } from "@/components/tests/PixelOrderingTask";
-
 import { useBadges } from "@/components/badges/BadgeSystem";
 
 // Constants and assets
@@ -82,6 +83,15 @@ export default function TestDetail() {
     });
   }, [checklist]);
 
+  // UI feedback on checklist
+  const selectedWrong = useMemo(() => {
+    return checklist.some((i: any) => i.isCorrect === false && i.done);
+  }, [checklist]);
+
+  const missedCorrect = useMemo(() => {
+    return checklist.some((i: any) => (i.isCorrect ?? true) && !i.done);
+  }, [checklist]);
+
   useEffect(() => {
     if (!test) return;
     if (test.type !== "Checklist") return;
@@ -132,11 +142,40 @@ export default function TestDetail() {
 
         <View>
           {test.type === "Checklist" && (
+	    <>
             <PixelChecklist
               title="Checklist"
               items={checklist}
               onToggle={toggleItem}
             />
+            {/* Feedback */}
+            {selectedWrong && (
+	      <View style={styles.feedbackCheckList}>
+	        <Feather name="x-circle" size={18} color={Colors.redToasy} />
+                <Text style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}>
+                  Wrong item!
+                </Text>
+              </View>
+            )}
+
+            {missedCorrect && !selectedWrong && (
+	      <View style={styles.feedbackCheckList}>
+	        <Feather name="alert-triangle" size={18} color={Colors.highlightYellow} />
+                <Text style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}>
+                You're missing at least one important item.
+                </Text>
+              </View>
+            )}
+
+            {checklistCorrect && (
+	      <View style={styles.feedbackCheckList}>
+	        <Feather name="check-circle" size={18} color={Colors.orangeTitle} />
+                <Text style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}>
+                 Great job: checklist completed correctly!
+                </Text>
+              </View>
+             )}
+           </>
           )}
 
           {test.type === "Drag" && (
