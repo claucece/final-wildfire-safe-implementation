@@ -65,7 +65,7 @@ const TESTS_DATA = [
     data: [
       {
         id: "home-defensible-space",
-        title: "Defensible Space Checklist",
+        title: "Safe Home Checklist",
         prompt: "Check what helps reduce wildfire risk around your home.",
         type: "Checklist",
         image: images.testImageThree,
@@ -169,7 +169,7 @@ const TESTS_DATA = [
       },
       {
         id: "evac-escape-order",
-        title: "Evacuation Exit Order",
+        title: "Evacuation Exit Plan",
         prompt: "Put these actions in the safest order.",
         type: "Drag",
         image: images.testImageThree,
@@ -234,7 +234,7 @@ const TESTS_DATA = [
       },
       {
         id: "aqi-level-order",
-        title: "Respond to AQI Levels",
+        title: "Respond to AQI Levels Plan",
         prompt: "Drag the responses in order from lowest AQI to highest AQI.",
         type: "Drag",
         image: images.testImageTwo,

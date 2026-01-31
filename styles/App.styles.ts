@@ -579,6 +579,14 @@ export const styles = StyleSheet.create({
   feedbackItem: {
     marginLeft: 8,
   },
+  itemHoverTest: {
+    color: Colors.mainBorder,
+    fontWeight: "700",
+    textAlign: "center",
+    padding: 5,
+
+    backgroundColor: "rgba(0, 0, 0, 0.55)",
+  },
   pixelTestPanel: {
     backgroundColor: "rgba(255,95,0,1)",
     borderWidth: 4,

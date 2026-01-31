@@ -1,6 +1,6 @@
-import { Image, View, Text, FlatList, Pressable } from "react-native";
+import { Image, View, Text, FlatList, Pressable, Platform } from "react-native";
 import { Link } from "expo-router"; // For navigation to quotes page
-import { memo, useCallback } from "react"; // Memoization to prevent re-renders
+import { memo, useCallback, useState } from "react"; // Memoization to prevent re-renders
 
 import { styles } from "@/styles/App.styles"; // Custom styles
 import { GalleryData } from "@/constants/models/Category"; // Model for gallery items
@@ -15,6 +15,7 @@ interface QuotesGalleryProps {
 
 // Gallery component
 const Gallery = memo(({ title, items, hrefForItem, accessibilityLabel }: GalleryProps) => {
+    const [hoveredId, setHoveredId] = useState<string | null>(null);
 
     // Memoized key extractor function for FlatList to avoid re-creating
     const keyExtractor = useCallback((item: GalleryData) => item.id.toString(), []);
@@ -29,9 +30,19 @@ const Gallery = memo(({ title, items, hrefForItem, accessibilityLabel }: Gallery
                 accessibilityHint="Click to open"
                 // Ripple effect for Android
                 android_ripple={{ color: "#ddd", borderless: true }}
+		onHoverIn={() => setHoveredId(item.id.toString())}
+		onHoverOut={() => setHoveredId(null)}
+                onPressIn={() => {
+		  if (Platform.OS !== "web") setHoveredId(item.id.toString());
+                }}
+                onPressOut={() => {
+		  if (Platform.OS !== "web") setHoveredId(null);
+                }}
             >
                 {/* Container for the quote's image */}
-                <View style={styles.quotesContainer}>
+                <View
+		  style={[styles.quotesContainer, { position: "relative" }]}
+		>
                     {/* Display the image for each quote */}
                     <Image
                         source={item.image}
@@ -40,10 +51,37 @@ const Gallery = memo(({ title, items, hrefForItem, accessibilityLabel }: Gallery
                         accessibilityLabel={`Image for ${item.id}`} // Description for screen readers
                         style={styles.quotesImage}
                     />
+            {/* Overlay text on top of the image when hovered */}
+            {hoveredId === item.id.toString() && (
+              <View
+                pointerEvents="none"
+                style={[
+                  styles.quotesImage, // reuse same width/height
+                  {
+                    position: "absolute",
+                    left: 0,
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: "rgba(0,0,0,0.45)",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    paddingHorizontal: 10,
+                  },
+                ]}
+              >
+                <Text
+                  numberOfLines={2}
+                  style={styles.itemHoverTest}
+                 >
+                  {item.title}
+                </Text>
+              </View>
+	      )}
                 </View>
             </Pressable>
         </Link>
-    ), [hrefForItem]
+    ), [hrefForItem, hoveredId]
     );
 
     return (
