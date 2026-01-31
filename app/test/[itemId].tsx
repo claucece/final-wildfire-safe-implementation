@@ -68,18 +68,27 @@ export default function TestDetail() {
     [test, hasBadge, awardBadge]
   );
 
-  // Keep track if checklist is done
-  const allDone = useMemo(() => {
-    return checklist.length > 0 && checklist.every((x) => x.done);
+  // Keep track if checklist is done and correct
+  const checklistCorrect = useMemo(() => {
+    // no items: can't be "correct"
+    if (checklist.length === 0) return false;
+
+    return checklist.every((item: any) => {
+      // if isCorrect is missing, treat it as "correct"
+      const isCorrect = item.isCorrect ?? true;
+
+      // correct items must be checked, incorrect items must not be checked
+      return isCorrect ? item.done === true : item.done === false;
+    });
   }, [checklist]);
 
   useEffect(() => {
     if (!test) return;
     if (test.type !== "Checklist") return;
-    if (!allDone) return;
+    if (!checklistCorrect) return;
 
     awardTestBadge("Checklist finished");
-  }, [allDone, test, awardTestBadge]);
+  }, [checklistCorrect, test, awardTestBadge]);
 
   // In case the test does not exist
   if (!test) {
