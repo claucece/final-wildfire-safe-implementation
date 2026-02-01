@@ -22,22 +22,22 @@ const Tests = () => {
     return (
         <View style={styles.container}>
             <CustomGradient
-                colors={[Colors.gradientQuoteLight, Colors.gradientQuote, Colors.gradientQuoteDark]}
+                colors={[Colors.gradientTestLight, Colors.gradientTest, Colors.gradientTestDark]}
             >
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContainer}>
                     {/* Header with main test */}
-                    <View style={styles.textContainerQuote}>
+                    <View style={styles.textContainerTest}>
                       <View style={[styles.homeHeaderPanel]}>
-                        <Text style={styles.textQuoteStyle} accessible={true} accessibilityLabel="Main test text">
+                        <Text style={styles.textTestStyle} accessible={true} accessibilityLabel="Main test text">
                             Now test your knowledge...
                         </Text>
-                        <Text style={styles.textQuoteSmallStyle} accessible={true} accessibilityLabel="Secondary test text">
+                        <Text style={styles.textTestSmallStyle} accessible={true} accessibilityLabel="Secondary test text">
                             We have tests for you: click on the images and try!
                         </Text>
                     </View>
 </View>
 
-                    {/* Gallery section to display quotes */}
+                    {/* Gallery section to display tests */}
                     <View style={{ paddingTop: insets.top - 30 }}>
                         {TESTS_DATA.map((section) => (
                             <Gallery

@@ -571,6 +571,17 @@ export const styles = StyleSheet.create({
     elevation: 5,
   },
   // Tests
+  textTestStyle: {
+    color: Colors.blackDeep,
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: 6,
+  },
+  textTestSmallStyle: {
+    color: Colors.mainSubTitle,
+    fontSize: 22,
+    fontWeight: "bold",
+  },
   testsImage: {
     width: Dimensions.get('window').width * 0.4,
     height: Dimensions.get('window').width * 0.3,
@@ -730,20 +741,9 @@ pixelOrderLabel: {
     marginRight: 14,
   },
   // Resources
-  textContainerQuote: {
+  textContainerTest: {
     marginTop: 20,
     marginBottom: 0,
-  },
-  textQuoteStyle: {
-    color: Colors.blackDeep,
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 6,
-  },
-  textQuoteSmallStyle: {
-    color: Colors.mainSubTitle,
-    fontSize: 22,
-    fontWeight: "bold",
   },
   quoteContainer: {
     paddingBottom: 200,

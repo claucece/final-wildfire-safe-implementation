@@ -27,9 +27,9 @@ export default {
   gradientLight: "rgba(92, 0, 0, 0.8)",
   gradientDarkLight: "rgba(100, 10, 100, 0.4)",
 
-  gradientQuoteLight: "rgba(135, 140, 195, 0.85)",  // soft periwinkle glow
-  gradientQuote:      "rgba(110, 115, 175, 0.88)",  // main slate-blue
-  gradientQuoteDark:  "rgba(70, 75, 130, 0.95)",    // deep indigo anchor
+  gradientTestLight: "rgba(135, 130, 95, 0.85)",
+  gradientTest:      "rgba(110, 115, 175, 0.88)",
+  gradientTestDark:  "rgba(70, 75, 130, 0.95)",
 
   gradientBlue: "rgba(76, 102, 159, 0)",
   gradientBlueLight: "rgba(59, 89, 152, 0)",
