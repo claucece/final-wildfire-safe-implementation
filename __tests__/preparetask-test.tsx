@@ -17,17 +17,6 @@ jest.mock("@expo/vector-icons", () => ({
   Ionicons: () => null,
 }));
 
-// Mock navigation functions
-jest.mock('expo-router', () => {
-  const pushMock = jest.fn(); // Define inside factory function
-  return {
-    useRouter: () => ({ push: pushMock }),
-    useLocalSearchParams: () => ({ username: 'TestUser' }),
-    __esModule: true, // Ensure ES module compatibility
-    pushMock, // Export mock for testing
-  };
-});
-
 // Mock data/images
 jest.mock("@/constants/prepare-tasks-images", () => ([
   { uri: "img-1" },
