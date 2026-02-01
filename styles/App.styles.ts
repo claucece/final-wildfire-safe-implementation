@@ -709,16 +709,16 @@ export const styles = StyleSheet.create({
     color: Colors.subtitlePrimary,
     marginRight: 10,
   },
-pixelOrderLabel: {
-  flex: 1,
-  color: Colors.subtitlePrimary,
-  fontSize: 16,
-  letterSpacing: 0.5,
-  textShadowColor: "rgba(0,0,0,0.7)",
-  textShadowOffset: { width: 2, height: 2 },
-  textShadowRadius: 0,
-},
+  pixelOrderLabel: {
+    flex: 1,
+    color: Colors.subtitlePrimary,
+    fontSize: 16,
+    letterSpacing: 0.5,
 
+    textShadowColor: "rgba(0,0,0,0.7)",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+  },
   pixelOrderCheckButton: {
     paddingVertical: 12,
     borderWidth: 3,
@@ -744,6 +744,14 @@ pixelOrderLabel: {
   textContainerTest: {
     marginTop: 20,
     marginBottom: 0,
+  },
+  resource: {
+    backgroundColor: Colors.darkPink,
+    borderWidth: 3,
+    borderColor: Colors.dark,
+    padding: 14,
+    marginTop: 10,
+    marginBottom: 10,
   },
   quoteContainer: {
     paddingBottom: 200,

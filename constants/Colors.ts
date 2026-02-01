@@ -18,7 +18,9 @@ export default {
   warningColor: "#FFD700",
   activityColor: "#00ff00",
   pink: "rgba(255,192,203,0.6)",
+  darkPink: "rgba(146,151,188,1)",
   orangeTitle: "#A45B53",
+  orangeTitleFuss: "#A45B5383",
   highlightYellow: "#F2C14E",
   swipe: "#663262",
 
@@ -34,6 +36,11 @@ export default {
   gradientBlue: "rgba(76, 102, 159, 0)",
   gradientBlueLight: "rgba(59, 89, 152, 0)",
   gradientBlueDark: "rgba(25, 47, 93, 0)",
+
+
+  gradientResourcesLight: "rgba(185, 125, 90, 0.86)",  // warm orange
+  gradientResources:      "rgba(120, 70, 95, 0.50)",   // reddish-magenta bridge
+  gradientResourcesDark:  "rgba(60, 20, 95, 0.96)",    // deep purple
 
   // Home gradient
   gradientMainLight: "rgba(175, 80, 40, 0.82)",   // dark orange
