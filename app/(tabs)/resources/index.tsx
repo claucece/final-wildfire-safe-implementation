@@ -21,15 +21,15 @@ const Resources = () => {
     return (
         <View style={styles.container}>
             <CustomGradient
-                colors={[Colors.gradientQuoteLight, Colors.gradientQuote, Colors.gradientQuoteDark]}
+                colors={[Colors.gradientTestLight, Colors.gradientTest, Colors.gradientTestDark]}
             >
                 <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollViewContainer}>
                     {/* Header with main quote */}
-                    <View style={styles.textContainerQuote}>
-                        <Text style={styles.textQuoteStyle} accessible={true} accessibilityLabel="Main quote text">
+                    <View style={styles.textContainerTest}>
+                        <Text style={styles.textTestStyle} accessible={true} accessibilityLabel="Main quote text">
                             We have recommendations!
                         </Text>
-                        <Text style={styles.textQuoteSmallStyle} accessible={true} accessibilityLabel="Secondary quote text">
+                        <Text style={styles.textTestSmallStyle} accessible={true} accessibilityLabel="Secondary quote text">
                         </Text>
                     </View>
 

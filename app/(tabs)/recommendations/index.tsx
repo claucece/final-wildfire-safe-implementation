@@ -256,9 +256,9 @@ const Recommendations = () => {
       <View style={styles.container}>
         <CustomGradient
           colors={[
-            Colors.gradientQuoteLight,
-            Colors.gradientQuote,
-            Colors.gradientQuoteDark,
+            Colors.gradientTestLight,
+            Colors.gradientTest,
+            Colors.gradientTestDark,
           ]}
         >
           <View
@@ -280,9 +280,9 @@ const Recommendations = () => {
     <View style={styles.container}>
       <CustomGradient
         colors={[
-          Colors.gradientQuoteLight,
-          Colors.gradientQuote,
-          Colors.gradientQuoteDark,
+          Colors.gradientTestLight,
+          Colors.gradientTest,
+          Colors.gradientTestDark,
         ]}
       >
         <ScrollView
@@ -290,9 +290,9 @@ const Recommendations = () => {
           contentContainerStyle={styles.scrollViewContainer}
         >
           {/* Header */}
-          <View style={styles.textContainerQuote}>
+          <View style={styles.textContainerTest}>
             <View style={styles.homeHeaderPanel}>
-              <Text style={styles.textQuoteStyle} accessibilityRole="header">
+              <Text style={styles.textTestStyle} accessibilityRole="header">
                 Your space,{"\n"}
                 {username ?? "Friend"}!
               </Text>
