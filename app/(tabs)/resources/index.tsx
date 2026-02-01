@@ -3,7 +3,9 @@ import { ScrollView, Text, View, Platform, Pressable, Image } from "react-native
 
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
+
+import * as Linking from "expo-linking";
 
 import CustomGradient from "@/components/CustomGradient";
 
@@ -58,7 +60,7 @@ const RESOURCES_DATA = [
         id: "faq",
         title: "FAQ",
         description: "Let's go to the FAQ!",
-        href: "/faq",
+        href: "/resource/faq",
         image: images.testImageThTeen,
       },
     ],
@@ -67,6 +69,7 @@ const RESOURCES_DATA = [
 
 const Resources = () => {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -114,46 +117,50 @@ const Resources = () => {
 
                 <View>
                   {section.items.map((item) => (
-                    <Link key={item.id} href={item.href} asChild>
                       <Pressable
+		          key={item.id}
+		          onPress={() => {
+                            if (item.href.startsWith("http")) {
+                              Linking.openURL(item.href);
+                            } else {
+                              router.push(item.href);
+                            }
+                        }}
                         accessibilityRole="button"
                         accessibilityLabel={`Open resource: ${item.title}`}
                         accessibilityHint="Opens the resource page"
                         android_ripple={{ color: "#ddd" }}
                         style={styles.resource}
                       >
-<View style={{ flexDirection: "row", alignItems: "center" }}>
-  <Image
-    source={item.image}
-    style={{
-      width: 74,
-      height: 74,
-      marginRight: 5,
-      borderWidth: 2,
-    }}
-    resizeMode="cover"
-    accessibilityRole="image"
-    accessibilityLabel={`Resource image: ${item.title}`}
-  />
-
-  <View style={{ flex: 1, marginLeft: 15}}>
-    <Text
-      style={[
-        styles.pixelPrepareTitle,
-        { fontSize: 18, textAlign:"left", },
-      ]}
-      numberOfLines={1}
-    >
-      {item.title}
-    </Text>
-
-    <Text style={[styles.pixelPrepareSubtleText, {textAlign:"left"}]} numberOfLines={2}>
-      {item.description}
-    </Text>
-  </View>
-</View>
+                   <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                     source={item.image}
+                     style={{
+                       width: 74,
+                       height: 74,
+                       marginRight: 5,
+                       borderWidth: 2,
+                     }}
+                     resizeMode="cover"
+                     accessibilityRole="image"
+                     accessibilityLabel={`Resource image: ${item.title}`}
+                     />
+                     <View style={{ flex: 1, marginLeft: 15}}>
+                       <Text
+                         style={[
+                         styles.pixelPrepareTitle,
+                         { fontSize: 18, textAlign:"left", },
+                         ]}
+                         numberOfLines={1}
+                       >
+                        {item.title}
+                       </Text>
+                       <Text style={[styles.pixelPrepareSubtleText, {textAlign:"left"}]} numberOfLines={2}>
+                         {item.description}
+                       </Text>
+                     </View>
+                     </View>
                       </Pressable>
-                    </Link>
                   ))}
                 </View>
               </View>
