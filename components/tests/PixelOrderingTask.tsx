@@ -40,7 +40,12 @@ export function PixelOrderingTask({
       ]}
       accessibilityHint="Press and hold, then drag to reorder"
     >
-      <Text style={styles.pixelOrderHandle}>≡</Text>
+      <Feather
+        name="menu"
+	style={styles.menuHamburger}
+        size={16}
+        color={Colors.pink}
+      />
       <Text style={styles.pixelOrderLabel}>{item.label}</Text>
     </Pressable>
   );

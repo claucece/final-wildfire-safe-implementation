@@ -726,6 +726,9 @@ pixelOrderLabel: {
     letterSpacing: 1,
     fontSize: 16,
   },
+  menuHamburger: {
+    marginRight: 14,
+  },
   // Resources
   textContainerQuote: {
     marginTop: 20,
