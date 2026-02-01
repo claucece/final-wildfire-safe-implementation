@@ -1,7 +1,10 @@
 import React, { useMemo } from "react";
 import { View, Text, Pressable } from "react-native";
-import LottieView from "lottie-react-native";
 import Colors from "@/constants/Colors";
+
+import LottieView from "lottie-react-native";
+import { Feather } from "@expo/vector-icons";
+
 import { styles } from "@/styles/App.styles";
 
 type Item = { id: string; label: string; done: boolean };
@@ -24,15 +27,19 @@ export function PixelChecklist({ title, items, onToggle, reduceMotion }: Props) 
       </Text>
 
       <Text style={[styles.pixelSubtleText, { marginTop: 6 }]}>
-        {doneCount}/{items.length} • {pct}%
+        <Text testID="progress-meta" style={styles.pixelPrepareSubtleText}>
+          {doneCount}/{items.length}
+          <Feather name="chevrons-right" size={14} color="#F2C14E" />{" "}
+	  {pct}%
+        </Text>
       </Text>
 
       {/* Progress bar */}
       <View style={styles.progressBarOuter}>
-        <View style={[styles.progressBarFill, { width: `${pct}%`, backgroundColor: Colors.indexPrimary }]} />
+        <View style={[styles.progressBarFill, { width: `${pct}%` }]} />
       </View>
 
-      {/* Items */}
+      {/* Checklist items */}
       <View style={styles.checkList}>
         {items.map((it) => (
           <Pressable
@@ -45,7 +52,11 @@ export function PixelChecklist({ title, items, onToggle, reduceMotion }: Props) 
               it.done && styles.pixelChecklistRowDone,
             ]}
           >
-            <Text style={[styles.pixelChecklistBox]}>{it.done ? "■" : "□"}</Text>
+            <Feather
+              name={it.done ? "check-square" : "square"}
+              size={20}
+              color={it.done ? Colors.orangeTitle : Colors.subtitlePrimary}
+            />
             <Text style={[styles.pixelChecklistLabel]}>{it.label}</Text>
           </Pressable>
         ))}

@@ -144,7 +144,7 @@ export default function TestDetail() {
           {test.type === "Checklist" && (
 	    <>
             <PixelChecklist
-              title="Checklist"
+              title="Checklist Test"
               items={checklist}
               onToggle={toggleItem}
             />

@@ -97,7 +97,6 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   pixelSubtleText: {
-    color: Colors.subtitlePrimary,
     marginTop: 10,
     textAlign: "center",
     textShadowColor: "#000",
@@ -617,7 +616,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.55)",
   },
   pixelTestPanel: {
-    backgroundColor: "rgba(255,95,0,1)",
+    backgroundColor: Colors.orangeTitle,
     borderWidth: 4,
     borderColor: Colors.mainBorder,
     padding: 12,
@@ -627,23 +626,24 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   pixelCheckListPanel: {
-    backgroundColor: "rgba(24,120,200,0.7)",
+    backgroundColor: Colors.gradientQuote,
+
     borderWidth: 4,
     borderColor: Colors.gradientMainDark,
     borderRadius: 4,
-    padding: 14,
 
+    padding: 10,
     marginTop: 30,
     marginLeft: 10,
     marginRight: 10,
   },
   pixelCheckListTitle: {
     color: Colors.secondary,
-    fontWeight: "bold",
-    fontSize: 24,
+    fontWeight: 700,
+    fontSize: 18,
     justifyContent: "center",
     alignItems: "center",
-    textAlign: "left",
+    textAlign: "right",
   },
   pixelChecklistRow: {
     flexDirection: "row",
@@ -668,6 +668,7 @@ export const styles = StyleSheet.create({
     color: Colors.subtitlePrimary,
     fontSize: 16,
     letterSpacing: 0.5,
+    marginLeft: 10,
   },
   pixelOrderRow: {
     flexDirection: "row",

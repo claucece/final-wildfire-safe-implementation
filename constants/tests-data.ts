@@ -13,7 +13,7 @@ const TESTS_DATA = [
         checklistItems: [
           {
             id: "water",
-            label: "Water (at least 24 hours)",
+            label: "Water (at least for 24 hours)",
             done: false,
             isCorrect: true,
           },
@@ -25,7 +25,7 @@ const TESTS_DATA = [
           },
           {
             id: "docs",
-            label: "ID + key documents",
+            label: "ID & key documents",
             done: false,
             isCorrect: true,
           },
