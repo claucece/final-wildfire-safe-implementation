@@ -1,6 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { View, Text, Pressable } from "react-native";
+
+import { Feather } from "@expo/vector-icons";
 import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
+
 import Colors from "@/constants/Colors";
 import { styles } from "@/styles/App.styles";
 
@@ -29,7 +32,7 @@ export function PixelOrderingTask({
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Row>) => (
     <Pressable
       onLongPress={drag}
-      delayLongPress={120}
+      delayLongPress={100}
       disabled={isActive}
       style={[
         styles.pixelOrderRow,
@@ -46,9 +49,6 @@ export function PixelOrderingTask({
     <View style={[styles.pixelCheckListPanel]}>
       <Text style={[styles.pixelCheckListTitle]} >
         {title}
-      </Text>
-      <Text style={[styles.pixelSubtleText, { marginTop: 6, textAlign: "left" }]}>
-        {prompt}
       </Text>
 
       <View style={styles.checkList}>
@@ -67,13 +67,19 @@ export function PixelOrderingTask({
         style={[styles.pixelOrderCheckButton]}
         accessibilityRole="button"
       >
+        <Feather
+          name={isCorrect ? "check-circle" : "x-circle"}
+          size={18}
+          color={styles.pixelOrderCheckText?.color ?? "#ffffff"}
+          style={{ marginRight: 8 }}
+        />
         <Text style={[styles.pixelOrderCheckText]}>
-          {isCorrect ? "✓ Looks good" : "X Check order"}
+	  {isCorrect ? "Looks good" : "Check order"}
         </Text>
       </Pressable>
 
       {!isCorrect && (
-        <Text style={[styles.pixelSubtleText, { marginTop: 10 }]}>
+        <Text style={styles.pixelInfoText}>
           Tip: prioritize safety and information before "nice-to-have" actions.
         </Text>
       )}

@@ -185,7 +185,7 @@ export default function TestDetail() {
               initial={test.dragItems}
               correctOrderKeys={test.correctOrderKeys}
               onComplete={(ok) => {
-                console.log("Ordering correct?", ok);
+                console.log("Ordering correct?", ok); // TODO: debugging, remove on release
                 if (!ok) return;
                 awardTestBadge("Ordering task finished");
               }}

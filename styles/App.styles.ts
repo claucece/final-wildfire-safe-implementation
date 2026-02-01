@@ -103,6 +103,11 @@ export const styles = StyleSheet.create({
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 0,
   },
+  pixelInfoText: {
+    marginTop: 10,
+    textAlign: "center",
+    color: Colors.mainBorder,
+  },
   formPanel: {
     marginTop: 12,
     padding: 12,
@@ -703,14 +708,18 @@ pixelOrderLabel: {
   textShadowRadius: 0,
 },
 
-pixelOrderCheckButton: {
-  marginTop: 8,
-  paddingVertical: 12,
-  borderWidth: 3,
-  borderColor: Colors.mainBorder,
-  borderRadius: 4,
-    backgroundColor: "rgba(255,95,0,1)",
-},
+  pixelOrderCheckButton: {
+    paddingVertical: 12,
+    borderWidth: 3,
+    borderColor: Colors.mainBorder,
+    borderRadius: 4,
+    backgroundColor: Colors.pink,
+    marginTop: 20,
+
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   pixelOrderCheckText: {
     textAlign: "center",
     fontWeight: "bold",
