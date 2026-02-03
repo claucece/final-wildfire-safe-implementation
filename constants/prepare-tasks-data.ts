@@ -6,7 +6,6 @@ export interface PrepareTaskType {
     steps: string;
 }
 
-
 export const PREPARE_TASK_DATA: PrepareTaskType[] = [
     {
         id: 1,

@@ -919,4 +919,41 @@ export const styles = StyleSheet.create({
      marginTop: 6,
      fontSize: 10,
   },
+  // FAQ
+  faqHeaderPanel: {
+    borderWidth: 4,
+    borderColor: Colors.dark,
+    backgroundColor: Colors.darkPinkMuted,
+    padding: 10,
+    paddingLeft: 20,
+    borderRadius: 4,
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 8,
+    marginTop: 4,
+  },
+  faqItemTitle: {
+    fontSize: 18,
+    backgroundColor: Colors.pinkMuted,
+    marginTop: 3,
+  },
+  faqItemRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  faqItemBox: {
+    flex: 1,
+  },
+  faqItemTag: {
+    opacity: 0.9,
+    marginBottom: 2,
+  },
+  faqItemInTitle: {
+    fontSize: 18,
+  },
+  faqItemAnswer: {
+    marginTop: 10,
+    lineHeight: 20,
+  },
 });

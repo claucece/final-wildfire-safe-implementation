@@ -19,6 +19,7 @@ export default {
   activityColor: "#00ff00",
   pink: "rgba(255,192,203,0.6)",
   darkPink: "rgba(146,151,188,1)",
+  darkPinkMuted: "rgba(146,151,188,0.2)",
   orangeTitle: "#A45B53",
   orangeTitleFuss: "#A45B5383",
   highlightYellow: "#F2C14E",
