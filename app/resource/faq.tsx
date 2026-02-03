@@ -4,7 +4,10 @@ import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
+import BackButton from "@/components/CustomBackButton";
 import CustomGradient from "@/components/CustomGradient";
+import { useOrientation } from "@/hooks/useOrientation";
+
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
@@ -87,10 +90,37 @@ const FAQ_DATA: { title: string; items: FAQItem[] }[] = [
       },
     ],
   },
+{
+    title: "App & Privacy",
+    items: [
+      {
+        id: "privacy-policy",
+        question: "Do you store my data?",
+        answer:
+          "No. The app does not retain any personal data. We don’t store your searches, alerts, or usage history. Your information stays on your device and is not saved on our servers.",
+        tag: "Privacy",
+      },
+      {
+        id: "location-use",
+        question: "How does the app use my location?",
+        answer:
+          "Location is only used to show relevant information for your area (nearby fires). You can choose to share with us your location.",
+        tag: "Privacy",
+      },
+      {
+        id: "change-location-preferences",
+        question: "How do I change location preferences in the Your Space tab?",
+        answer:
+          "Open the Space tab. You can toggle on/off location sharing. Changes apply immediately.",
+        tag: "Space",
+      },
+    ],
+  },
 ];
 
 const FAQ = () => {
   const insets = useSafeAreaInsets();
+  const orientation = useOrientation();
   const [openId, setOpenId] = useState<string | null>(null);
 
   const flatItems = useMemo(() => {
@@ -99,18 +129,19 @@ const FAQ = () => {
 
   return (
     <View style={styles.container}>
-      <CustomGradient
-        colors={[
-          Colors.gradientResourcesLight,
-          Colors.gradientResources,
-          Colors.gradientResourcesDark,
-        ]}
-      >
+        <CustomGradient
+                colors={[Colors.pink, Colors.gradientTest, Colors.gradientTestDark]}
+        >
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollViewContainer}
         >
           {/* Header */}
+        <BackButton
+          orientation={orientation}
+          size={orientation === "PORTRAIT" ? 50 : 30}
+          customStyle={{ left: 290, marginTop: 20 }}
+        />
           <View style={styles.homeHeaderPanel}>
             <View style={styles.textContainerTest}>
               <Text
@@ -125,7 +156,7 @@ const FAQ = () => {
                 accessible
                 accessibilityLabel="FAQ subtitle text"
               >
-                Quick answers to common wildfire safety questions.
+                Quick answers to common Wildfire safety questions.
               </Text>
             </View>
           </View>
@@ -139,7 +170,7 @@ const FAQ = () => {
                     styles.testsTitle,
                     {
                       fontSize: 18,
-                      backgroundColor: Colors.orangeTitleFuss,
+                      backgroundColor: Colors.pinkMuted,
                       marginTop: 8,
                     },
                   ]}

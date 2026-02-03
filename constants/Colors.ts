@@ -22,6 +22,7 @@ export default {
   orangeTitle: "#A45B53",
   orangeTitleFuss: "#A45B5383",
   highlightYellow: "#F2C14E",
+  pinkMuted: "#FE91FE3F",
   swipe: "#663262",
 
   gradientDark: "rgba(150, 10, 100, 0.4)",
