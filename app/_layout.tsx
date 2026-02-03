@@ -30,7 +30,7 @@ Notifications.setNotificationHandler({
 
 export default function BaseLayout() {
 
-// Temporary for debugging purposes
+  // TODO: Temporary for debugging purposes, remove
   useEffect(() => {
     if (!__DEV__) return;
 
@@ -117,16 +117,6 @@ export default function BaseLayout() {
                   options={{ headerShown: false, accessibilityLabel: "Home Screen" }}
                />
                <Stack.Screen
-                  name="(modal)/adjust-meditation"
-                  options={{
-                     headerShown: false,
-                     presentation: "modal",
-                     accessibilityLabel: "Adjust Meditation Settings",
-                     animation: 'slide_from_bottom',
-                     animationDuration: 100,
-                  }}
-               />
-               <Stack.Screen
                   name="info/about"
                   options={{
                      headerShown: false,
@@ -156,6 +146,14 @@ export default function BaseLayout() {
                      headerShown: false,
                      title: "Sign Up",
                      accessibilityLabel: "Sign Up Screen",
+                  }}
+               />
+               <Stack.Screen
+                  name="resource/faq"
+                  options={{
+                     headerShown: false,
+                     title: "FAQ",
+                     accessibilityLabel: "FAQ Screen",
                   }}
                />
             </Stack>
