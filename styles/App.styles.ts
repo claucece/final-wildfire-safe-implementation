@@ -753,35 +753,28 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  quoteContainer: {
-    paddingBottom: 200,
-    paddingTop: 200,
-    justifyContent: 'center',
-    alignItems: "center",
-    flexGrow: 1,
+  resourceTitle: {
+    fontSize: 18,
+    backgroundColor: Colors.orangeTitle,
+    marginTop: 5,
   },
-  quoteTextContainer: {
-    justifyContent: "center",
+  resourceBox: {
+    flexDirection: "row",
     alignItems: "center",
   },
-  quoteLinear: {
-    borderWidth: 7,
-    borderColor: Colors.sutleWhite,
-    padding: 2,
-    textAlignVertical: "center",
-    width: "90%",
-    justifyContent: "center",
-    alignItems: "center",
+  resourceImage: {
+    width: 74,
+    height: 74,
+    marginRight: 5,
+    borderWidth: 2,
   },
-  quoteText: {
-    color: Colors.mainTitle,
-    padding: 20,
-    paddingTop: Sizes.bottomSpace,
-    fontSize: 32,
-    textAlign: "center",
-    textAlignVertical: "center",
-    marginBottom: 12,
-    flexShrink: 1,
+  resourceInBox: {
+    flex: 1,
+    marginLeft: 15,
+  },
+  resourceInText: {
+    fontSize: 18,
+    textAlign:"left",
   },
   // Components
   safeViewContainer: {
