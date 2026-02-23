@@ -248,10 +248,16 @@ export const styles = StyleSheet.create({
     zIndex: 10,
   },
   aboutText: {
+    marginTop: 20,
     color: Colors.mainTitle,
-    padding: 22,
-    paddingLeft: 8,
     fontSize: 18,
+    textAlignVertical: "left",
+    flexShrink: 1,
+  },
+  smallText: {
+    color: Colors.mainTitle,
+    marginTop: 20,
+    fontSize: 15,
     textAlignVertical: "center",
     flexShrink: 1,
   },

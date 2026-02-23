@@ -78,7 +78,7 @@ export default function About() {
               style={styles.aboutText}
               accessibilityLabel="Introductory text about our app"
             >
-              The app you have has been designed to help in wildfire-prone areas
+              Our app you have has been designed to help in wildfire-prone areas
               to prepare calmly and confidently. We provide you with short,
               easy-to-follow lessons, interactive checklists and tests, and
               personalised guidance. We focus specifically on wildfire
@@ -86,6 +86,12 @@ export default function About() {
               supportive design, without overwhelming notifications. Wildfire
               Safe aims to make wildfire readiness simple, accessible, and
               stress-free for everyone.
+            </Text>
+            <Text
+              style={styles.smallText}
+              accessibilityLabel="Privacy text about our app"
+            >
+	      Our app does not store data about you other than your email, username and password.
             </Text>
           </View>
 
