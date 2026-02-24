@@ -863,6 +863,9 @@ export const styles = StyleSheet.create({
     fontWeight: "700" as const,
     marginBottom: 8,
     color: Colors.mainBorder,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.mainBorder,
+    paddingBottom: 4,
   },
   profileSectionSubtitle: {
     fontSize: 12,
@@ -876,9 +879,18 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 6,
   },
+  profileInRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  profileInIcon: {
+    marginRight: 8,
+    marginLeft: 2,
+  },
   profileLabel: {
     fontSize: 14,
     color: Colors.mainBorder,
+    fontWeight: "bold",
   },
   profileValue: {
     fontSize: 15,
@@ -894,6 +906,12 @@ export const styles = StyleSheet.create({
   },
   profileButtonText: {
     fontWeight: "600" as const,
+  },
+  profileInfoRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
   },
   badgeToast: {
     position: "absolute",
