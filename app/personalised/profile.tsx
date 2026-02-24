@@ -144,8 +144,8 @@ const Profile = () => {
     try {
       router.push("/auth/logout");
     } catch (e) {
-      console.log("Sign out error:", e);
-      setError("Failed to sign out. Please try again.");
+      console.log("Log out error:", e);
+      setError("Failed to log out. Please try again.");
     }
   };
 
@@ -519,10 +519,10 @@ const Profile = () => {
             <Pressable
               style={[styles.profileButton]}
               accessibilityRole="button"
-              accessibilityLabel="Sign out"
+              accessibilityLabel="Log out"
               onPress={handleSignOut}
             >
-              <Text style={styles.profileButtonText}>Sign out</Text>
+              <Text style={styles.profileButtonText}>Log out</Text>
             </Pressable>
           </View>
         </ScrollView>
