@@ -12,13 +12,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
     // Ensure content is not getting cut off due to status bar
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   italic: {
     fontStyle: "italic",
   },
   imageContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0,
     bottom: 0,
@@ -225,7 +225,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 10,
     justifyContent: "center", // Centers the children vertically
-    alignItems: "center",     // Centers the children horizontally
+    alignItems: "center", // Centers the children horizontally
     borderWidth: 5,
     borderColor: Colors.blackDepp,
   },
@@ -328,7 +328,7 @@ export const styles = StyleSheet.create({
     height: 192,
     marginVertical: 12,
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   flatContainer: {
     flex: 1,
@@ -383,7 +383,7 @@ export const styles = StyleSheet.create({
   },
   preparePage: {
     paddingLeft: 12,
-    paddingRight: 12,   // keep symmetric
+    paddingRight: 12, // keep symmetric
     paddingTop: 0,
   },
   pixelPrepareTaskPanel: {
@@ -459,16 +459,16 @@ export const styles = StyleSheet.create({
   },
   timerContainer: {
     backgroundColor: Colors.sutleWhite,
-    width: Dimensions.get('window').width * 0.4, // 40% width in portrait
-    height: Dimensions.get('window').width * 0.4,
+    width: Dimensions.get("window").width * 0.4, // 40% width in portrait
+    height: Dimensions.get("window").width * 0.4,
     borderRadius: 1000,
     justifyContent: "center",
     alignItems: "center",
   },
   timerContainerLandscape: {
     backgroundColor: Colors.sutleWhite,
-    width: Dimensions.get('window').height * 0.15, // 15% height in landscape
-    height: Dimensions.get('window').height * 0.15,
+    width: Dimensions.get("window").height * 0.15, // 15% height in landscape
+    height: Dimensions.get("window").height * 0.15,
     borderRadius: 1000,
     justifyContent: "center",
     alignItems: "center",
@@ -589,8 +589,8 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   testsImage: {
-    width: Dimensions.get('window').width * 0.4,
-    height: Dimensions.get('window').width * 0.3,
+    width: Dimensions.get("window").width * 0.4,
+    height: Dimensions.get("window").width * 0.3,
     margin: 5,
     borderWidth: 4,
     borderColor: Colors.blackDepp,
@@ -707,7 +707,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 0,
     elevation: 6,
-   },
+  },
   pixelOrderHandle: {
     width: 28,
     textAlign: "center",
@@ -780,7 +780,7 @@ export const styles = StyleSheet.create({
   },
   resourceInText: {
     fontSize: 18,
-    textAlign:"left",
+    textAlign: "left",
   },
   // Components
   safeViewContainer: {
@@ -896,12 +896,12 @@ export const styles = StyleSheet.create({
     fontWeight: "600" as const,
   },
   badgeToast: {
-        position: "absolute",
-        left: 16,
-        right: 16,
-        bottom: 74,
-        padding: 14,
-        backgroundColor: "rgba(130,10,20,0.80)",
+    position: "absolute",
+    left: 16,
+    right: 16,
+    bottom: 74,
+    padding: 14,
+    backgroundColor: "rgba(130,10,20,0.80)",
   },
   badgeToastTitle: {
     color: "white",
@@ -909,14 +909,14 @@ export const styles = StyleSheet.create({
     fontSize: 14,
   },
   badgeToastDescription: {
-     color: "rgba(255,255,255,0.85)",
-     marginTop: 10,
-     fontSize: 12,
+    color: "rgba(255,255,255,0.85)",
+    marginTop: 10,
+    fontSize: 12,
   },
   badgeToastDismiss: {
-     color: "rgba(255,255,255,0.85)",
-     marginTop: 6,
-     fontSize: 10,
+    color: "rgba(255,255,255,0.85)",
+    marginTop: 6,
+    fontSize: 10,
   },
   // FAQ
   faqHeaderPanel: {
