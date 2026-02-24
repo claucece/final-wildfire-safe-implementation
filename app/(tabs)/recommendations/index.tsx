@@ -5,17 +5,15 @@ import {
   View,
   Platform,
   ActivityIndicator,
-  Switch,
   Pressable,
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import * as Location from "expo-location"; // for location permission
+import * as Location from "expo-location";
 
-// Alerts
-import { Alert, Linking } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 // Storage and map renderer
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -81,11 +79,7 @@ const roundTo = (value: number, decimals = 2) => {
 // This is used to query the FIRMS "area" API, which expects a rectangular
 // bounding box (west, south, east, north) in decimal degrees.
 const bboxFromPoint = (lat: number, lon: number, radiusKm: number) => {
-  // Approximate conversion: 1 degree of latitude ≈ 111.32 km everywhere
   const dLat = radiusKm / 111.32;
-
-  // Longitude degrees shrink with latitude:
-  // 1 degree of longitude ≈ 111.32 * cos(latitude) km
   const dLon = radiusKm / (111.32 * Math.cos((lat * Math.PI) / 180));
 
   return {
@@ -96,7 +90,7 @@ const bboxFromPoint = (lat: number, lon: number, radiusKm: number) => {
   };
 };
 
-// Small CSV parser for FIRMS
+// Small CSV parser for FIRMS database
 const parseCsv = (csvText: string) => {
   const lines = csvText.trim().split("\n");
   if (lines.length < 2) return [];
@@ -110,7 +104,45 @@ const parseCsv = (csvText: string) => {
   });
 };
 
+const frpToColor = (frp?: number) => {
+  if (frp == null || !Number.isFinite(frp)) return "gray";
+
+  // FRP in MW (VIIRS typical ranges)
+  if (frp < 10) return "#FFD700"; // yellow, low intensity
+  if (frp < 50) return "#FF8C00"; // orange, medium
+  if (frp < 150) return "#FF4500"; // orange-red, high
+  return "#B22222"; // dark red, extreme
+};
+
+const frpToLabel = (frp?: number) => {
+  if (frp == null || !Number.isFinite(frp)) return "Unknown intensity";
+  if (frp < 10) return "Low intensity";
+  if (frp < 50) return "Moderate intensity";
+  if (frp < 150) return "High intensity";
+  return "Extreme intensity";
+};
+
+const buildFireDescription = (f: {
+  acq_date?: string;
+  acq_time?: string;
+  frp?: number;
+  confidence?: string | number;
+}) => {
+  const lines: string[] = [];
+
+  if (f.acq_date) lines.push(`Date: ${f.acq_date}`);
+  if (f.acq_time) lines.push(`Time: ${f.acq_time} UTC`);
+
+  lines.push(`Intensity: ${frpToLabel(f.frp)}`);
+
+  if (f.frp != null) lines.push(`FRP: ${Math.round(f.frp)} MW`);
+  if (f.confidence != null) lines.push(`Confidence: ${f.confidence}`);
+
+  return lines.join("\n");
+};
+
 const fetchFiresNear = async (lat: number, lon: number) => {
+  // These values are chose in an adhoc manner
   const radiusKm = 100;
   const days = 3;
   // Visible Infrared Imaging Radiometer Suite: a satellite sensor that can detect thermal anomalies (heat) on Earth's surface
@@ -120,7 +152,7 @@ const fetchFiresNear = async (lat: number, lon: number) => {
   //
   // Returns active fire / hotspot detections (~375 m resolution),
   // not fire perimeters or smoke.
-  const source = "VIIRS_SNPP_NRT"; // https://www.earthdata.nasa.gov/data/instruments/viirs/land-near-real-time-data
+  const source = "VIIRS_SNPP_NRT";
 
   const MAP_KEY = process.env.EXPO_PUBLIC_FIRMS_MAP_KEY;
   if (!MAP_KEY) {
@@ -145,11 +177,10 @@ const fetchFiresNear = async (lat: number, lon: number) => {
 
   const rows = parseCsv(csv);
 
-  // FIRMS columns
   const points: FirePoint[] = rows
     .map((r) => {
-      const latitude = Number(r.latitude ?? r.lat);
-      const longitude = Number(r.longitude ?? r.lon);
+      const latitude = Number(r.latitude ?? (r as any).lat);
+      const longitude = Number(r.longitude ?? (r as any).lon);
 
       if (!Number.isFinite(latitude) || !Number.isFinite(longitude))
         return null;
@@ -159,7 +190,7 @@ const fetchFiresNear = async (lat: number, lon: number) => {
         longitude,
         brightness: r.brightness ? Number(r.brightness) : undefined,
         frp: r.frp ? Number(r.frp) : undefined,
-        confidence: r.confidence ?? r.conf,
+        confidence: r.confidence ?? (r as any).conf,
         acq_date: r.acq_date,
         acq_time: r.acq_time,
       } as FirePoint;
@@ -174,7 +205,6 @@ const Recommendations = () => {
   const insets = useSafeAreaInsets();
 
   const [username, setUsername] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -190,46 +220,27 @@ const Recommendations = () => {
     longitudeDelta: 0.5,
   });
 
-  // UI Preferences: night mode and locations
-  const [nightMode, setNightMode] = useState(false);
+  // Check whether location is allowed and the last stored coarse location
   const [allowLocation, setAllowLocation] = useState(false);
-  const [locationHint, setLocationHint] = useState<string | null>(null);
 
-  // Load persisted prefs (toggle opt-in, last location)
+  // Load persisted location opt-in
   useEffect(() => {
     (async () => {
       try {
-        const [allow, night] = await Promise.all([
-          AsyncStorage.getItem(STORAGE_KEYS.allowLocation),
-          AsyncStorage.getItem("prefs.nightMode"),
-        ]);
-
+        const allow = await AsyncStorage.getItem(STORAGE_KEYS.allowLocation);
         if (allow != null) setAllowLocation(allow === "true");
-        if (night != null) setNightMode(night === "true");
       } catch (e) {
-        console.log("Failed to load preferences:", e);
+        console.log("Failed to load allowLocation:", e);
       }
     })();
   }, []);
 
-  // Set region
-  useEffect(() => {
-    if (!lastLocation) return;
-    setRegion((r) => ({
-      ...r,
-      latitude: lastLocation.latitude,
-      longitude: lastLocation.longitude,
-    }));
-  }, [lastLocation]);
-
-  // Sync allowLocation with actual OS permission on mount
+  // Sync allowLocation with actual OS permission on mount (reflect reality)
   useEffect(() => {
     (async () => {
       try {
         const { status } = await Location.getForegroundPermissionsAsync();
         const granted = status === "granted";
-
-        // If user opted-in but permission isn't granted anymore, reflect reality.
         setAllowLocation(granted);
 
         await AsyncStorage.setItem(
@@ -242,6 +253,17 @@ const Recommendations = () => {
     })();
   }, []);
 
+  // Set region when location changes
+  useEffect(() => {
+    if (!lastLocation) return;
+    setRegion((r) => ({
+      ...r,
+      latitude: lastLocation.latitude,
+      longitude: lastLocation.longitude,
+    }));
+  }, [lastLocation]);
+
+  // Load last location and fires whenever allowLocation is true/changes
   useEffect(() => {
     (async () => {
       try {
@@ -252,7 +274,6 @@ const Recommendations = () => {
           return;
         }
         const loc = JSON.parse(raw) as StoredLocation;
-        console.log("[Location] Loaded from storage:", loc);
         setLastLocation(loc);
 
         if (!allowLocation) return;
@@ -260,7 +281,6 @@ const Recommendations = () => {
         setFiresLoading(true);
         setFiresError(null);
         const pts = await fetchFiresNear(loc.latitude, loc.longitude);
-        console.log("[FIRMS] Fires returned:", pts.length);
         setFires(pts);
       } catch (e: any) {
         console.log("Failed to load fires:", e);
@@ -271,6 +291,7 @@ const Recommendations = () => {
     })();
   }, [allowLocation]);
 
+  // Load user basics for greeting
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -286,7 +307,6 @@ const Recommendations = () => {
         if (userSnap.exists()) {
           const data = userSnap.data();
           setUsername(data.username ?? null);
-          setEmail(data.email ?? user.email ?? null);
         } else {
           setError("User document not found in Firestore.");
         }
@@ -301,150 +321,21 @@ const Recommendations = () => {
     return unsubscribe;
   }, []);
 
-  // Navigate to logout confirmation
-  const handleSignOut = async () => {
-    try {
-      router.push("/auth/logout");
-    } catch (e) {
-      console.log("Sign out error:", e);
-      setError("Failed to sign out. Please try again.");
-    }
-  };
-
-  const openSettings = () => {
-    // Linking.openSettings exists; if it fails, fallback to URL
-    // @ts-ignore
-    if (Linking.openSettings) {
-      // @ts-ignore
-      Linking.openSettings();
-      return;
-    }
-    Linking.openURL("app-settings:");
-  };
-
-  const saveLastCoarseLocation = async (): Promise<StoredLocation | null> => {
-    try {
-      // Try last known first
-      let pos = await Location.getLastKnownPositionAsync({});
-      if (!pos) {
-        pos = await Location.getCurrentPositionAsync({
-          accuracy: Location.LocationAccuracy.Balanced,
-          // Android: may show system dialog; TS typing differs between SDKs
-          // @ts-ignore
-          mayShowUserSettingsDialog: true,
-        });
-      }
-
-      // store location
-      const stored: StoredLocation = {
-        latitude: roundTo(pos.coords.latitude, 2), // ~1km-ish
-        longitude: roundTo(pos.coords.longitude, 2),
-        accuracyMeters: pos.coords.accuracy ?? null,
-        timestamp: Date.now(),
-      };
-
-      await AsyncStorage.setItem(
-        STORAGE_KEYS.lastCoarseLocation,
-        JSON.stringify(stored),
-      );
-
-      // "Approximate" handling: if accuracy is large, show a hint
-      const acc = pos.coords.accuracy ?? null;
-      if (Platform.OS === "ios" && acc != null && acc > 1000) {
-        setLocationHint(
-          "Location is approximate. Enable Precise Location in Settings for better results.",
-        );
-      } else {
-        setLocationHint(null);
-      }
-
-      return stored;
-    } catch (e) {
-      console.log("Failed to store last coarse location:", e);
-      return null;
-    }
-  };
-
-  // Toggle handlers
-  // Night mode
-  const handleToggleNightMode = (value: boolean) => setNightMode(value);
-
-  // Location
-  const handleToggleAllowLocation = async (value: boolean) => {
-    // Turning OFF: disable in-app usage and persist preference.
-    if (!value) {
-      setAllowLocation(false);
-      setLocationHint(null);
-      await AsyncStorage.setItem(STORAGE_KEYS.allowLocation, "false");
-      return;
-    }
-
-    // Turning ON: request permission now.
-    try {
-      const existing = await Location.getForegroundPermissionsAsync();
-
-      if (existing.status !== "granted" && existing.canAskAgain === false) {
-        Alert.alert(
-          "Enable Location in Settings",
-          "Location permission is disabled. Enable it in Settings to show fires near you.",
-          [
-            { text: "Cancel", style: "cancel" },
-            { text: "Open Settings", onPress: openSettings },
-          ],
-        );
-        setAllowLocation(false);
-        await AsyncStorage.setItem(STORAGE_KEYS.allowLocation, "false");
-        return;
-      }
-
-      const req = await Location.requestForegroundPermissionsAsync();
-      const granted = req.status === "granted";
-
-      setAllowLocation(granted);
-      await AsyncStorage.setItem(
-        STORAGE_KEYS.allowLocation,
-        granted ? "true" : "false",
-      );
-
-      if (!granted) {
-        setLocationHint(null);
-        Alert.alert(
-          "Location not enabled",
-          "You can still use the app by searching for an area, but 'near me' features will be limited.",
-        );
-        return;
-      }
-
-      // Permission granted: store last known coarse location
-      const stored = await saveLastCoarseLocation();
-      if (stored) setLastLocation(stored);
-    } catch (e) {
-      console.log("Location permission error:", e);
-      setAllowLocation(false);
-      setLocationHint(null);
-      await AsyncStorage.setItem(STORAGE_KEYS.allowLocation, "false");
-      Alert.alert("Error", "Could not request location permission.");
-    }
-  };
-
   // Loading UI
   if (loading) {
     return (
       <View style={styles.container}>
         <CustomGradient
           colors={[
-            Colors.gradientTestLight,
-            Colors.gradientTest,
-            Colors.gradientTestDark,
+            Colors.gradientMain,
+            Colors.gradientMain,
+            Colors.gradientMainDark,
           ]}
         >
           <View
-            style={[
-              styles.scrollViewContainer,
-              { justifyContent: "center", alignItems: "center" },
-            ]}
+            style={[styles.scrollViewContainer, styles.loadingIndicatorView]}
           >
-            <ActivityIndicator />
+            <ActivityIndicator size="large" color="white" />
           </View>
         </CustomGradient>
         <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
@@ -452,14 +343,13 @@ const Recommendations = () => {
     );
   }
 
-  // The main screen
   return (
     <View style={styles.container}>
       <CustomGradient
         colors={[
-          Colors.gradientTestLight,
-          Colors.gradientTest,
-          Colors.gradientTestDark,
+          Colors.gradientMainDark,
+          Colors.gradientMain,
+          Colors.gradientMainDark,
         ]}
       >
         <ScrollView
@@ -469,133 +359,103 @@ const Recommendations = () => {
           {/* Header */}
           <View style={styles.textContainerTest}>
             <View style={styles.homeHeaderPanel}>
-              <Text style={styles.textTestStyle} accessibilityRole="header">
-                Your space,{"\n"}
-                {username ?? "Friend"}!
-              </Text>
+              <View style={styles.recomHeaderView}>
+                <Text style={styles.titleStyle} accessibilityRole="header">
+                  Your space,{"\n"}
+                  {username ?? "Friend"}!
+                </Text>
+
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Open profile"
+                  onPress={() => router.push("personalised/profile")}
+                  style={styles.recommHeaderLogo}
+                >
+                  <Ionicons
+                    name="flame-outline"
+                    size={56}
+                    color={Colors.mainTitle}
+                  />
+                </Pressable>
+              </View>
 
               {error && <Text style={styles.errorText}>{error}</Text>}
             </View>
           </View>
 
-          {/* Section 1: Overview */}
+          {/* Section 1: Your profile */}
           <View style={styles.profileSectionCard}>
-            <Text style={styles.profileSectionTitle}>Overview</Text>
-
-            <View style={styles.profileRow}>
-              <Text style={styles.profileLabel}>Username</Text>
-              <Text style={styles.profileValue}>{username ?? "—"}</Text>
-            </View>
-
-            <View style={styles.profileRow}>
-              <Text style={styles.profileLabel}>Email</Text>
-              <Text style={styles.profileValue}>{email ?? "—"}</Text>
-            </View>
-          </View>
-
-          {/* Section 2: Preferences */}
-          <View style={styles.profileSectionCard}>
-            <Text style={styles.profileSectionTitle}>Preferences</Text>
-
-            <View style={styles.profileRow}>
-              <Text style={styles.profileLabel}>Night mode</Text>
-              <Switch
-                testID="night-mode-switch"
-                value={nightMode}
-                onValueChange={handleToggleNightMode}
-                thumbColor={nightMode ? Colors.secondary : Colors.mainBorder}
-                trackColor={{
-                  false: Colors.secondary,
-                  true: Colors.pink,
-                }}
-              />
-            </View>
-
-            <View style={styles.profileRow}>
-              <Text style={styles.profileLabel}>Allow location</Text>
-              <Switch
-                testID="allow-location-switch"
-                value={allowLocation}
-                onValueChange={handleToggleAllowLocation}
-                thumbColor={
-                  allowLocation ? Colors.secondary : Colors.mainBorder
-                }
-                trackColor={{
-                  false: Colors.secondary,
-                  true: Colors.pink,
-                }}
-              />
-            </View>
+            <Text style={styles.profileSectionTitle}>Your profile</Text>
 
             <Text style={styles.profileSectionSubtitle}>
-              Location is only used to tailor notifications and for the map.
+              Here, view your personal information, preferences, and account
+              settings.
             </Text>
-          </View>
-
-          {/* Section 3: Account */}
-          <View style={styles.profileSectionCard}>
-            <Text style={styles.profileSectionTitle}>Account</Text>
 
             <Pressable
               style={[styles.profileButton]}
               accessibilityRole="button"
-              accessibilityLabel="Sign out"
-              onPress={handleSignOut}
+              accessibilityLabel="Go to profile"
+              onPress={() => router.push("/personalised/profile")}
             >
-              <Text style={styles.profileButtonText}>Sign out</Text>
+              <Text style={styles.profileButtonText}>Go to profile</Text>
             </Pressable>
           </View>
 
-          {/* Section 4: Fires near you */}
+          {/* Section 2: Fires around you */}
           <View style={styles.profileSectionCard}>
-            <Text style={styles.profileSectionTitle}>Fires near you</Text>
+            <Text style={styles.profileSectionTitle}>Fires around you</Text>
 
             {!allowLocation && (
-              <Text style={styles.profileSectionSubtitle}>
-                Turn on “Allow location” to see hotspots near you.
-              </Text>
+              <>
+                <Text style={styles.profileSectionSubtitle}>
+                  Enable location in your profile settings to see fire spots
+                  near you.
+                </Text>
+                <Pressable
+                  style={[styles.profileButton, { marginTop: 10 }]}
+                  accessibilityRole="button"
+                  accessibilityLabel="Open profile settings"
+                  onPress={() => router.push("/profile")}
+                >
+                  <Text style={styles.profileButtonText}>Open profile</Text>
+                </Pressable>
+              </>
             )}
 
             {allowLocation && !lastLocation && (
               <Text style={styles.profileSectionSubtitle}>
-                No saved location yet. Toggle location off/on to refresh it.
+                No saved location yet. Open your profile and toggle location
+                off/on to refresh it.
               </Text>
             )}
 
             {allowLocation && lastLocation && (
               <>
                 {firesLoading ? (
-                  <View style={{ paddingVertical: 12 }}>
-                    <ActivityIndicator />
+                  <View>
                     <Text style={styles.profileSectionSubtitle}>
-                      Loading nearby fires…
+                      Loading nearby fires...
                     </Text>
+                    <ActivityIndicator color="white" />
                   </View>
                 ) : firesError ? (
                   <Text style={styles.errorText}>{firesError}</Text>
                 ) : (
                   <Text style={styles.profileSectionSubtitle}>
-                    Showing {fires.length} fires
-                    {fires.length === 1 ? "" : "s"} near your approximate
-                    location.
+                    Showing {fires.length} fire{fires.length === 1 ? "" : "s"}{" "}
+                    near your approximate location.
                   </Text>
                 )}
 
-                <View
-                  style={{
-                    height: 240,
-                    marginTop: 12,
-                    borderRadius: 16,
-                    overflow: "hidden",
-                  }}
-                >
+                <View style={styles.recomMapView}>
                   <MapView
                     key={fires.length}
-                    style={{ flex: 1 }}
+                    style={styles.recomMap}
                     region={region}
                     onRegionChangeComplete={setRegion}
                   >
-                    {/* You */}
+                    {/* You Marker */}
                     <Marker
                       coordinate={{
                         latitude: lastLocation.latitude,
@@ -607,7 +467,6 @@ const Recommendations = () => {
 
                     {/* Fires (jittered so overlapping hotspots are visible) */}
                     {fires.map((f, idx) => {
-                      // ~0.5–2% of current span
                       const jitterLat = region.latitudeDelta * 0.01;
                       const jitterLon = region.longitudeDelta * 0.01;
 
@@ -622,18 +481,9 @@ const Recommendations = () => {
                             longitude:
                               f.longitude + jitterLon * Math.sin(angle),
                           }}
-                          title="Hotspot"
-                          pinColor="red"
-                          description={[
-                            f.acq_date ? `Date: ${f.acq_date}` : null,
-                            f.acq_time ? `Time: ${f.acq_time}` : null,
-                            f.frp != null ? `FRP: ${f.frp}` : null,
-                            f.confidence != null
-                              ? `Conf: ${f.confidence}`
-                              : null,
-                          ]
-                            .filter((x): x is string => Boolean(x))
-                            .join(" · ")}
+                          title="Fire Spot"
+                          pinColor={frpToColor(f.frp)}
+                          description={buildFireDescription(f)}
                         />
                       );
                     })}
@@ -641,10 +491,25 @@ const Recommendations = () => {
                 </View>
 
                 <Text style={styles.profileSectionSubtitle}>
-                  Hotspots are satellite detections (not exact fire perimeters).
+                  Fire spots are satellite detections (not exact fire
+                  perimeters).
                 </Text>
               </>
             )}
+          </View>
+
+          {/* Section 3: Your badges */}
+          <View style={styles.profileSectionCard}>
+            <Text style={styles.profileSectionTitle}>Your badges</Text>
+
+            <Text style={styles.profileSectionSubtitle}>
+              Badges represent your engagement and readiness.
+            </Text>
+
+            <Text style={styles.profileSectionSubtitle}>
+              Complete actions like tests and prepare actions. This feature is
+              coming soon.
+            </Text>
           </View>
         </ScrollView>
       </CustomGradient>

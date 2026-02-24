@@ -39,7 +39,6 @@ export default {
   gradientBlueLight: "rgba(59, 89, 152, 0)",
   gradientBlueDark: "rgba(25, 47, 93, 0)",
 
-
   gradientResourcesLight: "rgba(185, 125, 90, 0.86)",  // warm orange
   gradientResources:      "rgba(120, 70, 95, 0.50)",   // reddish-magenta bridge
   gradientResourcesDark:  "rgba(60, 20, 95, 0.96)",    // deep purple

@@ -955,4 +955,28 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     lineHeight: 20,
   },
+  // For You screen
+  loadingIndicatorView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  recomHeaderView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  recommHeaderLogo: {
+    marginLeft: 5,
+    padding: 2,
+  },
+  recomMapView: {
+    height: 240,
+    marginTop: 12,
+    borderRadius: 16,
+    overflow: "hidden",
+  },
+  recomMap: {
+    flex: 1,
+  },
 });

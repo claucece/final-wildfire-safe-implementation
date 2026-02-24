@@ -156,6 +156,14 @@ export default function BaseLayout() {
                      accessibilityLabel: "FAQ Screen",
                   }}
                />
+               <Stack.Screen
+                  name="personalised/profile"
+                  options={{
+                     headerShown: false,
+                     title: "Profile",
+                     accessibilityLabel: "Profile Screen",
+                  }}
+               />
             </Stack>
          </Timer>
 	 </BadgeProvider>
