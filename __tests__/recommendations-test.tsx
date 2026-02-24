@@ -1,12 +1,15 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
-import { Alert } from "react-native";
+import { ActivityIndicator } from "react-native";
 
-import Recommendations from '@/app/(tabs)/recommendations';
+import Recommendations from "@/app/(tabs)/recommendations";
+import { useRouter } from "expo-router";
 
-// Router
+import { act } from "react-test-renderer";
+
+// Router mock
 jest.mock("expo-router", () => ({
-  useRouter: () => ({ push: jest.fn() }),
+  useRouter: jest.fn(),
 }));
 
 // Safe area
@@ -29,6 +32,23 @@ jest.mock("expo-location", () => ({
   LocationAccuracy: { Balanced: 3 },
 }));
 
+// MapView mock
+jest.mock("react-native-maps", () => {
+  const React = require("react");
+  const { View, Text } = require("react-native");
+
+  const MapView = ({ children }: any) => <View testID="map">{children}</View>;
+  const Marker = ({ title, description, pinColor }: any) => (
+    <View testID="marker">
+      <Text>{title}</Text>
+      {description ? <Text>{description}</Text> : null}
+      {pinColor ? <Text>{pinColor}</Text> : null}
+    </View>
+  );
+
+  return { __esModule: true, default: MapView, Marker };
+});
+
 // Firebase auth/firestore
 jest.mock("firebase/auth", () => ({
   onAuthStateChanged: jest.fn(),
@@ -39,157 +59,169 @@ jest.mock("firebase/firestore", () => ({
   getDoc: jest.fn(),
 }));
 
+
 jest.mock("../app/firebaseConfig", () => ({
   auth: {},
   firestore: {},
 }));
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Location from "expo-location";
-import { onAuthStateChanged } from "firebase/auth";
-import { getDoc } from "firebase/firestore";
+jest.mock("@expo/vector-icons", () => {
+  const React = require("react");
+  const { Text } = require("react-native");
 
-const asMock = <T,>(fn: T) => fn as unknown as jest.Mock;
+  const Icon = ({ name, size, color, ...props }: any) => (
+    <Text {...props}>{`icon:${name}`}</Text>
+  );
+
+  return {
+    Ionicons: Icon,
+    MaterialIcons: Icon,
+    FontAwesome: Icon,
+  };
+});
+
+const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
 
 describe("<Recommendations />", () => {
+  const pushMock = jest.fn();
+
+  // Pull mocks from the mocked modules (no outside undefined vars)
+  const AsyncStorage = require("@react-native-async-storage/async-storage");
+  const Location = require("expo-location");
+  const Auth = require("firebase/auth");
+  const Firestore = require("firebase/firestore");
+
+  let authCallback: ((user: any) => void) | null = null;
+
   beforeEach(() => {
     jest.clearAllMocks();
+    (useRouter as jest.Mock).mockReturnValue({ push: pushMock });
 
-    // Prevent real alerts in test
-    jest.spyOn(Alert, "alert").mockImplementation(() => {});
-
-    // Mock auth state: user exists
-    asMock(onAuthStateChanged).mockImplementation((_auth, cb) => {
-      cb({ uid: "user123", email: "user@example.com" });
+    // Capture the callback passed to onAuthStateChanged
+    Auth.onAuthStateChanged.mockImplementation((_auth: any, cb: any) => {
+      authCallback = cb;
       return () => {};
     });
 
-    // Mock Firestore getDoc -> returns username
-    asMock(getDoc).mockResolvedValue({
-      exists: () => true,
-      data: () => ({ username: "Sofia", email: "user@example.com" }),
+    // Default: location permission denied
+    Location.getForegroundPermissionsAsync.mockResolvedValue({
+      status: "denied",
+      canAskAgain: true,
     });
 
-    // Default AsyncStorage values
-    asMock(AsyncStorage.getItem).mockImplementation(async (key: string) => {
-      // You can return defaults here
+    // Default AsyncStorage: no allowLocation, no last location
+    AsyncStorage.getItem.mockImplementation(async (key: string) => {
       if (key === "prefs.allowLocation") return "false";
       if (key === "prefs.lastCoarseLocation") return null;
       return null;
     });
 
-    // Default permissions
-    asMock(Location.getForegroundPermissionsAsync).mockResolvedValue({
-      status: "denied",
-      canAskAgain: true,
-      granted: false,
+    // Default Firestore user doc
+    Firestore.getDoc.mockResolvedValue({
+      exists: () => true,
+      data: () => ({ username: "Sofia" }),
     });
   });
 
-  it("toggle ON location calls requestForegroundPermissionsAsync", async () => {
-    // When user toggles ON, we grant permission
-    asMock(Location.requestForegroundPermissionsAsync).mockResolvedValue({
+it("shows loading indicator initially", async () => {
+  const { UNSAFE_getByType } = render(<Recommendations />);
+
+  // Initial effects run
+  await act(async () => {
+    await flushPromises();
+  });
+
+  expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy();
+});
+
+  it("renders header and 3 sections after auth resolves", async () => {
+    render(<Recommendations />);
+
+    await waitFor(() => expect(authCallback).toBeTruthy());
+    authCallback?.({ uid: "123", email: "sofia@example.com" });
+
+    await waitFor(() => {
+      expect(screen.getByText(/Your space/i)).toBeTruthy();
+      expect(screen.getByText("Your profile")).toBeTruthy();
+      expect(screen.getByText("Fires around you")).toBeTruthy();
+      expect(screen.getByText("Your badges")).toBeTruthy();
+    });
+  });
+
+  it("profile icon press navigates to profile", async () => {
+    render(<Recommendations />);
+
+    await waitFor(() => expect(authCallback).toBeTruthy());
+    authCallback?.({ uid: "123", email: "sofia@example.com" });
+
+    const iconButton = await screen.findByLabelText("Open profile");
+    fireEvent.press(iconButton);
+
+    expect(pushMock).toHaveBeenCalled();
+  });
+
+  it("Go to profile button navigates to profile", async () => {
+    render(<Recommendations />);
+
+    await waitFor(() => expect(authCallback).toBeTruthy());
+    authCallback?.({ uid: "123", email: "sofia@example.com" });
+
+    const goBtn = await screen.findByLabelText("Go to profile");
+    fireEvent.press(goBtn);
+
+    expect(pushMock).toHaveBeenCalled();
+  });
+
+  it("when allowLocation is false, shows enable-location message", async () => {
+    render(<Recommendations />);
+
+    await waitFor(() => expect(authCallback).toBeTruthy());
+    authCallback?.({ uid: "123", email: "sofia@example.com" });
+
+    await waitFor(() => {
+      expect(screen.getByText(/Enable location/i)).toBeTruthy();
+    });
+  });
+
+  it("when allowLocation is true and lastLocation exists, renders map and markers", async () => {
+    // Permissions granted
+    Location.getForegroundPermissionsAsync.mockResolvedValue({
       status: "granted",
       canAskAgain: true,
-      granted: true,
     });
 
-    // And we have a last known position to store
-    asMock(Location.getLastKnownPositionAsync).mockResolvedValue({
-      coords: { latitude: 38.7223, longitude: -9.1393, accuracy: 50 },
-    });
-
-    render(<Recommendations />);
-
-    // wait for screen to render after loading
-    await waitFor(() => screen.getByTestId("allow-location-switch"));
-
-    fireEvent(screen.getByTestId("allow-location-switch"), "valueChange", true);
-
-    await waitFor(() => {
-      expect(Location.requestForegroundPermissionsAsync).toHaveBeenCalled();
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "true");
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
-        "prefs.lastCoarseLocation",
-        expect.stringContaining('"latitude"')
-      );
-    });
-  });
-
-  it("toggle ON location denied: switch stays OFF and shows alert", async () => {
-    asMock(Location.requestForegroundPermissionsAsync).mockResolvedValue({
-      status: "denied",
-      canAskAgain: true,
-      granted: false,
-    });
-
-    render(<Recommendations />);
-
-    await waitFor(() => screen.getByTestId("allow-location-switch"));
-
-    fireEvent(screen.getByTestId("allow-location-switch"), "valueChange", true);
-
-    await waitFor(() => {
-      expect(Location.requestForegroundPermissionsAsync).toHaveBeenCalled();
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "false");
-      expect(Alert.alert).toHaveBeenCalledWith(
-        "Location not enabled",
-        expect.stringContaining("near me")
-      );
-    });
-
-    expect(screen.getByTestId("allow-location-switch").props.value).toBe(false);
-  });
-
-  it("toggle ON location but canAskAgain=false: prompts Settings alert", async () => {
-    asMock(Location.getForegroundPermissionsAsync).mockResolvedValue({
-      status: "denied",
-      canAskAgain: false,
-      granted: false,
-    });
-
-    render(<Recommendations />);
-
-    await waitFor(() => screen.getByTestId("allow-location-switch"));
-    fireEvent(screen.getByTestId("allow-location-switch"), "valueChange", true);
-
-    await waitFor(() => {
-      expect(Alert.alert).toHaveBeenCalled();
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "false");
-    });
-  });
-
-  it("toggle OFF location persists false", async () => {
-    // Mock permission is granted initially so switch starts ON
-    asMock(Location.getForegroundPermissionsAsync).mockResolvedValue({
-      status: "granted",
-      canAskAgain: true,
-      granted: true,
-    });
-
-    // Ensure the persisted pref doesn't flip it back to false
-    asMock(AsyncStorage.getItem).mockImplementation(async (key: string) => {
+    // Stored location present
+    AsyncStorage.getItem.mockImplementation(async (key: string) => {
       if (key === "prefs.allowLocation") return "true";
-      if (key === "prefs.nightMode") return "false";
+      if (key === "prefs.lastCoarseLocation")
+        return JSON.stringify({
+          latitude: 10.12,
+          longitude: -84.25,
+          accuracyMeters: 500,
+          timestamp: Date.now(),
+        });
       return null;
     });
 
+    // Mock FIRMS fetch
+    const fetchMock = jest.spyOn(global, "fetch" as any).mockResolvedValue({
+      ok: true,
+      text: async () =>
+        "latitude,longitude,frp,acq_date,acq_time,confidence\n" +
+        "10.13,-84.26,12,2026-02-24,1200,nominal\n",
+    } as any);
+
     render(<Recommendations />);
 
-    await waitFor(() => screen.getByTestId("allow-location-switch"));
-
-    // In your component, the OS sync effect sets allowLocation based on permission.
-    await waitFor(() =>
-      expect(screen.getByTestId("allow-location-switch").props.value).toBe(true)
-    );
-
-    // Toggle off
-    fireEvent(screen.getByTestId("allow-location-switch"), "valueChange", false);
+    await waitFor(() => expect(authCallback).toBeTruthy());
+    authCallback?.({ uid: "123", email: "sofia@example.com" });
 
     await waitFor(() => {
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "false");
+      expect(screen.getByTestId("map")).toBeTruthy();
+      expect(screen.getByText("You (approx.)")).toBeTruthy();
+      expect(screen.getByText(/Fire spot|Fire Spot|Hotspot/i)).toBeTruthy();
     });
 
-    expect(screen.getByTestId("allow-location-switch").props.value).toBe(false);
+    fetchMock.mockRestore();
   });
 });
