@@ -465,7 +465,7 @@ const Profile = () => {
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Privacy policy"
-              onPress={() => router.push("/privacy")}
+              onPress={() => router.push("info/privacy")}
               style={styles.profileInfoRow}
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
