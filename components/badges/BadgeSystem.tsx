@@ -1,15 +1,23 @@
-import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from "react";
 import { View, Text, Pressable } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "@/styles/App.styles";
 
+// The Badge structure
 type Badge = {
   id: string;
   title: string;
   description?: string;
-  awardedAt: number;   // Date.now()
+  awardedAt: number; // Date.now()
 };
 
 type BadgeContextValue = {
@@ -70,8 +78,15 @@ export function BadgeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ badges, hasBadge, awardBadge, clearBadges, lastUnlocked, dismissToast }),
-    [badges, lastUnlocked, dismissToast, hasBadge, awardBadge, clearBadges]
+    () => ({
+      badges,
+      hasBadge,
+      awardBadge,
+      clearBadges,
+      lastUnlocked,
+      dismissToast,
+    }),
+    [badges, lastUnlocked, dismissToast, hasBadge, awardBadge, clearBadges],
   );
 
   return (
@@ -109,37 +124,27 @@ function BadgeToast() {
           {lastUnlocked.description}
         </Text>
       )}
-      <Text style={[styles.badgeToastDismiss]}>
-        Tap to dismiss
-      </Text>
+      <Text style={[styles.badgeToastDismiss]}>Tap to dismiss</Text>
     </Pressable>
   );
 }
 
+// In order to list the badges
 export function BadgeList() {
   const { badges } = useBadges();
   const all = Object.values(badges).sort((a, b) => b.awardedAt - a.awardedAt);
 
   if (all.length === 0) {
-    return <Text style={{ color: "rgba(255,255,255,0.75)" }}>No badges yet.</Text>;
+    return <Text style={styles.badgeNone}>No badges yet.</Text>;
   }
 
   return (
     <View style={{ gap: 10 }}>
       {all.map((b) => (
-        <View
-          key={b.id}
-          style={{
-            padding: 12,
-            borderRadius: 12,
-            backgroundColor: "rgba(255,255,255,0.10)",
-          }}
-        >
-          <Text style={{ color: "white", fontWeight: "700" }}>{b.title}</Text>
+        <View key={b.id} style={styles.badgeListIn}>
+          <Text style={styles.badgeListInText}>{b.title}</Text>
           {!!b.description && (
-            <Text style={{ color: "rgba(255,255,255,0.8)", marginTop: 4 }}>
-              {b.description}
-            </Text>
+            <Text style={styles.badgeListInDesc}>{b.description}</Text>
           )}
         </View>
       ))}

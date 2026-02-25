@@ -29,6 +29,9 @@ import CustomGradient from "@/components/CustomGradient";
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
+// Badges
+import { BadgeList, useBadges } from "@/components/badges/BadgeSystem";
+
 // Keys that allow to persist the location
 const STORAGE_KEYS = {
   allowLocation: "prefs.allowLocation",
@@ -222,6 +225,9 @@ const Recommendations = () => {
 
   // Check whether location is allowed and the last stored coarse location
   const [allowLocation, setAllowLocation] = useState(false);
+
+  const { badges } = useBadges();
+  const count = Object.keys(badges).length;
 
   // Load persisted location opt-in
   useEffect(() => {
@@ -507,9 +513,10 @@ const Recommendations = () => {
             </Text>
 
             <Text style={styles.profileSectionSubtitle}>
-              Complete actions like tests and prepare actions. This feature is
-              coming soon.
+              You've earned {count} badge{count === 1 ? "" : "s"}.
             </Text>
+
+            <BadgeList />
           </View>
         </ScrollView>
       </CustomGradient>

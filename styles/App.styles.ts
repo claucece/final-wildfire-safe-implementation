@@ -919,7 +919,7 @@ export const styles = StyleSheet.create({
     right: 16,
     bottom: 74,
     padding: 14,
-    backgroundColor: "rgba(130,10,20,0.80)",
+    backgroundColor: Colors.orangeTitle,
   },
   badgeToastTitle: {
     color: "white",
@@ -927,14 +927,30 @@ export const styles = StyleSheet.create({
     fontSize: 14,
   },
   badgeToastDescription: {
-    color: "rgba(255,255,255,0.85)",
+    color: Colors.mainBorder,
     marginTop: 10,
     fontSize: 12,
   },
   badgeToastDismiss: {
-    color: "rgba(255,255,255,0.85)",
+    color: Colors.mainBorder,
     marginTop: 6,
     fontSize: 10,
+  },
+  badgeListIn: {
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: Colors.shadowBg,
+  },
+  badgeListInText: {
+    color: Colors.mainBorder,
+    fontWeight: "700",
+  },
+  badgeListInDesc: {
+    color: Colors.mainBorder,
+    marginTop: 4,
+  },
+  badgeNone: {
+    color: Colors.mainBorder,
   },
   // FAQ
   faqHeaderPanel: {

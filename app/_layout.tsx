@@ -29,15 +29,18 @@ Notifications.setNotificationHandler({
 });
 
 export default function BaseLayout() {
-  // TODO: Temporary for debugging purposes, remove
-  useEffect(() => {
-    if (!__DEV__) return;
+useEffect(() => {
+  if (!__DEV__) return;
 
-    (async () => {
-      await AsyncStorage.removeItem("badges.v1");
-      console.log("[dev] cleared badges.v1");
-    })();
-  }, []);
+  const CLEAR_BADGES_ON_START = false; // Debugging: set true only when reset
+
+  if (!CLEAR_BADGES_ON_START) return;
+
+  (async () => {
+    await AsyncStorage.removeItem("badges.v1");
+    console.log("[dev] cleared badges.v1");
+  })();
+}, []);
 
   // Prevent flickering by ensuring the splash screen does not auto-hide
   SplashScreen.preventAutoHideAsync();
