@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PrivacyPolicy /> matches snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": undefined,
+      "flex": 1,
+      "paddingTop": 0,
+    }
+  }
+>
+  <Image
+    accessibilityLabel="Background image for privacy policy page"
+    accessibilityRole="image"
+    accessible={true}
+    contentFit="cover"
+    placeholder={
+      {
+        "blurhash": "LgHnvz~V-pxb-WRkM}kBIWIVIoWB",
+      }
+    }
+    source={
+      {
+        "testUri": "../../../assets/app-images/about-image.webp",
+      }
+    }
+    style={
+      [
+        {
+          "backgroundColor": undefined,
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        {
+          "height": "100%",
+          "resizeMode": "cover",
+          "width": "100%",
+        },
+      ]
+    }
+  />
+  <RCTSafeAreaView
+    style={
+      [
+        {
+          "backgroundColor": "transparent",
+          "flex": 1,
+          "justifyContent": "space-between",
+          "paddingHorizontal": 16,
+        },
+        {
+          "zIndex": 1,
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityLabel="Go back"
+      accessibilityRole="button"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "left": 8,
+            "position": "absolute",
+            "top": 10,
+            "zIndex": 10,
+          },
+          undefined,
+        ]
+      }
+    >
+      <FeatherIconMock
+        color="#E2E8F0"
+        name="arrow-left-circle"
+        size={40}
+      />
+    </View>
+    <RCTScrollView
+      contentContainerStyle={
+        {
+          "flexGrow": 1,
+        }
+      }
+      showsVerticalScrollIndicator={false}
+    >
+      <View>
+        <View
+          style={
+            [
+              {
+                "backgroundColor": "rgba(0,0,0,0.55)",
+                "borderColor": "#FFFFE0",
+                "borderRadius": 4,
+                "borderWidth": 4,
+                "elevation": 8,
+                "padding": 12,
+                "shadowColor": "#000",
+                "shadowOffset": {
+                  "height": 6,
+                  "width": 6,
+                },
+                "shadowOpacity": 1,
+                "shadowRadius": 0,
+              },
+              {
+                "backgroundColor": "#00000080",
+                "marginBottom": 20,
+                "marginTop": 100,
+                "padding": 30,
+              },
+            ]
+          }
+        >
+          <Text
+            accessibilityRole="header"
+            style={
+              [
+                {
+                  "color": "#C46A2B",
+                  "fontSize": 30,
+                  "textAlign": "center",
+                },
+                {
+                  "color": "#C46A2B",
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Privacy Policy
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#CFA2BE",
+                "flexShrink": 1,
+                "fontSize": 18,
+                "marginTop": 20,
+                "textAlignVertical": "left",
+              }
+            }
+          >
+            Wildfire Safe is designed with privacy as a core principle. We aim to provide useful wildfire preparedness tools without collecting or tracking unnecessary personal data.
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#CFA2BE",
+                "flexShrink": 1,
+                "fontSize": 18,
+                "marginTop": 20,
+                "textAlignVertical": "left",
+              }
+            }
+          >
+            We do not store or transmit your location, preferences, badges, or activity history to our servers. All calculations, including fire proximity checks and intensity evaluation, are performed entirely on your device.
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#CFA2BE",
+                "flexShrink": 1,
+                "fontSize": 18,
+                "marginTop": 20,
+                "textAlignVertical": "left",
+              }
+            }
+          >
+            Location access, if enabled, is used only locally to approximate your area and tailor map display or alerts. Your precise location is never stored remotely, and only a coarse, rounded location may be saved on your device to improve usability.
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#CFA2BE",
+                "flexShrink": 1,
+                "fontSize": 18,
+                "marginTop": 20,
+                "textAlignVertical": "left",
+              }
+            }
+          >
+            Preferences such as night mode, notification settings, and badge progress are stored locally on your device using secure local storage. You can disable these at any time.
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#CFA2BE",
+                "flexShrink": 1,
+                "fontSize": 18,
+                "marginTop": 20,
+                "textAlignVertical": "left",
+              }
+            }
+          >
+            The only personal information stored remotely is the information required for authentication: your email address, username, and encrypted password. This data is used solely to provide account access and is never shared with third parties.
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#CFA2BE",
+                "flexShrink": 1,
+                "fontSize": 15,
+                "marginTop": 20,
+                "textAlignVertical": "center",
+              }
+            }
+          >
+            By keeping all sensitive logic client-side, Wildfire Safe ensures that your preparedness journey remains private, transparent, and under your control.
+          </Text>
+        </View>
+      </View>
+    </RCTScrollView>
+  </RCTSafeAreaView>
+</View>
+`;
