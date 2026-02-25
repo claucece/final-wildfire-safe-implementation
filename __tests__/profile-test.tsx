@@ -242,7 +242,7 @@ describe("<Profile />", () => {
     expect(pushMock).toHaveBeenCalledWith("info/about");
 
     fireEvent.press(screen.getByLabelText("Privacy policy"));
-    expect(pushMock).toHaveBeenCalledWith("/privacy");
+    expect(pushMock).toHaveBeenCalledWith("info/privacy");
 
     fireEvent.press(screen.getByLabelText("FAQ"));
     expect(pushMock).toHaveBeenCalledWith("resource/faq");

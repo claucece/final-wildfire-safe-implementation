@@ -160,13 +160,26 @@ exports[`<About /> matches snapshot 1`] = `
             "color": "#CFA2BE",
             "flexShrink": 1,
             "fontSize": 18,
-            "padding": 22,
-            "paddingLeft": 8,
+            "marginTop": 20,
+            "textAlignVertical": "left",
+          }
+        }
+      >
+        Our app you have has been designed to help in wildfire-prone areas to prepare calmly and confidently. We provide you with short, easy-to-follow lessons, interactive checklists and tests, and personalised guidance. We focus specifically on wildfire preparedness, providing clear steps, progress tracking, and supportive design, without overwhelming notifications. Wildfire Safe aims to make wildfire readiness simple, accessible, and stress-free for everyone.
+      </Text>
+      <Text
+        accessibilityLabel="Privacy text about our app"
+        style={
+          {
+            "color": "#CFA2BE",
+            "flexShrink": 1,
+            "fontSize": 15,
+            "marginTop": 20,
             "textAlignVertical": "center",
           }
         }
       >
-        The app you have has been designed to help in wildfire-prone areas to prepare calmly and confidently. We provide you with short, easy-to-follow lessons, interactive checklists and tests, and personalised guidance. We focus specifically on wildfire preparedness, providing clear steps, progress tracking, and supportive design, without overwhelming notifications. Wildfire Safe aims to make wildfire readiness simple, accessible, and stress-free for everyone.
+        Our app does not store data about you other than your email, username and password.
       </Text>
     </View>
     <View>
