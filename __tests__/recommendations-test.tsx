@@ -17,6 +17,16 @@ jest.mock("react-native-safe-area-context", () => ({
   useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
 }));
 
+// Badges mock
+jest.mock("@/components/badges/BadgeSystem", () => {
+  const React = require("react");
+  const { Text } = require("react-native");
+  return {
+    useBadges: () => ({ badges: {} }),
+    BadgeList: () => <Text>Badges list</Text>,
+  };
+});
+
 // AsyncStorage
 jest.mock("@react-native-async-storage/async-storage", () => ({
   getItem: jest.fn(),
