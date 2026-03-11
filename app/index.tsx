@@ -1,15 +1,13 @@
 // Import global CSS: for tailwind and font loading
 import "@/global.css";
 
-import { useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import { View, Text, SafeAreaView, Pressable, Platform } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
-
-import * as Notifications from "expo-notifications";
 
 // Custom hooks
 import { useOrientation } from "@/hooks/useOrientation";
@@ -30,16 +28,6 @@ import homeImage from "@/assets/app-images/home-image.webp";
 const App = () => {
   // Get the current orientation of the device for responsive design
   const orientation = useOrientation();
-
-useEffect(() => {
-  Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldShowAlert: true,
-      shouldPlaySound: true,
-      shouldSetBadge: false,
-    }),
-  });
-}, []);
 
   // Initialize the router for navigation between pages
   const router = useRouter();
