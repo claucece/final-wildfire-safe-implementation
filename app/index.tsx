@@ -1,15 +1,15 @@
 // Import global CSS: for tailwind and font loading
 import "@/global.css";
 
-import * as Notifications from "expo-notifications";
-
-import { useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { View, Text, SafeAreaView, Pressable, Platform } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
+
+import * as Notifications from "expo-notifications";
 
 // Custom hooks
 import { useOrientation } from "@/hooks/useOrientation";
@@ -31,31 +31,15 @@ const App = () => {
   // Get the current orientation of the device for responsive design
   const orientation = useOrientation();
 
-  // A test notification
-  const triggerNotification = useCallback(async () => {
-    const { status } = await Notifications.getPermissionsAsync();
-    if (status !== "granted") {
-      const req = await Notifications.requestPermissionsAsync();
-      if (req.status !== "granted") {
-        console.log("Notification permission NOT granted");
-        return;
-      }
-    }
-
-    const id = await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Wildfire Safe",
-        body: "Reminder test: Wildfire preparedness starts with one small task 🌱",
-        sound: "default",
-      },
-      trigger: { seconds: 3 },
-    });
-
-    console.log("Notification scheduled with ID:", id);
-
-    const all = await Notifications.getAllScheduledNotificationsAsync();
-    console.log("All scheduled notifications:", all);
-  }, []);
+useEffect(() => {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: false,
+    }),
+  });
+}, []);
 
   // Initialize the router for navigation between pages
   const router = useRouter();
@@ -160,16 +144,6 @@ const App = () => {
               accessibilityHint="Navigate to the sign-up page."
               handleNavigation={handleNavigation}
             />
-
-            <Pressable
-              onPress={triggerNotification}
-              accessibilityLabel="Trigger notification"
-              style={{ marginTop: 15 }}
-            >
-              <Text style={{ color: "white", textAlign: "center" }}>
-                Send Test Notification
-              </Text>
-            </Pressable>
           </View>
 
           {/* Light-themed status bar */}

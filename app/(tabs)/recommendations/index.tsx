@@ -32,6 +32,9 @@ import Colors from "@/constants/Colors";
 // Badges
 import { BadgeList, useBadges } from "@/components/badges/BadgeSystem";
 
+// Fire notifications
+import { useFireNotifications } from "@/hooks/useFireNotifications";
+
 // Keys that allow to persist the location
 const STORAGE_KEYS = {
   allowLocation: "prefs.allowLocation",
@@ -228,6 +231,9 @@ const Recommendations = () => {
 
   const { badges } = useBadges();
   const count = Object.keys(badges).length;
+
+  // Notify user when fires are detected nearby
+  useFireNotifications(fires, lastLocation);
 
   // Load persisted location opt-in
   useEffect(() => {
