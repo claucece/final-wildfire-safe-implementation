@@ -412,7 +412,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    marginTop: 12,
     backgroundColor: Colors.swipe,
     marginTop: 24,
     padding: 5,
@@ -429,7 +428,6 @@ export const styles = StyleSheet.create({
   prepareTaskSwipeText: {
     textAlign: "center",
     color: Colors.subtitlePrimary,
-    textAlign: "center",
   },
   pixelPrepareTaskSubtleText: {
     color: Colors.subtitlePrimary,
