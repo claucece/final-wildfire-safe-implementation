@@ -1,23 +1,22 @@
 import "react-native-gesture-handler";
 
 import * as Notifications from "expo-notifications";
-import Timer from "@/context/Timer";
-
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 
 import "@/global.css";
 
+import Timer from "@/context/Timer";
+
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useEffect } from "react";
 import { Platform } from "react-native";
 
 import DismissBadgeToastOnRouteChange from "@/components/badges/BadgeDismiss";
 import { BadgeProvider } from "@/components/badges/BadgeSystem";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Controls how notifications behave
 Notifications.setNotificationHandler({
@@ -28,22 +27,24 @@ Notifications.setNotificationHandler({
   }),
 });
 
+
+// Prevent flickering by ensuring the splash screen does not auto-hide
+// This is done per modulo
+SplashScreen.preventAutoHideAsync();
+
 export default function BaseLayout() {
-useEffect(() => {
-  if (!__DEV__) return;
+  useEffect(() => {
+    if (!__DEV__) return;
 
-  const CLEAR_BADGES_ON_START = false; // Debugging: set true only when reset
+    const CLEAR_BADGES_ON_START = false; // Debugging: set to true only when reset
 
-  if (!CLEAR_BADGES_ON_START) return;
+    if (!CLEAR_BADGES_ON_START) return;
 
-  (async () => {
-    await AsyncStorage.removeItem("badges.v1");
-    console.log("[dev] cleared badges.v1");
-  })();
-}, []);
-
-  // Prevent flickering by ensuring the splash screen does not auto-hide
-  SplashScreen.preventAutoHideAsync();
+    (async () => {
+      await AsyncStorage.removeItem("badges.v1");
+      console.log("[dev] cleared badges.v1");
+    })();
+  }, []);
 
   // Load custom fonts
   const [fontsLoaded, error] = useFonts({
@@ -52,7 +53,7 @@ useEffect(() => {
     "Roboto-Mono": require("../assets/fonts/RobotoMono-Regular.ttf"),
   });
 
-  // Request permissions
+  // Request notification permissions and configure Android channel
   useEffect(() => {
     async function configureNotifications() {
       // Ask permission
