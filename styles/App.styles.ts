@@ -231,6 +231,9 @@ export const styles = StyleSheet.create({
   settingsButton: {
     left: 300,
   },
+  settingsButtonLand: {
+    left: 630,
+  },
   header: {
     flexDirection: "row-reverse",
     marginTop: 20,
@@ -315,6 +318,12 @@ export const styles = StyleSheet.create({
     paddingRight: 60,
     fontWeight: "bold",
     fontSize: Sizes.fontBig,
+  },
+  titleStyleNorm: {
+    marginTop: 0,
+  },
+  titleStyleLand: {
+    marginTop: -20,
   },
   titleStyleAlt: {
     color: Colors.blackDeep,

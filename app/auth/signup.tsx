@@ -134,7 +134,7 @@ export default function SignUp() {
           <View
             style={[
               styles.pixelPanel,
-              orientation === "PORTRAIT"
+               isPortrait
                 ? styles.textContainerAuth
                 : styles.textContainerAuthLandscape,
             ]}
