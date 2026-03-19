@@ -26,6 +26,8 @@ import aboutImage from "@/assets/app-images/about-image.webp";
 
 export default function PrivacyPolicy() {
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
 
   return (
     <View style={styles.container}>
@@ -54,7 +56,9 @@ export default function PrivacyPolicy() {
           {/* Back Button */}
           <BackButton
             orientation={orientation}
-            size={orientation === "PORTRAIT" ? 40 : 20}
+            size={isPortrait ? 40 : 30}
+            customStyle={isPortrait ? styles.buttonNorm : styles.buttonLand}
+            accessibilityLabel="Go back"
           />
 
           {/* Scrollable content */}

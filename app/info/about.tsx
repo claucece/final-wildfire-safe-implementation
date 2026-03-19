@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  Platform,
-} from "react-native";
+import { View, Text, SafeAreaView, StatusBar, Platform } from "react-native";
 
 import { Image } from "expo-image";
 import * as Linking from "expo-linking";
@@ -26,6 +20,8 @@ import aboutImage from "@/assets/app-images/about-image.webp";
 
 export default function About() {
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
 
   return (
     <View style={styles.container}>
@@ -34,15 +30,14 @@ export default function About() {
         source={aboutImage}
         contentFit="cover"
         placeholder={{
-          blurhash:
-            BLUR_HASH_DATA[3]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+          blurhash: BLUR_HASH_DATA[3]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
         }}
         accessibilityLabel="Cozy background image depicting a fire environment for about page"
         accessible
         accessibilityRole="image"
         style={[
           styles.imageContainer,
-          orientation === "PORTRAIT"
+          isPortrait
             ? styles.portraitImage
             : styles.landscapeImage,
         ]}
@@ -55,7 +50,9 @@ export default function About() {
           {/* Back Button */}
           <BackButton
             orientation={orientation}
-            size={orientation === "PORTRAIT" ? 40 : 20}
+            size={isPortrait ? 40 : 30}
+            customStyle={isPortrait ? styles.buttonNorm : styles.buttonLand}
+            accessibilityLabel="Go back"
           />
 
           {/* Title container */}
@@ -91,7 +88,8 @@ export default function About() {
               style={styles.smallText}
               accessibilityLabel="Privacy text about our app"
             >
-	      Our app does not store data about you other than your email, username and password.
+              Our app does not store data about you other than your email,
+              username and password.
             </Text>
           </View>
 
@@ -113,29 +111,25 @@ export default function About() {
                 }
               >
                 NostalgiaTree, 2025.
-              </Text>
-              {" "}Animations used with permission from{" "}
+              </Text>{" "}
+              Animations used with permission from{" "}
               <Text
                 style={styles.linkText}
                 accessibilityRole="link"
                 accessibilityHint="Opens Uilsu animation on LottieFiles"
                 onPress={() =>
-                  Linking.openURL(
-                    "https://lottiefiles.com/nps2t9xspsl919w4"
-                  )
+                  Linking.openURL("https://lottiefiles.com/nps2t9xspsl919w4")
                 }
               >
                 Uilsu
-              </Text>
-              {" "}and{" "}
+              </Text>{" "}
+              and{" "}
               <Text
                 style={styles.linkText}
                 accessibilityRole="link"
                 accessibilityHint="Opens Alexander animation on LottieFiles"
                 onPress={() =>
-                  Linking.openURL(
-                    "https://lottiefiles.com/jvf0i8ro9uucz1lu"
-                  )
+                  Linking.openURL("https://lottiefiles.com/jvf0i8ro9uucz1lu")
                 }
               >
                 Alexander, 2025.

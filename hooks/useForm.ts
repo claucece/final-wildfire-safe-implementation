@@ -18,8 +18,8 @@ export const useForm = () => {
   // Only update relevant part of form data on change
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData((prev) => ({
-      ...prev,  // Retain previous values
-      [field]: value,  // Update the changed field
+      ...prev, // Retain previous values
+      [field]: value, // Update the changed field
     }));
   };
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as Brightness from "expo-brightness";
 
 export const useBrightness = () => {
-  const [screenBrightness, setScreenBrightness] = useState<number>(1);  // Default to maximum brightness
+  const [screenBrightness, setScreenBrightness] = useState<number>(1); // Default to maximum brightness
 
   useEffect(() => {
     const getBrightness = async () => {
@@ -11,7 +11,7 @@ export const useBrightness = () => {
         const { status } = await Brightness.requestPermissionsAsync();
         if (status === "granted") {
           const brightness = await Brightness.getBrightnessAsync();
-          setScreenBrightness(brightness);  // Set the retrieved brightness value
+          setScreenBrightness(brightness); // Set the retrieved brightness value
         } else {
           console.warn("Brightness permission not granted");
         }
