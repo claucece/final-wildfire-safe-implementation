@@ -1,8 +1,10 @@
 import "@/global.css";
 
 import React from "react";
+
 import { Tabs } from "expo-router";
 import { Platform } from "react-native";
+// Icons
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
 import Colors from "@/constants/Colors";
@@ -16,13 +18,14 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: Colors.grey,
         tabBarStyle: {
           backgroundColor: Colors.secondary,
-          height: Platform.OS === "ios" ? 80 : 60,
+          height: Platform.OS === "ios" ? 70 : 50,
           paddingBottom: Platform.OS === "ios" ? 20 : 10,
           borderTopWidth: 0,
         },
-        tabBarAccessibilityLabel: "Bottom navigation bar",
+        tabBarAccessibilityLabel: "Bottom navigation bar with tabs",
       }}
     >
+      {/* "home" route maps to the Prepare tab */}
       <Tabs.Screen
         name="home"
         options={{
@@ -34,6 +37,7 @@ export default function TabsLayout() {
         }}
       />
 
+      {/* Test/self-assessment tab */}
       <Tabs.Screen
         name="test"
         options={{
@@ -46,6 +50,7 @@ export default function TabsLayout() {
         }}
       />
 
+      {/* Guides, links, and reference material */}
       <Tabs.Screen
         name="resources"
         options={{
@@ -57,6 +62,7 @@ export default function TabsLayout() {
         }}
       />
 
+      {/* Personalised preferences and the user profile */}
       <Tabs.Screen
         name="recommendations"
         options={{
