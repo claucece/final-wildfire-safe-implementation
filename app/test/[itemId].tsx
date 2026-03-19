@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 
 import { useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
@@ -26,6 +26,10 @@ import aboutImage from "@/assets/app-images/about-image.webp";
 // Each test
 export default function TestDetail() {
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
+
+  // The test id
   const { itemId } = useLocalSearchParams<{ itemId: string }>();
 
   // Load the test data
@@ -86,15 +90,13 @@ export default function TestDetail() {
     });
   }, [checklist]);
 
-  // UI feedback on checklist
+  // UI feedback on checklist: wrong or missed
   const selectedWrong = useMemo(() => {
     return checklist.some((i: any) => i.isCorrect === false && i.done);
   }, [checklist]);
-
   const missedCorrect = useMemo(() => {
     return checklist.some((i: any) => (i.isCorrect ?? true) && !i.done);
   }, [checklist]);
-
   useEffect(() => {
     if (!test) return;
     if (test.type !== "Checklist") return;
@@ -130,19 +132,20 @@ export default function TestDetail() {
             : styles.landscapeImage,
         ]}
       />
-      <View contentContainerStyle={{ flex: 1, padding: 12 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 12 }}>
         <BackButton
           orientation={orientation}
-          size={orientation === "PORTRAIT" ? 50 : 30}
-          customStyle={{ marginTop: 100 }}
+          size={isPortrait ? 40 : 30}
+          customStyle={isPortrait ? styles.buttonTestNorm : styles.buttonTestLand}
         />
 
-        <View style={[styles.pixelTestPanel]}>
+        <View style={[isPortrait ? styles.pixelTestPanel : styles.pixelTestPanelLand]}>
           <Text style={[styles.pixelPrepareTitle]}>{test.title}</Text>
           <Text style={[styles.pixelPrepareSubtleText]}>{test.prompt}</Text>
         </View>
 
         <View>
+          {/* Checklist */}
           {test.type === "Checklist" && (
             <>
               <PixelChecklist
@@ -150,7 +153,7 @@ export default function TestDetail() {
                 items={checklist}
                 onToggle={toggleItem}
               />
-              {/* Feedback */}
+              {/* Feedback for checklist */}
               {selectedWrong && (
                 <View style={styles.feedbackCheckList}>
                   <Feather name="x-circle" size={18} color={Colors.redToasy} />
@@ -161,7 +164,6 @@ export default function TestDetail() {
                   </Text>
                 </View>
               )}
-
               {missedCorrect && !selectedWrong && (
                 <View style={styles.feedbackCheckList}>
                   <Feather
@@ -177,6 +179,7 @@ export default function TestDetail() {
                 </View>
               )}
 
+              {/* Feedback for checklist when correct */}
               {checklistCorrect && (
                 <View style={styles.feedbackCheckList}>
                   <Feather
@@ -194,6 +197,7 @@ export default function TestDetail() {
             </>
           )}
 
+          {/* Drag test */}
           {test.type === "Drag" && (
             <PixelOrderingTask
               title="Ordering"
@@ -201,14 +205,13 @@ export default function TestDetail() {
               initial={test.dragItems}
               correctOrderKeys={test.correctOrderKeys}
               onComplete={(ok) => {
-                console.log("Ordering correct?", ok); // TODO: debugging, remove on release
                 if (!ok) return;
                 awardTestBadge("Ordering task finished");
               }}
             />
           )}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }

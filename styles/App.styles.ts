@@ -145,6 +145,13 @@ export const styles = StyleSheet.create({
   buttonNorm: {
     marginTop: 10,
   },
+  buttonTestLand: {
+    marginTop: 40,
+    marginLeft: 30,
+  },
+  buttonTestNorm: {
+    marginTop: 100,
+  },
   textCenter: {
     textAlign: "center",
   },
@@ -665,9 +672,21 @@ export const styles = StyleSheet.create({
     borderColor: Colors.mainBorder,
     padding: 12,
     borderRadius: 4,
+
     marginTop: 200,
     marginLeft: 10,
     marginRight: 10,
+  },
+  pixelTestPanelLand: {
+    backgroundColor: Colors.orangeTitle,
+    borderWidth: 4,
+    borderColor: Colors.mainBorder,
+    padding: 12,
+    borderRadius: 4,
+
+    marginTop: 60,
+    marginLeft: 50,
+    marginRight: 50,
   },
   pixelCheckListPanel: {
     backgroundColor: Colors.gradientQuote,
