@@ -1,9 +1,9 @@
 import { initializeApp } from "firebase/app";
 
-import { getReactNativePersistence } from '@firebase/auth/dist/rn/index.js';
+import { getReactNativePersistence } from "@firebase/auth/dist/rn/index.js";
 
-import { initializeAuth, getAuth } from 'firebase/auth';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeAuth, getAuth } from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import { getFirestore } from "firebase/firestore";
 
 // The app's Firebase configuration
@@ -14,7 +14,7 @@ const firebaseConfig = {
   projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase with the given configuration
@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Auth with persistence
 const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
 // Initialize Firestore Database
