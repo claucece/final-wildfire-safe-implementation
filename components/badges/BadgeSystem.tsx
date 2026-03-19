@@ -132,6 +132,7 @@ function BadgeToast() {
           accessibilityLabel={`Badge unlocked: ${lastUnlocked.title}. Tap to dismiss.`}
           accessibilityHint="Tap to dismiss this notification"
           style={[styles.badgeToast]}
+	  testID="badge-toast"
         >
           <Text style={[styles.badgeToastTitle]}>
             Badge Unlocked: {lastUnlocked.title}

@@ -10,4 +10,4 @@ export default {
   fontSmall: 18,
   fontSmaller: 16,
   fontBig: 36,
-}
+};

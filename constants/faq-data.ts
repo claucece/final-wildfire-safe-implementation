@@ -77,7 +77,7 @@ export const FAQ_DATA: { title: string; items: FAQItem[] }[] = [
       },
     ],
   },
-{
+  {
     title: "App & Privacy",
     items: [
       {

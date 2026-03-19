@@ -3,7 +3,7 @@
 export default {
   primary: "#6B4E3D",
   secondary: "#FFE5E0",
-  grey : "#5E5D5E",
+  grey: "#5E5D5E",
   dark: "#1A1A1A",
   indexPrimary: "#C46A2B",
   blackDepp: "#1A1A1A",
@@ -33,21 +33,21 @@ export default {
   gradientDarkLight: "rgba(100, 10, 100, 0.4)",
 
   gradientTestLight: "rgba(135, 130, 95, 0.85)",
-  gradientTest:      "rgba(110, 115, 175, 0.88)",
-  gradientTestDark:  "rgba(70, 75, 130, 0.95)",
+  gradientTest: "rgba(110, 115, 175, 0.88)",
+  gradientTestDark: "rgba(70, 75, 130, 0.95)",
 
   gradientBlue: "rgba(76, 102, 159, 0)",
   gradientBlueLight: "rgba(59, 89, 152, 0)",
   gradientBlueDark: "rgba(25, 47, 93, 0.88)",
 
-  gradientResourcesLight: "rgba(185, 125, 90, 0.86)",  // warm orange
-  gradientResources:      "rgba(120, 70, 95, 0.50)",   // reddish-magenta bridge
-  gradientResourcesDark:  "rgba(60, 20, 95, 0.96)",    // deep purple
+  gradientResourcesLight: "rgba(185, 125, 90, 0.86)", // warm orange
+  gradientResources: "rgba(120, 70, 95, 0.50)", // reddish-magenta bridge
+  gradientResourcesDark: "rgba(60, 20, 95, 0.96)", // deep purple
 
   // Home gradient
-  gradientMainLight: "rgba(175, 80, 40, 0.82)",   // dark orange
-  gradientMain:      "rgba(150, 65, 55, 0.85)",   // red-orange transition
-  gradientMainDark:  "rgba(75, 30, 95, 0.95)",    // deep purple
+  gradientMainLight: "rgba(175, 80, 40, 0.82)", // dark orange
+  gradientMain: "rgba(150, 65, 55, 0.85)", // red-orange transition
+  gradientMainDark: "rgba(75, 30, 95, 0.95)", // deep purple
 
   mainTitle: "#CFA2BE",
   mainSubTitle: "#4A1A1A",
@@ -62,4 +62,4 @@ export default {
   transparentF: "rgba(0,0,0,0.8)",
 
   redToasy: "#DC3545",
-}
+};

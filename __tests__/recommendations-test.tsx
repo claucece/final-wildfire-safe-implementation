@@ -90,6 +90,15 @@ jest.mock("@expo/vector-icons", () => {
   };
 });
 
+jest.mock("expo-notifications", () => ({
+  requestPermissionsAsync: jest.fn().mockResolvedValue({ status: "granted" }),
+  getPermissionsAsync: jest.fn().mockResolvedValue({ status: "granted" }),
+  setNotificationChannelAsync: jest.fn().mockResolvedValue(null),
+  scheduleNotificationAsync: jest.fn().mockResolvedValue(null),
+  cancelAllScheduledNotificationsAsync: jest.fn().mockResolvedValue(null),
+  AndroidImportance: { MAX: 5 },
+}));
+
 const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
 
 describe("<Recommendations />", () => {

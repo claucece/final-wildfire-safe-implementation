@@ -98,7 +98,10 @@ exports[`<About /> matches snapshot 1`] = `
             "top": 10,
             "zIndex": 10,
           },
-          undefined,
+          {
+            "marginLeft": 300,
+            "marginTop": 10,
+          },
         ]
       }
     >

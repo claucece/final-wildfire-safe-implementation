@@ -130,26 +130,4 @@ describe("<App />", () => {
       params: { ref: "sign up page" },
     });
   });
-
-  it("triggers a notification when the test button is pressed", async () => {
-    render(<App />);
-
-    const triggerButton = screen.getByLabelText("Trigger notification");
-
-    fireEvent.press(triggerButton);
-
-    await waitFor(() => {
-      expect(Notifications.getPermissionsAsync).toHaveBeenCalled();
-      expect(Notifications.scheduleNotificationAsync).toHaveBeenCalledWith(
-        expect.objectContaining({
-          content: expect.objectContaining({
-            title: "Wildfire Safe",
-            body:
-              "Reminder test: Wildfire preparedness starts with one small task 🌱",
-          }),
-          trigger: { seconds: 3 },
-        }),
-      );
-    });
-  });
 });

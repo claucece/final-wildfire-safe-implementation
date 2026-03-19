@@ -1,37 +1,37 @@
 export interface PrepareTaskType {
-    id: number;
-    title: string;
-    description: string;
-    why: string;
-    steps: string;
+  id: number;
+  title: string;
+  description: string;
+  why: string;
+  steps: string;
 }
 
 export const PREPARE_TASK_DATA: PrepareTaskType[] = [
-    {
-        id: 1,
-        title: "Understand Wildfire Risk",
-        description:
-	"Let's understand wildfire!\n\nHere, you will build a clear picture of your wildfire exposure: local fuels, terrain, seasonal patterns, and how warnings are issued where you live. Understanding your risk ahead of time helps you make fast, confident decisions during fire weather and reduces the chance of delayed evacuation.",
-        why:
-          "Wildfires can spread quickly and unpredictably due to wind, slope, and fuel conditions. Risk awareness reduces uncertainty and supports timely, calm action, especially when warnings and information arrive quickly.\n\nLet's now explore steps you can take when wildfires come.",
-        steps: [
-          "Identify your location and note nearby vegetation (grassland, scrubs) and slopes.",
-          "Check whether your area has a defined wildfire season and what months are highest risk.",
-          "Find at least two trusted local sources for fire updates (fire service, meteorology).",
-          "Decide a simple household rule for alerts: 'If an evacuation warning is issued, we prepare to leave immediately'.",
-          "Write down one primary and one backup meeting point for household members.",
-        ],
-        tips: [
-          "Keep risk information simple: focus on where you are, how you would leave, and who you would contact.",
-          "Avoid information overload: choose a small number of trusted sources and ignore rumor-driven updates.",
-          "If you live with others, align expectations early: shared plans reduce stress later.",
-        ],
-    },
-    {
-        id: 2,
-        title: "Create an Emergency Kit",
-        description: "Prepare a compact emergency kit so you can leave quickly and stay safe for at least 24–72 hours. A good kit covers essentials like water, food, medications, documents, communication, and basic first aid, so evacuation is faster and less stressful.",
-        why: "During wildfire evacuations, time is limited and services may be disrupted. Smoke and stress can also worsen health conditions. Having a ready kit reduces panic, prevents forgotten essentials (like medication), and helps you stay safe and informed if roads are blocked or power and mobile networks fail.",
+  {
+    id: 1,
+    title: "Understand Wildfire Risk",
+    description:
+      "Let's understand wildfire!\n\nHere, you will build a clear picture of your wildfire exposure: local fuels, terrain, seasonal patterns, and how warnings are issued where you live. Understanding your risk ahead of time helps you make fast, confident decisions during fire weather and reduces the chance of delayed evacuation.",
+    why: "Wildfires can spread quickly and unpredictably due to wind, slope, and fuel conditions. Risk awareness reduces uncertainty and supports timely, calm action, especially when warnings and information arrive quickly.\n\nLet's now explore steps you can take when wildfires come.",
+    steps: [
+      "Identify your location and note nearby vegetation (grassland, scrubs) and slopes.",
+      "Check whether your area has a defined wildfire season and what months are highest risk.",
+      "Find at least two trusted local sources for fire updates (fire service, meteorology).",
+      "Decide a simple household rule for alerts: 'If an evacuation warning is issued, we prepare to leave immediately'.",
+      "Write down one primary and one backup meeting point for household members.",
+    ],
+    tips: [
+      "Keep risk information simple: focus on where you are, how you would leave, and who you would contact.",
+      "Avoid information overload: choose a small number of trusted sources and ignore rumor-driven updates.",
+      "If you live with others, align expectations early: shared plans reduce stress later.",
+    ],
+  },
+  {
+    id: 2,
+    title: "Create an Emergency Kit",
+    description:
+      "Prepare a compact emergency kit so you can leave quickly and stay safe for at least 24–72 hours. A good kit covers essentials like water, food, medications, documents, communication, and basic first aid, so evacuation is faster and less stressful.",
+    why: "During wildfire evacuations, time is limited and services may be disrupted. Smoke and stress can also worsen health conditions. Having a ready kit reduces panic, prevents forgotten essentials (like medication), and helps you stay safe and informed if roads are blocked or power and mobile networks fail.",
     steps: [
       "Choose your kit format: one backpack per person or one household grab-bin.",
       "Pack essentials for 24–72 hours: water, non-perishable food, flashlight, power bank + charging cable, and a battery radio.",
@@ -45,11 +45,12 @@ export const PREPARE_TASK_DATA: PrepareTaskType[] = [
       "Prioritize medications: missing essential meds is one of the most common evacuation problems.",
       "Include at least one N95/FFP2 mask per person: smoke exposure can be severe even far from the fire.",
     ],
-    },
-    {
+  },
+  {
     id: 3,
     title: "Prepare your Home",
-    description: "Reduce the chance your home is harmed during a wildfire by limiting ember entry points and removing flammable materials near it. Small actions (cleaning gutters and clearing the first few meters around your home) can significantly improve safety and reduce damage risk.",
+    description:
+      "Reduce the chance your home is harmed during a wildfire by limiting ember entry points and removing flammable materials near it. Small actions (cleaning gutters and clearing the first few meters around your home) can significantly improve safety and reduce damage risk.",
     why: "Most homes harmed in wildfires ignite from wind-driven embers rather than direct flames. Embers can travel far ahead of the fire front and accumulate on roofs, decks, vents, and near doors. Preparing your home in advance makes it more resilient and also gives firefighters a safer structure to defend.",
     steps: [
       "Clear the immediate area around your home: remove dry leaves, wood piles, cardboard, and flammable furniture.",
@@ -70,8 +71,7 @@ export const PREPARE_TASK_DATA: PrepareTaskType[] = [
     title: "Plan Evacuation & Communication",
     description:
       "Make a simple evacuation plan so everyone in your household knows when to leave, where to go, and how to reconnect if separated. Planning ahead reduces panic, prevents delays, and helps you act quickly when wildfire warnings escalate.",
-    why:
-      "Wildfire evacuations can happen fast, and official alerts may come with limited time to react. Roads can become congested or blocked, and phone networks may fail. A clear plan (routes, meeting points, and communication rules) helps your household evacuate earlier and more safely.",
+    why: "Wildfire evacuations can happen fast, and official alerts may come with limited time to react. Roads can become congested or blocked, and phone networks may fail. A clear plan (routes, meeting points, and communication rules) helps your household evacuate earlier and more safely.",
     steps: [
       "Choose two evacuation routes: a primary route and a backup route in case roads are blocked or traffic is heavy.",
       "Set two meeting points: one nearby (local) and one outside the area (safer fallback).",
@@ -91,8 +91,7 @@ export const PREPARE_TASK_DATA: PrepareTaskType[] = [
     title: "Health, Smoke & Air Quality Safety",
     description:
       "Prepare to protect your health during wildfire smoke events by reducing indoor pollution, using proper masks, and monitoring air quality. Smoke can travel far from fires and may affect breathing, sleep, and heart health even when evacuation is not required.",
-    why:
-      "Wildfire smoke contains fine particles (PM2.5) that can irritate lungs and worsen asthma, allergies, and cardiovascular conditions. Smoke exposure is often longer-lasting than the fire itself. Planning ahead helps you act early (before symptoms appear) and protects vulnerable people such as children, older adults, and those with respiratory conditions.",
+    why: "Wildfire smoke contains fine particles (PM2.5) that can irritate lungs and worsen asthma, allergies, and cardiovascular conditions. Smoke exposure is often longer-lasting than the fire itself. Planning ahead helps you act early (before symptoms appear) and protects vulnerable people such as children, older adults, and those with respiratory conditions.",
     steps: [
       "Learn how to check air quality where you live (AQI / PM2.5) using a trusted app or official meteorology source.",
       "Prepare a clean-air space at home: choose one room, close windows, and use a HEPA air purifier if possible.",
@@ -111,8 +110,7 @@ export const PREPARE_TASK_DATA: PrepareTaskType[] = [
     title: "Stay Informed & Act Calmly",
     description:
       "Set up a simple system to receive reliable wildfire alerts and respond without panic. During fire events, information changes fast: having trusted sources and clear rules helps you act early and avoid confusion or rumor-driven decisions.",
-    why:
-      "Wildfire emergencies often involve uncertainty, conflicting information, and rapidly changing conditions. Stress and information overload can delay evacuation or lead to unsafe choices. A calm, structured approach (trusted alerts and predefined actions) reduces risk and helps your household make faster, safer decisions.",
+    why: "Wildfire emergencies often involve uncertainty, conflicting information, and rapidly changing conditions. Stress and information overload can delay evacuation or lead to unsafe choices. A calm, structured approach (trusted alerts and predefined actions) reduces risk and helps your household make faster, safer decisions.",
     steps: [
       "Choose two trusted official information sources and enable push notifications.",
       "Agree on a household communication rule: who checks updates, who contacts others, and where information is shared (group chat).",
@@ -125,5 +123,5 @@ export const PREPARE_TASK_DATA: PrepareTaskType[] = [
       "Share one clear message with household members: where you are going and how to reach you.",
       "If it feels unsafe to stay, leave early even if you have not received an official order.",
     ],
-  }
+  },
 ];

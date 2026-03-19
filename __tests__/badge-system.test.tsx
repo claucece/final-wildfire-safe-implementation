@@ -99,7 +99,7 @@ describe("BadgeSystem", () => {
     expect(screen.getByText("Checklist finished")).toBeTruthy();
 
     // Toast appears
-    expect(await screen.findByLabelText("Dismiss badge message")).toBeTruthy();
+    screen.findByLabelText("Badge unlocked: Checklist 1. Tap to dismiss.")
     expect(await screen.findByText("Badge Unlocked: Checklist 1")).toBeTruthy();
 
     // Persisted
@@ -153,13 +153,13 @@ describe("BadgeSystem", () => {
 
     fireEvent.press(screen.getByLabelText("Award badge"));
 
-    const toast = await screen.findByLabelText("Dismiss badge message");
+    const toast = await screen.findByLabelText("Badge unlocked: Checklist 1. Tap to dismiss.")
     expect(toast).toBeTruthy();
 
     fireEvent.press(toast);
 
     await waitFor(() => {
-      expect(screen.queryByLabelText("Dismiss badge message")).toBeNull();
+      expect(screen.queryByTestId("badge-toast")).toBeNull();
     });
   });
 

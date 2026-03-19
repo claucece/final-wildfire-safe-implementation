@@ -242,7 +242,10 @@ const TESTS_DATA = [
           { key: "good", label: "Good: open windows if needed" },
           { key: "moderate", label: "Moderate: limit long outdoor exertion" },
           { key: "unhealthy", label: "Unhealthy: stay inside / use purifier" },
-          { key: "hazardous", label: "Hazardous: avoid going outside completely" },
+          {
+            key: "hazardous",
+            label: "Hazardous: avoid going outside completely",
+          },
         ],
         correctOrderKeys: ["good", "moderate", "unhealthy", "hazardous"],
       },

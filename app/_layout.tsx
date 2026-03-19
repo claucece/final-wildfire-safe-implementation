@@ -36,7 +36,7 @@ export default function BaseLayout() {
   useEffect(() => {
     if (!__DEV__) return;
 
-    const CLEAR_BADGES_ON_START = true; // Debugging: set to true only when reset
+    const CLEAR_BADGES_ON_START = false; // Debugging: set to true only when reset
 
     if (!CLEAR_BADGES_ON_START) return;
 

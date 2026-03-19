@@ -7,10 +7,10 @@ import healthImage from "@/assets/app-images/health-image.webp";
 import booksImage from "@/assets/app-images/books-image.webp";
 
 export default [
-    wildfireRiskImage,
-    mediKitImage,
-    homeTaskImage,
-    communicationImage,
-    healthImage,
-    booksImage,
+  wildfireRiskImage,
+  mediKitImage,
+  homeTaskImage,
+  communicationImage,
+  healthImage,
+  booksImage,
 ];
