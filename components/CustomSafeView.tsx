@@ -8,20 +8,20 @@ import { styles } from "@/styles/App.styles"; // Custom styles
 
 // Props for the CustomSafeView component
 interface CustomSafeViewProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 // CustomSafeView component to ensure content is properly positioned
 const CustomSafeView = ({ children }: CustomSafeViewProps) => {
-    return (
-        <SafeAreaView style={[styles.safeViewContainer]}>
-            {typeof children === "string" ? (
-                <Text>{children}</Text> // Wrap strings in a Text component
-            ) : (
-                children
-            )}
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView style={[styles.safeViewContainer]}>
+      {typeof children === "string" ? (
+        <Text>{children}</Text> // Wrap strings in a Text component
+      ) : (
+        children
+      )}
+    </SafeAreaView>
+  );
 };
 
 export default CustomSafeView;

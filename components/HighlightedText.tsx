@@ -8,17 +8,7 @@ type Props = {
   highlightStyle?: StyleProp<TextStyle>;
 };
 
-/**
- * HighlightedText
- *
- * Usage:
- * <HighlightedText
- *   text={item.body}
- *   highlights={["wind", "slope", "fuel"]}
- *   style={styles.pixelPrepareTaskSubtleText}
- *   highlightStyle={{ color: Colors.yellow, fontWeight: "700" }}
- * />
- */
+// Highlight text
 export default function HighlightedText({
   text,
   highlights,
@@ -46,7 +36,7 @@ export default function HighlightedText({
     <Text style={style}>
       {parts.map((part, idx) => {
         const isHighlighted = highlights.some(
-          (h) => h.toLowerCase() === part.toLowerCase()
+          (h) => h.toLowerCase() === part.toLowerCase(),
         );
 
         return (
