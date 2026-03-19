@@ -28,6 +28,8 @@ import homeImage from "@/assets/app-images/home-image.webp";
 const App = () => {
   // Get the current orientation of the device for responsive design
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
 
   // Initialize the router for navigation between pages
   const router = useRouter();
@@ -46,7 +48,7 @@ const App = () => {
       };
       navigate();
     },
-    [router]
+    [router],
   );
 
   return (
@@ -56,8 +58,7 @@ const App = () => {
         source={homeImage}
         contentFit="cover"
         placeholder={{
-          blurhash:
-            BLUR_HASH_DATA[0]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+          blurhash: BLUR_HASH_DATA[0]?.hash || "LSBDBHWZIpbXpMR-xaS2$+R$WFW?",
         }} // Fallback to default blurhash
         accessibilityLabel="Cozy background image depicting a serene retro environment"
         accessible // Makes the image accessible for screen readers
@@ -65,9 +66,7 @@ const App = () => {
         style={[
           styles.imageContainer,
           // Apply responsive image styles based on orientation (portrait/landscape)
-          orientation === "PORTRAIT"
-            ? styles.portraitImage
-            : styles.landscapeImage,
+          isPortrait ? styles.portraitImage : styles.landscapeImage,
         ]}
       />
 
@@ -79,9 +78,7 @@ const App = () => {
           {/* Titles section */}
           <View
             style={[
-              orientation === "PORTRAIT"
-                ? styles.textContainer
-                : styles.landscapeTextContainer,
+              isPortrait ? styles.textContainer : styles.landscapeTextContainer,
               styles.pixelPanel,
             ]}
             accessibilityRole="header"
@@ -89,12 +86,13 @@ const App = () => {
             {/* About/information button */}
             <Pressable
               style={[
-                orientation === "PORTRAIT"
+                isPortrait
                   ? styles.pressableAboutContainer
                   : styles.pressableAboutContainerLandscape,
               ]}
               onPress={() => router.push("info/about")} // Direct to the about page
-              accessibilityLabel="Get information" // Accessibility label for screen readers
+              accessibilityLabel="About this app" // Accessibility label for screen readers
+              accessibilityHint="Opens information about this app."
               accessibilityRole="button"
             >
               <Feather name="message-square" size={25} color="white" />
@@ -113,7 +111,7 @@ const App = () => {
 
           {/* Buttons for authentication */}
           <View style={styles.buttonContainer}>
-            {/* Log In button with accessibilityHint */}
+            {/* Log In button */}
             <CustomNavigationButton
               title="Log In"
               route="/auth/login"
@@ -123,7 +121,7 @@ const App = () => {
               handleNavigation={handleNavigation}
             />
 
-            {/* Sign Up button with accessibilityHint */}
+            {/* Sign Up button */}
             <CustomNavigationButton
               title="Sign Up"
               route="/auth/signup"

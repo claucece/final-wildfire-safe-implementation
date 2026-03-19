@@ -68,7 +68,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.shadowBg,
     padding: 20,
-    marginTop: 60,
+    marginTop: 40,
+    marginBottom: 20,
   },
   appName: {
     fontSize: Sizes.fontSizeTitle,
