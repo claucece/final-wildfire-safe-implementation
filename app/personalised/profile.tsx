@@ -54,6 +54,7 @@ const roundTo = (value: number, decimals = 2) => {
   return Math.round(value * p) / p;
 };
 
+// The user profile: preferences, alerts and badges
 const Profile = () => {
   const router = useRouter();
   const orientation = useOrientation();
@@ -433,8 +434,8 @@ const Profile = () => {
             <Text style={styles.profileSectionTitle}>Help & info</Text>
 
             <Text style={[styles.profileSectionSubtitle, { marginTop: 8 }]}>
-	      Version 1.0.0
-	    </Text>
+              Version 1.0.0
+            </Text>
 
             {/* About */}
             <Pressable
