@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Modal,
   ScrollView,
-  Platform
+  Platform,
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
@@ -34,6 +34,10 @@ import signUpImage from "@/assets/app-images/sign-up-image.webp";
 
 export default function SignUp() {
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
+
+  // Form to signup
   const { formData, handleInputChange } = useForm();
 
   const [error, setError] = useState<string | null>(null);
@@ -70,7 +74,11 @@ export default function SignUp() {
 
     try {
       const { email, password, username } = formData;
-      const { success, errorMessage } = await signUpUser(email, password, username);
+      const { success, errorMessage } = await signUpUser(
+        email,
+        password,
+        username,
+      );
 
       if (success) {
         setModalVisible(true);
@@ -97,27 +105,50 @@ export default function SignUp() {
       <Image
         source={signUpImage}
         contentFit="cover"
-        placeholder={{ blurhash: BLUR_HASH_DATA[1]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y" }}
+        placeholder={{
+          blurhash: BLUR_HASH_DATA[1]?.hash || "L2FF24Ed?QMU0CvC=:XT2|CQ$+WG",
+        }}
         accessibilityLabel="Cozy background image depicting a serene retro environment for signup"
         accessible
         accessibilityRole="image"
         style={[
           styles.imageContainer,
-          orientation === 'PORTRAIT' ? styles.portraitImage : styles.landscapeImage
+          orientation === "PORTRAIT"
+            ? styles.portraitImage
+            : styles.landscapeImage,
         ]}
       />
 
       <CustomGradient colors={[Colors.gradientMid, Colors.gradientDarkLight]}>
-        <SafeAreaView style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}>
+        <SafeAreaView
+          style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}
+        >
           {/* Back Button */}
-          <BackButton orientation={orientation} size={orientation === 'PORTRAIT' ? 40 : 20} />
+          <BackButton
+            orientation={orientation}
+            customStyle={isPortrait ? styles.buttonNorm : styles.buttonLand}
+            size={isPortrait ? 40 : 50}
+          />
 
           {/* Title Section */}
-          <View style={[
+          <View
+            style={[
               styles.pixelPanel,
-              orientation === 'PORTRAIT' ? styles.textContainerAuth : styles.textContainerAuthLandscape
-            ]}>
-            <Text style={[styles.mainTitle, styles.mainTitleAuth, styles.pixelTitle]}>Sign Up</Text>
+              orientation === "PORTRAIT"
+                ? styles.textContainerAuth
+                : styles.textContainerAuthLandscape,
+            ]}
+          >
+            <Text
+              style={[
+                styles.mainTitle,
+                styles.mainTitleAuth,
+                styles.pixelTitle,
+                isPortrait ? styles.buttonNorm : styles.pixelTitleLand,
+              ]}
+            >
+              Sign Up
+            </Text>
             <Text style={[styles.pixelSubtleText]}>
               Start your preparedness progress
             </Text>
@@ -128,11 +159,18 @@ export default function SignUp() {
             <Modal
               transparent
               animationType="fade"
-              supportedOrientations={['portrait', 'landscape']}
+              supportedOrientations={["portrait", "landscape"]}
             >
               <View style={styles.modalOverlay}>
-                <View style={styles.modalContainer} accessible accessibilityRole="alert">
-                  <Text style={styles.modalText} accessibilityLabel="Sign-Up Successful. Redirecting now.">
+                <View
+                  style={styles.modalContainer}
+                  accessible
+                  accessibilityRole="alert"
+                >
+                  <Text
+                    style={styles.modalText}
+                    accessibilityLabel="Sign-Up Successful. Redirecting now."
+                  >
                     Sign-Up Successful! Redirecting...
                   </Text>
                 </View>
@@ -141,49 +179,72 @@ export default function SignUp() {
           )}
 
           {/* Form Inputs */}
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          {/* Ensure the login form remains scrollable even when the keyboard pops */}
-          <ScrollView
-            contentContainerStyle={styles.formScroll}
-            keyboardShouldPersistTaps="handled"
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
-          <View style={[styles.pixelPanel, styles.formPanel]}>
-            {["username", "email", "password", "confirmPassword"].map((field, index) => (
-              <TextInput
-                key={index}
-                style={[
-                  orientation === 'PORTRAIT' ? styles.input : styles.inputLandscape
-                ]}
-                placeholder={field === "confirmPassword" ? "Confirm Password" : `Your ${field.charAt(0).toUpperCase() + field.slice(1)}`}
-                placeholderTextColor="#EAEAEA"
-                value={formData[field as keyof typeof formData]}
-                onChangeText={(value) => handleInputChange(field as keyof typeof formData, value)}
-                secureTextEntry={field.toLowerCase().includes("password")}
-                autoCapitalize={["email", "password", "confirmPassword"].includes(field) ? "none" : "words"}
-                keyboardType={field === "email" ? "email-address" : "default"}
-                textContentType={["password", "confirmPassword"].includes(field) ? "oneTimeCode" : "none"}
-                accessibilityLabel={field}
-                maxLength={field === "username" ? 8 : undefined} // Limit length of username
-              />
-            ))}
+            {/* Ensure the login form remains scrollable even when the keyboard pops */}
+            <ScrollView
+              contentContainerStyle={styles.formScroll}
+              keyboardShouldPersistTaps="handled"
+            >
+              <View style={[styles.pixelPanel, styles.formPanel]}>
+                {["username", "email", "password", "confirmPassword"].map(
+                  (field, index) => (
+                    <TextInput
+                      key={index}
+                      style={[
+                        isPortrait ? styles.input : styles.inputLandscape,
+                      ]}
+                      placeholder={
+                        field === "confirmPassword"
+                          ? "Confirm Password"
+                          : `Your ${field.charAt(0).toUpperCase() + field.slice(1)}`
+                      }
+                      placeholderTextColor="#EAEAEA"
+                      value={formData[field as keyof typeof formData]}
+                      onChangeText={(value) =>
+                        handleInputChange(field as keyof typeof formData, value)
+                      }
+                      secureTextEntry={field.toLowerCase().includes("password")}
+                      autoCapitalize={
+                        ["email", "password", "confirmPassword"].includes(field)
+                          ? "none"
+                          : "words"
+                      }
+                      keyboardType={
+                        field === "email" ? "email-address" : "default"
+                      }
+                      textContentType={
+                        ["password", "confirmPassword"].includes(field)
+                          ? "oneTimeCode"
+                          : "none"
+                      }
+                      accessibilityLabel={field}
+                      maxLength={field === "username" ? 8 : undefined} // Limit length of username
+                    />
+                  ),
+                )}
 
-            {/* Error Handling */}
-            {error && <Text style={styles.errorText}>{error}</Text>}
-            {loading ? (
-              <ActivityIndicator size="small" style={styles.activityIndicator} />
-            ) : (
-              <CustomAnimatedButton
-                onPress={handleSignUp}
-                title="Sign Up"
-                textStyles={styles.buttonText}
-                accessibilityLabel="Sign Up button"
-              />
-            )}
-          </View>
-          </ScrollView>
+                {/* Error Handling */}
+                {error && <Text style={styles.errorText}>{error}</Text>}
+                {loading ? (
+                  <ActivityIndicator
+                    size="small"
+                    style={styles.activityIndicator}
+                  />
+                ) : (
+                  <CustomAnimatedButton
+                    onPress={handleSignUp}
+                    title="Sign Up"
+                    textStyles={styles.buttonText}
+                    accessibilityLabel="Sign Up button"
+                  />
+                )}
+              </View>
+            </ScrollView>
           </KeyboardAvoidingView>
           {/* Light-themed status bar */}
-          <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+          <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
         </SafeAreaView>
       </CustomGradient>
     </View>

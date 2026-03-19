@@ -97,9 +97,16 @@ export const styles = StyleSheet.create({
     color: Colors.indexPrimary,
     fontWeight: "bold",
   },
+  pixelTitleNorm: {
+    marginTop: 5,
+  },
+  pixelTitleLand: {
+    marginTop: 15,
+  },
   pixelSubtleText: {
     marginTop: 10,
     textAlign: "center",
+    color: Colors.indexPrimary,
     textShadowColor: "#000",
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 0,
@@ -130,6 +137,13 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginBottom: 20,
+  },
+  buttonLand: {
+    marginTop: 20,
+    marginLeft: 10,
+  },
+  buttonNorm: {
+    marginTop: 10,
   },
   textCenter: {
     textAlign: "center",
