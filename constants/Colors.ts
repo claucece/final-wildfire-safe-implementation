@@ -25,6 +25,7 @@ export default {
   highlightYellow: "#F2C14E",
   pinkMuted: "#FE91FE3F",
   swipe: "#663262",
+  orangeLogo: "#F2C14E",
 
   gradientDark: "rgba(150, 10, 100, 0.4)",
   gradientMid: "rgba(0, 0, 0, 0.3)",

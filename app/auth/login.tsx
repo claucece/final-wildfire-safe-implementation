@@ -116,6 +116,7 @@ export default function Login() {
             orientation={orientation}
             customStyle={isPortrait ? styles.buttonNorm : styles.buttonLand}
             size={isPortrait ? 40 : 50}
+            accessibilityLabel="Go back"
           />
 
           {/* Title container */}

@@ -9,36 +9,45 @@ import {
   FlatList,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  useWindowDimensions,
+  ScrollView,
 } from "react-native";
 
 import { useLocalSearchParams } from "expo-router";
+
 import LottieView from "lottie-react-native";
-import { Feather } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+
+// Icons
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 import CustomGradient from "@/components/CustomGradient";
 import BackButton from "@/components/CustomBackButton";
 import HighlightedText from "@/components/HighlightedText";
 
+// Custom styles
 import Colors from "@/constants/Colors";
 import { styles } from "@/styles/App.styles";
 
 import PREPARE_TASK_IMAGES from "@/constants/prepare-tasks-images";
 import { PREPARE_TASK_DATA } from "@/constants/prepare-tasks-data";
 
+// Custom hooks
 import { useOrientation } from "@/hooks/useOrientation";
 import { useBrightness } from "@/hooks/useBrightness";
 
-// Get width and height
-const { width } = Dimensions.get("window");
-const { height: screenHeight } = Dimensions.get("window");
-
-// Each session
+// Each session as a page
 type Page = { key: string; title: string; body: string };
 
+// The individual prepare task
 const PrepareTask = () => {
-  const { id } = useLocalSearchParams<{ id: string }>();
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
+
+  // Get width and height
+  const { width, height: screenHeight } = useWindowDimensions();
+
+  const { id } = useLocalSearchParams<{ id: string }>();
   const screenBrightness = useBrightness();
 
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -54,9 +63,10 @@ const PrepareTask = () => {
 
   const task = useMemo(
     () => PREPARE_TASK_DATA.find((t) => String(t.id) === String(id)),
-    [id]
+    [id],
   );
 
+  // The individual page information template
   const pages: Page[] = useMemo(() => {
     if (!task) return [];
     return [
@@ -75,8 +85,11 @@ const PrepareTask = () => {
     ];
   }, [task]);
 
+  // Page total and id
   const total = Math.max(1, pages.length);
   const [pageIndex, setPageIndex] = useState(0);
+
+  // The concrete list reference
   const listRef = useRef<FlatList<Page>>(null);
 
   const onMomentumEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -84,6 +97,7 @@ const PrepareTask = () => {
     setPageIndex(Math.max(0, Math.min(idx, total - 1)));
   };
 
+  // Progress info
   const progress = (pageIndex + 1) / total; // 0..1
   const progressPct = Math.round(progress * 100);
 
@@ -95,14 +109,20 @@ const PrepareTask = () => {
   const lottieSize = 26;
   const lottieLeft = Math.max(
     0,
-    Math.min(BAR_WIDTH - lottieSize, BAR_WIDTH * progress - lottieSize / 2)
+    Math.min(BAR_WIDTH - lottieSize, BAR_WIDTH * progress - lottieSize / 2),
   );
 
+  // In case there is no task
   if (!task) {
     return (
       <View style={styles.container}>
-        <SafeAreaView style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}>
-          <BackButton orientation={orientation} size={orientation === "PORTRAIT" ? 60 : 40} />
+        <SafeAreaView
+          style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}
+        >
+          <BackButton
+            orientation={orientation}
+            size={isPortrait ? 50 : 30}
+          />
           <View style={[styles.pixelPanel, { marginTop: 12 }]}>
             <Text style={[styles.pixelSubtleText, { textAlign: "center" }]}>
               Task not found.
@@ -122,32 +142,40 @@ const PrepareTask = () => {
         accessibilityRole="image"
       >
         <CustomGradient colors={gradientColors}>
-          <SafeAreaView style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}>
+          <SafeAreaView
+            style={[styles.safeAreaContainer, styles.safeAreaContainerAuth]}
+          >
             <BackButton
               orientation={orientation}
-              size={orientation === "PORTRAIT" ? 50 : 30}
+              size={isPortrait ? 40 : 30}
+              customStyle={isPortrait ? styles.buttonNorm : styles.buttonLand}
               accessibilityLabel="Go back"
             />
 
             {/* Top panel: title and progress */}
             <View style={[styles.pixelPreparePanel]}>
-              <Text style={[styles.pixelPrepareTitle]}>
-                {task.title}
-              </Text>
-              <Text testID="progress-meta" style={styles.pixelPrepareSubtleText}>
+              <Text style={[styles.pixelPrepareTitle]}>{task.title}</Text>
+              <Text
+                testID="progress-meta"
+                style={styles.pixelPrepareSubtleText}
+              >
                 {pageIndex + 1}/{total}{" "}
-              <Feather name="chevrons-right" size={14} color="#F2C14E" />{" "}
+                <Feather name="chevrons-right" size={14} color={Colors.orangeLogo} />{" "}
                 {progressPct}%{" "}
-              <Feather name="clock" size={14} color="#F2C14E" />{" "}
-                {minutesLeft} min left
+                <Feather name="clock" size={14} color={Colors.orangeLogo} /> {minutesLeft}{" "}
+                min left
               </Text>
 
               {/* Progress bar */}
               <View style={styles.progressBarOuter}>
-                <View style={[styles.progressBarFill, { width: `${progressPct}%` }]} />
+                <View
+                  style={[styles.progressBarFill, { width: `${progressPct}%` }]}
+                />
 
                 {!reduceMotion && (
-                  <View style={[styles.progressLottieWrap, { left: lottieLeft }]}>
+                  <View
+                    style={[styles.progressLottieWrap, { left: lottieLeft }]}
+                  >
                     <LottieView
                       source={require("../../assets/animations/animation.json")}
                       autoPlay
@@ -162,7 +190,7 @@ const PrepareTask = () => {
 
             {/* Horizontal pages that the user scrolls left */}
             <FlatList
-	      testID="pages-list"
+              testID="pages-list"
               ref={listRef}
               data={pages}
               keyExtractor={(p) => p.key}
@@ -175,35 +203,74 @@ const PrepareTask = () => {
                 <View
                   style={[
                     styles.preparePage,
-                    { width: width / 1.1, height: screenHeight * 0.55 }
-                    ]}
->
-                  <View style={[styles.pixelPrepareTaskPanel, { height: "100%" }]}>
-                    <Text style={[styles.pixelPrepareTaskTitle]}>
-                      {item.title}
-                    </Text>
+                    {
+                      width: isPortrait
+		        ? width / 1.1
+			: width / 1.3,
+                      height: isPortrait
+                        ? screenHeight * 0.6
+                        : screenHeight * 0.75,
+                    },
+                  ]}
+                >
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                  >
+                    <View
+                      style={[styles.pixelPrepareTaskPanel]}
+                    >
+                      <Text style={[styles.pixelPrepareTaskTitle]}>
+                        {item.title}
+                      </Text>
 
-                    <HighlightedText
-                      text={item.body}
-                      highlights={["wind", "wildfires", "wildfire", "evacuations", "evacuation", "alerts", "slopes", "slope", "fuels", "fuel", "medication", "firefighters"]}
-                      style={styles.pixelPrepareTaskSubtleText}
-                      highlightStyle={{ fontWeight: "800" }}
-                    />
-                    {index < 3 && (
-                      <View style={styles.swipeRow}>
-                        <Text style={styles.prepareTaskSwipeText}>Swipe left to continue</Text>
-                        <Ionicons name="arrow-forward" size={18} color={Colors.subtitlePrimary} />
-                      </View>
-                    )}
-                    {index == 3 && (
-                     <View style={styles.swipeRow}>
-                       <Text style={styles.prepareTaskSwipeText}>
-                         End of the task!{"\n"}You can return to the main screen!
-                       </Text>
-                       <Feather name="home" size={18} color={Colors.subtitlePrimary} style={styles.homeIconSwipe} />
-                     </View>
-                    )}
-                  </View>
+                      <HighlightedText
+                        text={item.body}
+                        highlights={[
+                          "wind",
+                          "wildfires",
+                          "wildfire",
+                          "evacuations",
+                          "evacuation",
+                          "alerts",
+                          "slopes",
+                          "slope",
+                          "fuels",
+                          "fuel",
+                          "medication",
+                          "firefighters",
+                        ]}
+                        style={styles.pixelPrepareTaskSubtleText}
+                        highlightStyle={{ fontWeight: "800" }}
+                      />
+                      {index < 3 && (
+                        <View style={styles.swipeRow}>
+                          <Text style={styles.prepareTaskSwipeText}>
+                            Swipe left to continue
+                          </Text>
+                          <Ionicons
+                            name="arrow-forward"
+                            size={18}
+                            color={Colors.subtitlePrimary}
+                          />
+                        </View>
+                      )}
+                      {index == pages.length - 1 && (
+                        <View style={styles.swipeRow}>
+                          <Text style={styles.prepareTaskSwipeText}>
+                            End of the task!{"\n"}You can return to the main
+                            screen!
+                          </Text>
+                          <Feather
+                            name="home"
+                            size={18}
+                            color={Colors.subtitlePrimary}
+                            style={styles.homeIconSwipe}
+                          />
+                        </View>
+                      )}
+                    </View>
+                  </ScrollView>
                 </View>
               )}
             />
