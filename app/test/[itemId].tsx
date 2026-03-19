@@ -1,17 +1,19 @@
 import React, { useCallback, useMemo, useState, useEffect } from "react";
 import { View, Text } from "react-native";
+
 import { useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
 
+// Icons
 import { Feather } from "@expo/vector-icons";
 
 import TESTS_DATA from "@/constants/tests-data";
 import Colors from "@/constants/Colors";
 
 import { styles } from "@/styles/App.styles";
-import BackButton from "@/components/CustomBackButton";
 import { useOrientation } from "@/hooks/useOrientation";
 
+import BackButton from "@/components/CustomBackButton";
 import { PixelChecklist } from "@/components/tests/PixelChecklist";
 import { PixelOrderingTask } from "@/components/tests/PixelOrderingTask";
 import { useBadges } from "@/components/badges/BadgeSystem";
@@ -21,6 +23,7 @@ import { useBadges } from "@/components/badges/BadgeSystem";
 import { BLUR_HASH_DATA } from "@/constants/blur-hash-data";
 import aboutImage from "@/assets/app-images/about-image.webp";
 
+// Each test
 export default function TestDetail() {
   const orientation = useOrientation();
   const { itemId } = useLocalSearchParams<{ itemId: string }>();
@@ -29,17 +32,17 @@ export default function TestDetail() {
   const test = useMemo(() => {
     for (const section of TESTS_DATA) {
       const found = section.data.find(
-        (x: any) => String(x.id) === String(itemId)
+        (x: any) => String(x.id) === String(itemId),
       );
       if (found) return found;
     }
     return null;
   }, [itemId]);
 
-  // checklist state. We need this in order to be able to assign badges
+  // Checklist state. We need this in order to be able to assign badges
   const [checklist, setChecklist] = useState(test?.checklistItems ?? []);
 
-  // keep checklist in sync when test changes
+  // Keep checklist in sync when test changes
   useEffect(() => {
     setChecklist(test?.checklistItems ?? []);
   }, [test?.id]);
@@ -47,7 +50,7 @@ export default function TestDetail() {
   // Toggle functionality
   const toggleItem = (id: string) => {
     setChecklist((prev: any[]) =>
-      prev.map((it) => (it.id === id ? { ...it, done: !it.done } : it))
+      prev.map((it) => (it.id === id ? { ...it, done: !it.done } : it)),
     );
   };
 
@@ -66,12 +69,12 @@ export default function TestDetail() {
         description,
       });
     },
-    [test, hasBadge, awardBadge]
+    [test, hasBadge, awardBadge],
   );
 
   // Keep track if checklist is done and correct
   const checklistCorrect = useMemo(() => {
-    // no items: can't be "correct"
+    // No items: can't be "correct"
     if (checklist.length === 0) return false;
 
     return checklist.every((item: any) => {
@@ -115,8 +118,7 @@ export default function TestDetail() {
         source={aboutImage}
         contentFit="cover"
         placeholder={{
-          blurhash:
-            BLUR_HASH_DATA[3]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+          blurhash: BLUR_HASH_DATA[3]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
         }}
         accessibilityLabel="Cozy background image depicting a fire environment"
         accessible
@@ -142,40 +144,54 @@ export default function TestDetail() {
 
         <View>
           {test.type === "Checklist" && (
-	    <>
-            <PixelChecklist
-              title="Checklist Test"
-              items={checklist}
-              onToggle={toggleItem}
-            />
-            {/* Feedback */}
-            {selectedWrong && (
-	      <View style={styles.feedbackCheckList}>
-	        <Feather name="x-circle" size={18} color={Colors.redToasy} />
-                <Text style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}>
-                  Wrong item!
-                </Text>
-              </View>
-            )}
+            <>
+              <PixelChecklist
+                title="Checklist Test"
+                items={checklist}
+                onToggle={toggleItem}
+              />
+              {/* Feedback */}
+              {selectedWrong && (
+                <View style={styles.feedbackCheckList}>
+                  <Feather name="x-circle" size={18} color={Colors.redToasy} />
+                  <Text
+                    style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}
+                  >
+                    Wrong item!
+                  </Text>
+                </View>
+              )}
 
-            {missedCorrect && !selectedWrong && (
-	      <View style={styles.feedbackCheckList}>
-	        <Feather name="alert-triangle" size={18} color={Colors.highlightYellow} />
-                <Text style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}>
-                You're missing at least one important item.
-                </Text>
-              </View>
-            )}
+              {missedCorrect && !selectedWrong && (
+                <View style={styles.feedbackCheckList}>
+                  <Feather
+                    name="alert-triangle"
+                    size={18}
+                    color={Colors.highlightYellow}
+                  />
+                  <Text
+                    style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}
+                  >
+                    You're missing at least one important item.
+                  </Text>
+                </View>
+              )}
 
-            {checklistCorrect && (
-	      <View style={styles.feedbackCheckList}>
-	        <Feather name="check-circle" size={18} color={Colors.orangeTitle} />
-                <Text style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}>
-                 Great job: checklist completed correctly!
-                </Text>
-              </View>
-             )}
-           </>
+              {checklistCorrect && (
+                <View style={styles.feedbackCheckList}>
+                  <Feather
+                    name="check-circle"
+                    size={18}
+                    color={Colors.orangeTitle}
+                  />
+                  <Text
+                    style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}
+                  >
+                    Great job: checklist completed correctly!
+                  </Text>
+                </View>
+              )}
+            </>
           )}
 
           {test.type === "Drag" && (
