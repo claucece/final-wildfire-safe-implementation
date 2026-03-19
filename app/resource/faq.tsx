@@ -1,8 +1,10 @@
 import React, { useMemo, useState } from "react";
 import { ScrollView, Text, View, Platform, Pressable } from "react-native";
+
 import { StatusBar } from "expo-status-bar";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import BackButton from "@/components/CustomBackButton";
 import CustomGradient from "@/components/CustomGradient";
@@ -11,22 +13,28 @@ import { useOrientation } from "@/hooks/useOrientation";
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
+// The data for the faq
 import { FAQ_DATA } from "@/constants/faq-data";
 
+// The faw
 const FAQ = () => {
   const insets = useSafeAreaInsets();
   const orientation = useOrientation();
+  // Determine if portrait
+  const isPortrait = orientation === "PORTRAIT";
+
   const [openId, setOpenId] = useState<string | null>(null);
 
+  // Get the faq items
   const flatItems = useMemo(() => {
     return FAQ_DATA.flatMap((s) => s.items);
   }, []);
 
   return (
     <View style={styles.container}>
-        <CustomGradient
-                colors={[Colors.pink, Colors.gradientTest, Colors.gradientTestDark]}
-        >
+      <CustomGradient
+        colors={[Colors.pink, Colors.gradientTest, Colors.gradientTestDark]}
+      >
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollViewContainer}
@@ -34,8 +42,9 @@ const FAQ = () => {
           {/* Header */}
           <BackButton
             orientation={orientation}
-            size={orientation === "PORTRAIT" ? 50 : 30}
-            customStyle={{ left: 290, marginTop: 20 }}
+            size={isPortrait ? 40 : 30}
+            customStyle={isPortrait ? styles.buttonAltNorm : styles.buttonAltLand}
+            accessibilityLabel="Go back"
           />
           <View style={styles.faqHeaderPanel}>
             <View style={styles.textContainerTest}>
@@ -61,9 +70,7 @@ const FAQ = () => {
             {FAQ_DATA.map((section) => (
               <View key={section.title}>
                 <Text
-                  style={[
-                    styles.testsTitle, styles.faqItemTitle
-                  ]}
+                  style={[styles.testsTitle, styles.faqItemTitle]}
                   accessibilityRole="header"
                   accessibilityLabel={`FAQ section: ${section.title}`}
                 >
@@ -86,14 +93,13 @@ const FAQ = () => {
                         style={styles.resource}
                       >
                         {/* Row: question and chevron */}
-                        <View
-                          style={styles.faqItemRow}
-                        >
+                        <View style={styles.faqItemRow}>
                           <View style={styles.faqItemBox}>
                             {!!item.tag && (
                               <Text
                                 style={[
-                                  styles.pixelPrepareSubtleText, styles.faqItemTag
+                                  styles.pixelPrepareSubtleText,
+                                  styles.faqItemTag,
                                 ]}
                               >
                                 {item.tag}
@@ -101,7 +107,8 @@ const FAQ = () => {
                             )}
                             <Text
                               style={[
-                                styles.pixelPrepareTitle, styles.faqItemInTitle,
+                                styles.pixelPrepareTitle,
+                                styles.faqItemInTitle,
                               ]}
                             >
                               {item.question}
@@ -119,7 +126,8 @@ const FAQ = () => {
                         {isOpen && (
                           <Text
                             style={[
-                              styles.pixelPrepareSubtleText, styles.faqItemAnswer,
+                              styles.pixelPrepareSubtleText,
+                              styles.faqItemAnswer,
                             ]}
                           >
                             {item.answer}
@@ -140,4 +148,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default FAQ

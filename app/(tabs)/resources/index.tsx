@@ -1,10 +1,17 @@
 import React from "react";
-import { ScrollView, Text, View, Platform, Pressable, Image } from "react-native";
+import {
+  ScrollView,
+  Text,
+  View,
+  Platform,
+  Pressable,
+  Image,
+} from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Link, useRouter } from "expo-router";
 
+import { Link, useRouter } from "expo-router";
 import * as Linking from "expo-linking";
 
 import CustomGradient from "@/components/CustomGradient";
@@ -17,6 +24,7 @@ import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 import images from "@/constants/tests-images";
 
+// The resources
 const Resources = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
@@ -24,33 +32,30 @@ const Resources = () => {
   return (
     <View style={styles.container}>
       <CustomGradient
-        colors={[
-          Colors.gradientResourcesLight,
-          Colors.gradientResourcesDark,
-        ]}
+        colors={[Colors.gradientResourcesLight, Colors.gradientResourcesDark]}
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollViewContainer}
         >
           {/* Header */}
-        <View style={[styles.homeHeaderPanel]}>
-          <View style={styles.textContainerTest}>
-            <Text
-              style={styles.textTestStyle}
-              accessible
-              accessibilityLabel="Main resources text"
-            >
-              We have recommendations!
-            </Text>
-            <Text
-              style={styles.textTestSmallStyle}
-              accessible
-              accessibilityLabel="Secondary resources text"
-            >
-              Browse guides by category: quick, practical, and easy to follow.
-            </Text>
-          </View>
+          <View style={[styles.homeHeaderPanel]}>
+            <View style={styles.textContainerTest}>
+              <Text
+                style={styles.textTestStyle}
+                accessible
+                accessibilityLabel="Main resources text"
+              >
+                We have recommendations!
+              </Text>
+              <Text
+                style={styles.textTestSmallStyle}
+                accessible
+                accessibilityLabel="Secondary resources text"
+              >
+                Browse guides by category: quick, practical, and easy to follow.
+              </Text>
+            </View>
           </View>
 
           {/* Categories */}
@@ -67,44 +72,51 @@ const Resources = () => {
 
                 <View>
                   {section.items.map((item) => (
-                      <Pressable
-		          key={item.id}
-		          onPress={() => {
-                            if (item.href.startsWith("http")) {
-                              Linking.openURL(item.href);
-                            } else {
-                              router.push(item.href);
-                            }
-                        }}
-                        accessibilityRole="button"
-                        accessibilityLabel={`Open resource: ${item.title}`}
-                        accessibilityHint="Opens the resource page"
-                        android_ripple={{ color: "#ddd" }}
-                        style={styles.resource}
-                      >
-                   <View style={styles.resourceBox}>
-                    <Image
-                     source={item.image}
-                     style={styles.resourceImage}
-                     resizeMode="cover"
-                     accessibilityRole="image"
-                     accessibilityLabel={`Resource image: ${item.title}`}
-                     />
-                     <View style={styles.resourceInBox}>
-                       <Text
-                         style={[
-                         styles.pixelPrepareTitle, styles.resourceInText,
-                         ]}
-                         numberOfLines={1}
-                       >
-                        {item.title}
-                       </Text>
-                       <Text style={[styles.pixelPrepareSubtleText, {textAlign:"left"}]} numberOfLines={2}>
-                         {item.description}
-                       </Text>
-                     </View>
-                     </View>
-                      </Pressable>
+                    <Pressable
+                      key={item.id}
+                      onPress={() => {
+                        if (item.href.startsWith("http")) {
+                          Linking.openURL(item.href);
+                        } else {
+                          router.push(item.href);
+                        }
+                      }}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Open resource: ${item.title}`}
+                      accessibilityHint="Opens the resource page"
+                      android_ripple={{ color: "#ddd" }}
+                      style={styles.resource}
+                    >
+                      <View style={styles.resourceBox}>
+                        <Image
+                          source={item.image}
+                          style={styles.resourceImage}
+                          resizeMode="cover"
+                          accessibilityRole="image"
+                          accessibilityLabel={`Resource image: ${item.title}`}
+                        />
+                        <View style={styles.resourceInBox}>
+                          <Text
+                            style={[
+                              styles.pixelPrepareTitle,
+                              styles.resourceInText,
+                            ]}
+                            numberOfLines={1}
+                          >
+                            {item.title}
+                          </Text>
+                          <Text
+                            style={[
+                              styles.pixelPrepareSubtleText,
+                              { textAlign: "left" },
+                            ]}
+                            numberOfLines={2}
+                          >
+                            {item.description}
+                          </Text>
+                        </View>
+                      </View>
+                    </Pressable>
                   ))}
                 </View>
               </View>

@@ -143,6 +143,14 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
   },
   buttonNorm: {
+    marginLeft: 300,
+    marginTop: 10,
+  },
+  buttonAltLand: {
+    marginTop: 20,
+    marginLeft: 650,
+  },
+  buttonAltNorm: {
     marginTop: 10,
   },
   buttonTestLand: {

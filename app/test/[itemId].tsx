@@ -1,6 +1,8 @@
 import React, { useCallback, useMemo, useState, useEffect } from "react";
 import { View, ScrollView, Text } from "react-native";
 
+import { NativeViewGestureHandler } from "react-native-gesture-handler";
+
 import { useLocalSearchParams } from "expo-router";
 import { Image } from "expo-image";
 
@@ -133,7 +135,7 @@ export default function TestDetail() {
             : styles.landscapeImage,
         ]}
       />
-      <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 12 }}>
+      <View style={{ flex: 1, padding: 12 }}>
         <BackButton
           orientation={orientation}
           size={isPortrait ? 40 : 30}
@@ -152,58 +154,93 @@ export default function TestDetail() {
         </View>
 
         <View>
-          {/* Checklist */}
+          {/* Checklist — wrapped in ScrollView to handle long item lists */}
           {test.type === "Checklist" && (
-            <>
-              <PixelChecklist
-                title="Checklist Test"
-                items={checklist}
-                onToggle={toggleItem}
-              />
-              {/* Feedback for checklist */}
-              {selectedWrong && (
-                <View style={styles.feedbackCheckList}>
-                  <Feather name="x-circle" size={18} color={Colors.redToasy} />
-                  <Text
-                    style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}
+            <NativeViewGestureHandler disallowInterruption={true}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                nestedScrollEnabled={true}
+                keyboardShouldPersistTaps="handled"
+                scrollEventThrottle={16}
+              >
+                <PixelChecklist
+                  title="Checklist Test"
+                  items={checklist}
+                  onToggle={toggleItem}
+                />
+                {/* Feedback for checklist */}
+                {selectedWrong && (
+                  <View
+                    style={styles.feedbackCheckList}
+                    accessible
+                    accessibilityRole="alert"
+                    accessibilityLabel="Wrong item selected"
                   >
-                    Wrong item!
-                  </Text>
-                </View>
-              )}
-              {missedCorrect && !selectedWrong && (
-                <View style={styles.feedbackCheckList}>
-                  <Feather
-                    name="alert-triangle"
-                    size={18}
-                    color={Colors.highlightYellow}
-                  />
-                  <Text
-                    style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}
+                    <Feather
+                      name="x-circle"
+                      size={18}
+                      color={Colors.redToasy}
+                      accessibilityElementsHidden
+                    />
+                    <Text
+                      style={[
+                        styles.pixelPrepareSubtleText,
+                        styles.feedbackItem,
+                      ]}
+                    >
+                      Wrong item!
+                    </Text>
+                  </View>
+                )}
+                {missedCorrect && !selectedWrong && (
+                  <View
+                    style={styles.feedbackCheckList}
+                    accessible
+                    accessibilityRole="alert"
+                    accessibilityLabel="Missing at least one important item"
                   >
-                    You're missing at least one important item.
-                  </Text>
-                </View>
-              )}
-
-              {/* Feedback for checklist when correct */}
-              {checklistCorrect && (
-                <View style={styles.feedbackCheckList}>
-                  <Feather
-                    name="check-circle"
-                    size={18}
-                    color={Colors.orangeTitle}
-                  />
-                  <Text
-                    style={[styles.pixelPrepareSubtleText, styles.feedbackItem]}
+                    <Feather
+                      name="alert-triangle"
+                      size={18}
+                      color={Colors.highlightYellow}
+                      accessibilityElementsHidden
+                    />
+                    <Text
+                      style={[
+                        styles.pixelPrepareSubtleText,
+                        styles.feedbackItem,
+                      ]}
+                    >
+                      You're missing at least one important item.
+                    </Text>
+                  </View>
+                )}
+                {checklistCorrect && (
+                  <View
+                    style={styles.feedbackCheckList}
+                    accessible
+                    accessibilityRole="alert"
+                    accessibilityLabel="Checklist completed correctly"
                   >
-                    Great job: checklist completed correctly!
-                  </Text>
-                </View>
-              )}
-            </>
+                    <Feather
+                      name="check-circle"
+                      size={18}
+                      color={Colors.orangeTitle}
+                      accessibilityElementsHidden
+                    />
+                    <Text
+                      style={[
+                        styles.pixelPrepareSubtleText,
+                        styles.feedbackItem,
+                      ]}
+                    >
+                      Great job: checklist completed correctly!
+                    </Text>
+                  </View>
+                )}
+              </ScrollView>
+            </NativeViewGestureHandler>
           )}
-
           {/* Drag test */}
           {test.type === "Drag" && (
             <PixelOrderingTask
@@ -218,7 +255,7 @@ export default function TestDetail() {
             />
           )}
         </View>
-      </ScrollView>
+      </View>
     </View>
   );
 }

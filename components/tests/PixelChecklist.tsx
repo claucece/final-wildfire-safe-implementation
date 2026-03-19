@@ -11,7 +11,7 @@ import { styles } from "@/styles/App.styles";
 import { useOrientation } from "@/hooks/useOrientation";
 
 // The individual checklist item
-type Item = { id: string; label: string; done: boolean, isCorrect?: boolean };
+type Item = { id: string; label: string; done: boolean; isCorrect?: boolean };
 type Props = {
   title: string;
   items: Item[];
@@ -31,9 +31,17 @@ export function PixelChecklist({
   const isPortrait = orientation === "PORTRAIT";
 
   // We count only the correct items
-  const correctItems = useMemo(() => items.filter((i) => (i.isCorrect ?? true)), [items]);
-  const doneCorrect = useMemo(() => correctItems.filter((i) => i.done).length, [correctItems]);
-  const pct = Math.round((doneCorrect / Math.max(1, correctItems.length)) * 100);
+  const correctItems = useMemo(
+    () => items.filter((i) => i.isCorrect ?? true),
+    [items],
+  );
+  const doneCorrect = useMemo(
+    () => correctItems.filter((i) => i.done).length,
+    [correctItems],
+  );
+  const pct = Math.round(
+    (doneCorrect / Math.max(1, correctItems.length)) * 100,
+  );
 
   return (
     <View

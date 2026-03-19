@@ -36,7 +36,7 @@ export default function BaseLayout() {
   useEffect(() => {
     if (!__DEV__) return;
 
-    const CLEAR_BADGES_ON_START = false; // Debugging: set to true only when reset
+    const CLEAR_BADGES_ON_START = true; // Debugging: set to true only when reset
 
     if (!CLEAR_BADGES_ON_START) return;
 
@@ -111,13 +111,6 @@ export default function BaseLayout() {
                 options={{
                   headerShown: false,
                   accessibilityLabel: "Prepare Task Session Screen",
-                }}
-              />
-              <Stack.Screen
-                name="resource/[itemId]"
-                options={{
-                  headerShown: false,
-                  accessibilityLabel: "Resources Session Screen",
                 }}
               />
               <Stack.Screen
