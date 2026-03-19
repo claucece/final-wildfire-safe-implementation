@@ -11,7 +11,7 @@ import { styles } from "@/styles/App.styles";
 import { useOrientation } from "@/hooks/useOrientation";
 
 // The individual checklist item
-type Item = { id: string; label: string; done: boolean };
+type Item = { id: string; label: string; done: boolean, isCorrect?: boolean };
 type Props = {
   title: string;
   items: Item[];
@@ -30,9 +30,10 @@ export function PixelChecklist({
   // Determine if portrait
   const isPortrait = orientation === "PORTRAIT";
 
-  const doneCount = useMemo(() => items.filter((i) => i.done).length, [items]);
-  const pct = Math.round((doneCount / Math.max(1, items.length)) * 100);
-  const allDone = doneCount === items.length && items.length > 0;
+  // We count only the correct items
+  const correctItems = useMemo(() => items.filter((i) => (i.isCorrect ?? true)), [items]);
+  const doneCorrect = useMemo(() => correctItems.filter((i) => i.done).length, [correctItems]);
+  const pct = Math.round((doneCorrect / Math.max(1, correctItems.length)) * 100);
 
   return (
     <View
@@ -46,7 +47,7 @@ export function PixelChecklist({
 
       <Text style={[styles.pixelSubtleText, { marginTop: 6 }]}>
         <Text testID="progress-meta" style={styles.pixelPrepareSubtleText}>
-          {doneCount}/{items.length}
+          {doneCorrect}/{items.length}
           <Feather
             name="chevrons-right"
             size={14}
