@@ -39,14 +39,17 @@ const BackButton = ({
 
     if (Platform.OS === "android") {
       BackHandler.addEventListener("hardwareBackPress", backAction);
-      return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
     }
   }, [onPress, router]);
 
   return (
     <Pressable
       style={[
-        orientation === "PORTRAIT" ? styles.pressableContainer : styles.pressableContainerLandscape,
+        orientation === "PORTRAIT"
+          ? styles.pressableContainer
+          : styles.pressableContainerLandscape,
         customStyle,
       ]}
       onPress={onPress ? onPress : () => router.back()} // Use custom press action or default back action
