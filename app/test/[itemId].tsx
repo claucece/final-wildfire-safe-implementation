@@ -65,9 +65,10 @@ export default function TestDetail() {
       if (!test) return;
 
       const badgeId = `task:${test.id}`;
+
       if (hasBadge(badgeId)) return;
 
-      await awardBadge({
+      const result = await awardBadge({
         id: badgeId,
         title: `${test.title}`,
         description,
@@ -136,10 +137,16 @@ export default function TestDetail() {
         <BackButton
           orientation={orientation}
           size={isPortrait ? 40 : 30}
-          customStyle={isPortrait ? styles.buttonTestNorm : styles.buttonTestLand}
+          customStyle={
+            isPortrait ? styles.buttonTestNorm : styles.buttonTestLand
+          }
         />
 
-        <View style={[isPortrait ? styles.pixelTestPanel : styles.pixelTestPanelLand]}>
+        <View
+          style={[
+            isPortrait ? styles.pixelTestPanel : styles.pixelTestPanelLand,
+          ]}
+        >
           <Text style={[styles.pixelPrepareTitle]}>{test.title}</Text>
           <Text style={[styles.pixelPrepareSubtleText]}>{test.prompt}</Text>
         </View>
