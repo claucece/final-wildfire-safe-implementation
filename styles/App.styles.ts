@@ -700,6 +700,18 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  pixelCheckListPanelLand: {
+    backgroundColor: Colors.gradientQuote,
+
+    borderWidth: 4,
+    borderColor: Colors.gradientMainDark,
+    borderRadius: 4,
+
+    padding: 10,
+    marginTop: 30,
+    marginLeft: 50,
+    marginRight: 50,
+  },
   pixelCheckListTitle: {
     color: Colors.secondary,
     fontWeight: 700,
