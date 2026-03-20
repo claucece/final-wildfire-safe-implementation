@@ -153,6 +153,10 @@ export const styles = StyleSheet.create({
   buttonAltNorm: {
     marginTop: 10,
   },
+  buttonAltNormFaq: {
+    marginTop: 10,
+    marginLeft: 300,
+  },
   buttonTestLand: {
     marginTop: 40,
     marginLeft: 30,

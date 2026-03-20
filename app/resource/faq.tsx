@@ -39,7 +39,7 @@ const FAQ = () => {
           <BackButton
             orientation={orientation}
             size={isPortrait ? 40 : 30}
-            customStyle={isPortrait ? styles.buttonAltNorm : styles.buttonAltLand}
+            customStyle={isPortrait ? styles.buttonAltNormFaq : styles.buttonAltLand}
             accessibilityLabel="Go back"
           />
           <View style={styles.faqHeaderPanel}>
