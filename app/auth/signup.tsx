@@ -143,8 +143,7 @@ export default function SignUp() {
               style={[
                 styles.mainTitle,
                 styles.mainTitleAuth,
-                styles.pixelTitle,
-                isPortrait ? styles.buttonNorm : styles.pixelTitleLand,
+                isPortrait ? styles.pixelTitle : styles.pixelTitleLand,
               ]}
             >
               Sign Up

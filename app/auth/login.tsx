@@ -131,8 +131,7 @@ export default function Login() {
             <Text
               style={[
                 styles.mainTitle,
-                styles.pixelTitle,
-                isPortrait ? styles.buttonNorm : styles.pixelTitleLand,
+                isPortrait ? styles.pixelTitle : styles.pixelTitleLand,
               ]}
             >
               Log In
