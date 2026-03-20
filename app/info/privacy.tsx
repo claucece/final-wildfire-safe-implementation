@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
         source={aboutImage}
         contentFit="cover"
         placeholder={{
-          blurhash: BLUR_HASH_DATA[3]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+          blurhash: BLUR_HASH_DATA[3]?.hash || "L12rapoL5iR~FQa{-Bo0NWa{xIoN",
         }}
         accessibilityLabel="Background image for privacy policy page"
         accessible

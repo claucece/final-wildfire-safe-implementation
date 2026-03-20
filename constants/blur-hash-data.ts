@@ -9,21 +9,21 @@ export const BLUR_HASH_DATA: BlurType[] = [
   {
     id: 1,
     name: "index",
-    hash: "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+    hash: "LSBDBHWZIpbXpMR-xaS2$+R$WFW?",
   },
   {
     id: 2,
     name: "signup",
-    hash: "L6A-Iy%G?k9h-z${IAtR~f-,jYM~",
+    hash: "L2FF24Ed?QMU0CvC=:XT2|CQ$+WG",
   },
   {
     id: 3,
     name: "login",
-    hash: "L4BNWJD64gF4~cIa8~ot03teIT-#",
+    hash: "L2FF24Ed?QMU0CvC=:XT2|CQ$+WG",
   },
   {
     id: 4,
     name: "about",
-    hash: "LgHnvz~V-pxb-WRkM}kBIWIVIoWB",
+    hash: "L12rapoL5iR~FQa{-Bo0NWa{xIoN",
   },
 ];

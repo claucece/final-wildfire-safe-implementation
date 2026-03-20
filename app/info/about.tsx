@@ -30,7 +30,7 @@ export default function About() {
         source={aboutImage}
         contentFit="cover"
         placeholder={{
-          blurhash: BLUR_HASH_DATA[3]?.hash || "L39[3oI8tuN84?tMIK?Z*F.O4V4Y",
+          blurhash: BLUR_HASH_DATA[3]?.hash || "L12rapoL5iR~FQa{-Bo0NWa{xIoN",
         }}
         accessibilityLabel="Cozy background image depicting a fire environment for about page"
         accessible

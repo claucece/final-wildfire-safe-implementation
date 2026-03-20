@@ -95,7 +95,7 @@ export default function Login() {
         source={logInImage}
         contentFit="cover"
         placeholder={{
-          blurhash: BLUR_HASH_DATA[2]?.hash || "L2FF24Ed?QMU0CvC=:XT2|CQ$+WG",
+          blurhash: BLUR_HASH_DATA[3]?.hash || "L2FF24Ed?QMU0CvC=:XT2|CQ$+WG",
         }}
         accessibilityLabel="Cozy background image depicting a serene retro environment for login"
         accessible
