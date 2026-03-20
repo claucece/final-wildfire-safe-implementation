@@ -6,6 +6,9 @@ import * as BackgroundFetch from "expo-background-fetch";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// The utils
+import { FirePoint, haversineKm, bboxFromPoint, parseCsv } from "@/utils/firms";
+
 // Assign a name
 const TASK_NAME = "fire-check-background";
 
@@ -13,49 +16,8 @@ const TASK_NAME = "fire-check-background";
 const STORAGE_KEYS = {
   allowLocation: "prefs.allowLocation",
   lastCoarseLocation: "prefs.lastCoarseLocation",
+  allowNotifications: "prefs.allowNotifications",
 } as const;
-
-// Geometry helpers
-const bboxFromPoint = (lat: number, lon: number, radiusKm: number) => {
-  const dLat = radiusKm / 111.32;
-  const dLon = radiusKm / (111.32 * Math.cos((lat * Math.PI) / 180));
-  return {
-    west: lon - dLon,
-    south: lat - dLat,
-    east: lon + dLon,
-    north: lat + dLat,
-  };
-};
-
-const haversineKm = (
-  lat1: number,
-  lon1: number,
-  lat2: number,
-  lon2: number,
-) => {
-  const R = 6371;
-  const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) ** 2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-};
-
-// CSV parser for the returned API
-const parseCsv = (csv: string): Record<string, string>[] => {
-  const lines = csv.trim().split("\n");
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(",").map((h) => h.trim());
-  return lines.slice(1).map((line) => {
-    const cols = line.split(",");
-    const row: Record<string, string> = {};
-    headers.forEach((h, i) => (row[h] = (cols[i] ?? "").trim()));
-    return row;
-  });
-};
 
 // Notification helpers
 const buildNotificationContent = (
@@ -74,11 +36,19 @@ const buildNotificationContent = (
   };
 };
 
-// Core fire-check logic (used by both foreground hook and background task)
+// Core fire-check logic, used by both foreground hook and background task
 export async function checkAndNotifyFires(thresholdKm = 50): Promise<void> {
+  // Only if location is allowed
   const allow = await AsyncStorage.getItem(STORAGE_KEYS.allowLocation);
   if (allow !== "true") return;
 
+  // Only if notifications are allowed
+  const allowNotif = await AsyncStorage.getItem(
+    STORAGE_KEYS.allowNotifications,
+  );
+  if (allowNotif !== "true") return;
+
+  // Get the last location
   const raw = await AsyncStorage.getItem(STORAGE_KEYS.lastCoarseLocation);
   if (!raw) return;
 
@@ -125,7 +95,7 @@ export async function checkAndNotifyFires(thresholdKm = 50): Promise<void> {
   });
 }
 
-// Background task
+// Background task, using task manager
 TaskManager.defineTask(TASK_NAME, async () => {
   try {
     await checkAndNotifyFires();
@@ -155,13 +125,6 @@ async function registerBackgroundTask(): Promise<void> {
     });
   }
 }
-
-// Types
-type FirePoint = {
-  latitude: number;
-  longitude: number;
-  frp?: number;
-};
 
 type UserLocation = {
   latitude: number;
@@ -195,32 +158,37 @@ export function useFireNotifications(
   useEffect(() => {
     if (!userLocation || fires.length === 0 || notifiedRef.current) return;
 
-    const nearby = fires.filter(
-      (f) =>
-        haversineKm(
-          userLocation.latitude,
-          userLocation.longitude,
-          f.latitude,
-          f.longitude,
-        ) <= thresholdKm,
-    );
+    (async () => {
+      // Respect the user's notification preference
+      const allow = await AsyncStorage.getItem("prefs.allowNotifications");
+      if (allow !== "true") return;
 
-    if (nearby.length === 0) return;
+      const nearby = fires.filter(
+        (f) =>
+          haversineKm(
+            userLocation.latitude,
+            userLocation.longitude,
+            f.latitude,
+            f.longitude,
+          ) <= thresholdKm,
+      );
 
-    // Mark as notified so we don't spam on re-renders
-    notifiedRef.current = true;
+      if (nearby.length === 0) return;
 
-    const highIntensity = nearby.filter((f) => (f.frp ?? 0) >= 50);
+      notifiedRef.current = true;
 
-    Notifications.scheduleNotificationAsync({
-      content: buildNotificationContent(
-        nearby.length,
-        highIntensity.length,
-        thresholdKm,
-      ),
-      trigger: null,
-    }).catch((e) =>
-      console.warn("[FireNotifications] Failed to schedule notification:", e),
-    );
+      const highIntensity = nearby.filter((f) => (f.frp ?? 0) >= 50);
+
+      Notifications.scheduleNotificationAsync({
+        content: buildNotificationContent(
+          nearby.length,
+          highIntensity.length,
+          thresholdKm,
+        ),
+        trigger: null,
+      }).catch((e) =>
+        console.warn("[FireNotifications] Failed to schedule notification:", e),
+      );
+    })();
   }, [fires, userLocation, thresholdKm]);
 }

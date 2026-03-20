@@ -37,7 +37,6 @@ import { useOrientation } from "@/hooks/useOrientation";
 const STORAGE_KEYS = {
   allowLocation: "prefs.allowLocation",
   lastCoarseLocation: "prefs.lastCoarseLocation",
-  nightMode: "prefs.nightMode",
   allowNotifications: "prefs.allowNotifications",
 } as const;
 
@@ -66,7 +65,6 @@ const Profile = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Preferences
-  const [nightMode, setNightMode] = useState(false);
   const [allowLocation, setAllowLocation] = useState(false);
   const [locationHint, setLocationHint] = useState<string | null>(null);
   const [allowNotifications, setAllowNotifications] = useState(false);
@@ -75,14 +73,12 @@ const Profile = () => {
   useEffect(() => {
     (async () => {
       try {
-        const [allow, night, notifications] = await Promise.all([
+        const [allow, notifications] = await Promise.all([
           AsyncStorage.getItem(STORAGE_KEYS.allowLocation),
-          AsyncStorage.getItem(STORAGE_KEYS.nightMode),
           AsyncStorage.getItem(STORAGE_KEYS.allowNotifications),
         ]);
 
         if (allow != null) setAllowLocation(allow === "true");
-        if (night != null) setNightMode(night === "true");
         if (notifications != null)
           setAllowNotifications(notifications === "true");
       } catch (e) {
@@ -140,7 +136,7 @@ const Profile = () => {
     return unsubscribe;
   }, []);
 
-  // Account actions
+  // Account actions: logout
   const handleSignOut = async () => {
     try {
       router.push("/auth/logout");
@@ -200,18 +196,6 @@ const Profile = () => {
   };
 
   // Preferences handlers
-  const handleToggleNightMode = async (value: boolean) => {
-    setNightMode(value);
-    try {
-      await AsyncStorage.setItem(
-        STORAGE_KEYS.nightMode,
-        value ? "true" : "false",
-      );
-    } catch (e) {
-      console.log("Failed to persist night mode:", e);
-    }
-  };
-
   const handleToggleNotifications = async (value: boolean) => {
     setAllowNotifications(value);
 
@@ -347,28 +331,6 @@ const Profile = () => {
           {/* Preferences */}
           <View style={styles.profileSectionCard}>
             <Text style={styles.profileSectionTitle}>Preferences</Text>
-
-            <View style={styles.profileRow}>
-              <View style={styles.profileInRow}>
-                <Ionicons
-                  name="moon-outline"
-                  size={20}
-                  color={Colors.mainBorder}
-                  style={styles.profileInIcon}
-                />
-                <Text style={styles.profileLabel}>Night mode</Text>
-              </View>
-              <Switch
-                testID="night-mode-switch"
-                value={nightMode}
-                onValueChange={handleToggleNightMode}
-                thumbColor={nightMode ? Colors.secondary : Colors.mainBorder}
-                trackColor={{
-                  false: Colors.secondary,
-                  true: Colors.pink,
-                }}
-              />
-            </View>
 
             <View style={styles.profileRow}>
               <View style={styles.profileInRow}>

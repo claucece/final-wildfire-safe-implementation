@@ -105,7 +105,6 @@ describe("<Profile />", () => {
     // Default persisted prefs
     asMock(AsyncStorage.getItem).mockImplementation(async (key: string) => {
       if (key === "prefs.allowLocation") return "false";
-      if (key === "prefs.nightMode") return "false";
       if (key === "prefs.allowNotifications") return "false";
       if (key === "prefs.lastCoarseLocation") return null;
       return null;
@@ -139,21 +138,6 @@ describe("<Profile />", () => {
 
     expect(await screen.findByText("Sofia")).toBeTruthy();
     expect(await screen.findByText("user@example.com")).toBeTruthy();
-  });
-
-  it("toggles Night mode and persists", async () => {
-    render(<Profile />);
-
-    const nightSwitch = await screen.findByTestId("night-mode-switch");
-
-    fireEvent(nightSwitch, "valueChange", true);
-
-    await waitFor(() => {
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
-        "prefs.nightMode",
-        "true",
-      );
-    });
   });
 
   it("toggles Notifications and persists", async () => {
