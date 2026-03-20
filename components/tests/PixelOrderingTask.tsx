@@ -16,6 +16,28 @@ import { styles } from "@/styles/App.styles";
 // Each row
 type Row = { key: string; label: string };
 
+  const OrderRow = React.memo(
+    ({ item, drag, isActive }: RenderItemParams<Row>) => (
+      <Pressable
+        onLongPress={drag}
+        delayLongPress={100}
+        disabled={isActive}
+        style={[styles.pixelOrderRow, isActive && { opacity: 0.85 }]}
+        accessibilityHint="Press and hold, then drag to reorder"
+        accessibilityLabel={`${item.label}, draggable row`}
+      >
+        <Feather
+          name="menu"
+          style={styles.menuHamburger}
+          size={16}
+          color={Colors.pink}
+        />
+        <Text style={styles.pixelOrderLabel}>{item.label}</Text>
+      </Pressable>
+    ),
+  );
+OrderRow.displayName = "OrderRow";
+
 // The ordering task
 export function PixelOrderingTask({
   title,
@@ -46,27 +68,6 @@ export function PixelOrderingTask({
     );
   }, [data, correctOrderKeys]);
 
-  const OrderRow = React.memo(
-    ({ item, drag, isActive }: RenderItemParams<Row>) => (
-      <Pressable
-        onLongPress={drag}
-        delayLongPress={100}
-        disabled={isActive}
-        style={[styles.pixelOrderRow, isActive && { opacity: 0.85 }]}
-        accessibilityHint="Press and hold, then drag to reorder"
-        accessibilityLabel={`${item.label}, draggable row`}
-      >
-        <Feather
-          name="menu"
-          style={styles.menuHamburger}
-          size={16}
-          color={Colors.pink}
-        />
-        <Text style={styles.pixelOrderLabel}>{item.label}</Text>
-      </Pressable>
-    ),
-  );
-
   const renderItem = useCallback(
     (params: RenderItemParams<Row>) => <OrderRow {...params} />,
     [],
@@ -81,6 +82,7 @@ export function PixelOrderingTask({
       ]}
     >
       <Text style={styles.pixelCheckListTitle}>{title}</Text>
+      <Text style={styles.pixelSubtleText}>{prompt}</Text>
 
       {/* The dragable elements */}
       <View style={styles.checkList}>

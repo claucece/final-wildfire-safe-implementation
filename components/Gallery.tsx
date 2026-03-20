@@ -6,7 +6,7 @@ import { styles } from "@/styles/App.styles"; // Custom styles
 import { GalleryData } from "@/constants/models/Category"; // Model for gallery items
 
 // Defines the Gallery component props
-interface QuotesGalleryProps {
+interface GalleryProps {
   title: string;
   items: GalleryData[]; // List of items in the gallery
   hrefForItem: (item: GalleryData) => string;

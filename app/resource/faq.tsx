@@ -10,6 +10,7 @@ import BackButton from "@/components/CustomBackButton";
 import CustomGradient from "@/components/CustomGradient";
 import { useOrientation } from "@/hooks/useOrientation";
 
+// Custom styles
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
 
@@ -24,11 +25,6 @@ const FAQ = () => {
   const isPortrait = orientation === "PORTRAIT";
 
   const [openId, setOpenId] = useState<string | null>(null);
-
-  // Get the faq items
-  const flatItems = useMemo(() => {
-    return FAQ_DATA.flatMap((s) => s.items);
-  }, []);
 
   return (
     <View style={styles.container}>

@@ -81,7 +81,7 @@ export default function Login() {
         setError(errorMessage);
         setLoading(false);
       }
-    } catch (error) {
+    } catch (_error) {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);

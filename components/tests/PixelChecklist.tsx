@@ -1,14 +1,13 @@
 import React, { useMemo } from "react";
 import { View, Text, Pressable } from "react-native";
 
-import Colors from "@/constants/Colors";
-
-import LottieView from "lottie-react-native";
+import { useReducedMotion } from "react-native-reanimated";
 import { Feather } from "@expo/vector-icons";
 
-import { styles } from "@/styles/App.styles";
-
 import { useOrientation } from "@/hooks/useOrientation";
+
+import { styles } from "@/styles/App.styles";
+import Colors from "@/constants/Colors";
 
 // The individual checklist item
 type Item = { id: string; label: string; done: boolean; isCorrect?: boolean };
@@ -29,6 +28,10 @@ export function PixelChecklist({
   const orientation = useOrientation();
   // Determine if portrait
   const isPortrait = orientation === "PORTRAIT";
+
+  // Reduce motion
+  const systemReduceMotion = useReducedMotion();
+  const shouldReduceMotion = reduceMotion ?? systemReduceMotion;
 
   // We count only the correct items
   const correctItems = useMemo(

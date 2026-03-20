@@ -108,7 +108,6 @@ const Home = () => {
             windowSize={5} // Items rendered offscreen
             renderItem={({ item }) => (
               <Pressable
-                accessibilityRole="button"
                 onPress={() => handlePrepareTaskPress(item.id)}
                 style={styles.pressableMain}
                 accessibilityLabel={`Prepare Task: ${item.title}`}

@@ -1,9 +1,17 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
 import { Alert } from "react-native";
 
 import Profile from "@/app/personalised/profile";
+
 import { useRouter } from "expo-router";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import * as Location from "expo-location";
+
+import { onAuthStateChanged } from "firebase/auth";
+import { getDoc } from "firebase/firestore";
+
 
 jest.mock("@/components/CustomGradient", () => {
   const React = require("react");
@@ -66,11 +74,6 @@ jest.mock("@expo/vector-icons", () => {
     FontAwesome: Icon,
   };
 });
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Location from "expo-location";
-import { onAuthStateChanged } from "firebase/auth";
-import { getDoc } from "firebase/firestore";
 
 const asMock = <T,>(fn: T) => fn as unknown as jest.Mock;
 

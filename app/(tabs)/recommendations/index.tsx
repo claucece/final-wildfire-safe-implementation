@@ -73,12 +73,6 @@ type FirePoint = {
   acq_time?: string;
 };
 
-// Auxiliary function to round values
-const roundTo = (value: number, decimals = 2) => {
-  const p = Math.pow(10, decimals);
-  return Math.round(value * p) / p;
-};
-
 // Auxiliary function
 // Compute an approximate latitude/longitude bounding box around a point.
 //
@@ -208,7 +202,6 @@ const fetchFiresNear = async (lat: number, lon: number) => {
 
 const Recommendations = () => {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
 
   const [username, setUsername] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);

@@ -51,6 +51,7 @@ export default function TestDetail() {
   // Keep checklist in sync when test changes
   useEffect(() => {
     setChecklist(test?.checklistItems ?? []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [test?.id]);
 
   // Toggle functionality

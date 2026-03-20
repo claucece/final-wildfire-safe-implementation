@@ -3,10 +3,8 @@ import {
   render,
   screen,
   fireEvent,
-  waitFor,
 } from "@testing-library/react-native";
 import { useRouter } from "expo-router";
-import * as Notifications from "expo-notifications";
 
 import App from "@/app/index";
 import { useOrientation } from "@/hooks/useOrientation";

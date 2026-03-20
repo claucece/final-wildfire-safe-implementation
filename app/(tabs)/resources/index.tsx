@@ -9,20 +9,17 @@ import {
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import * as Linking from "expo-linking";
-
-import CustomGradient from "@/components/CustomGradient";
-
-// Load data
-import RESOURCES_DATA from "@/constants/resources-data.ts";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Custom styles
 import { styles } from "@/styles/App.styles";
 import Colors from "@/constants/Colors";
-import images from "@/constants/tests-images";
+import CustomGradient from "@/components/CustomGradient";
+
+// Load data for resources
+import RESOURCES_DATA from "@/constants/resources-data.ts";
 
 // The resources
 const Resources = () => {

@@ -92,7 +92,7 @@ export default function SignUp() {
       } else {
         setError(errorMessage);
       }
-    } catch (error) {
+    } catch (_error) {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);

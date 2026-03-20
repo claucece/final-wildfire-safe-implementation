@@ -3,7 +3,6 @@ import {
   ImageBackground,
   Text,
   View,
-  Dimensions,
   SafeAreaView,
   AccessibilityInfo,
   FlatList,
@@ -255,7 +254,7 @@ const PrepareTask = () => {
                           />
                         </View>
                       )}
-                      {index == pages.length - 1 && (
+                      {index === pages.length - 1 && (
                         <View style={styles.swipeRow}>
                           <Text style={styles.prepareTaskSwipeText}>
                             End of the task!{"\n"}You can return to the main
