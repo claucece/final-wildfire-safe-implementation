@@ -1,5 +1,10 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 import { ActivityIndicator } from "react-native";
 
 import Recommendations from "@/app/(tabs)/recommendations";
@@ -68,7 +73,6 @@ jest.mock("firebase/firestore", () => ({
   doc: jest.fn(),
   getDoc: jest.fn(),
 }));
-
 
 jest.mock("../app/firebaseConfig", () => ({
   auth: {},
@@ -142,16 +146,16 @@ describe("<Recommendations />", () => {
     });
   });
 
-it("shows loading indicator initially", async () => {
-  const { UNSAFE_getByType } = render(<Recommendations />);
+  it("shows loading indicator initially", async () => {
+    const { UNSAFE_getByType } = render(<Recommendations />);
 
-  // Initial effects run
-  await act(async () => {
-    await flushPromises();
+    // Initial effects run
+    await act(async () => {
+      await flushPromises();
+    });
+
+    expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy();
   });
-
-  expect(UNSAFE_getByType(ActivityIndicator)).toBeTruthy();
-});
 
   it("renders header and 3 sections after auth resolves", async () => {
     render(<Recommendations />);

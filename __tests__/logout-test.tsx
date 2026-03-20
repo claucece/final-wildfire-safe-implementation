@@ -1,5 +1,10 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 import { useRouter } from "expo-router";
 import { useOrientation } from "@/hooks/useOrientation";
 
@@ -48,9 +53,7 @@ describe("<Logout />", () => {
     render(<Logout />);
 
     expect(screen.getByText("Log Out")).toBeTruthy();
-    expect(
-      screen.getByText("Are you sure you want to log out?")
-    ).toBeTruthy();
+    expect(screen.getByText("Are you sure you want to log out?")).toBeTruthy();
 
     // Button is there with correct accessibility label
     expect(screen.getByLabelText("Log out")).toBeTruthy();

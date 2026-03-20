@@ -25,7 +25,7 @@ jest.mock("expo-router", () => {
 });
 
 // Mock TESTS_DATA with one checklist test and one drag test
-jest.mock("@/constants/tests-data", () => ([
+jest.mock("@/constants/tests-data", () => [
   {
     title: "Emergency Kit",
     data: [
@@ -55,7 +55,7 @@ jest.mock("@/constants/tests-data", () => ([
       },
     ],
   },
-]));
+]);
 
 // Mock badges hook so we can assert awardBadge calls
 jest.mock("@/components/badges/BadgeSystem", () => {
@@ -94,7 +94,7 @@ describe("<TestDetail />", () => {
 
     expect(await screen.findByText("Build a Wildfire Go-Bag")).toBeTruthy();
     expect(
-      screen.getByText("Check off what belongs in a wildfire go-bag.")
+      screen.getByText("Check off what belongs in a wildfire go-bag."),
     ).toBeTruthy();
 
     // PixelChecklist title prop
@@ -105,7 +105,7 @@ describe("<TestDetail />", () => {
     render(<TestDetail />);
 
     expect(
-      screen.getByText("You're missing at least one important item.")
+      screen.getByText("You're missing at least one important item."),
     ).toBeTruthy();
 
     // Toggle water and mask on (correct items)
@@ -114,7 +114,7 @@ describe("<TestDetail />", () => {
 
     // Now all correct are checked and incorrect is unchecked: success
     expect(
-      await screen.findByText("Great job: checklist completed correctly!")
+      await screen.findByText("Great job: checklist completed correctly!"),
     ).toBeTruthy();
   });
 
@@ -134,7 +134,7 @@ describe("<TestDetail />", () => {
 
     // success message proves checklistCorrect
     expect(
-      await screen.findByText("Great job: checklist completed correctly!")
+      await screen.findByText("Great job: checklist completed correctly!"),
     ).toBeTruthy();
 
     const { awardBadge } = require("@/components/badges/BadgeSystem");

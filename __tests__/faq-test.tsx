@@ -1,6 +1,6 @@
 import React from "react";
-import { render, screen, fireEvent} from "@testing-library/react-native";
-import FAQ from '@/app/resource/faq';
+import { render, screen, fireEvent } from "@testing-library/react-native";
+import FAQ from "@/app/resource/faq";
 
 // Icons
 jest.mock("@expo/vector-icons", () => ({
@@ -8,14 +8,13 @@ jest.mock("@expo/vector-icons", () => ({
   Ionicons: () => null,
 }));
 
-
 // Mock navigation functions
-jest.mock('expo-router', () => {
+jest.mock("expo-router", () => {
   const pushMock = jest.fn(); // Define inside factory function
   return {
     useRouter: () => ({ push: pushMock }),
     Link: ({ children }: any) => <>{children}</>,
-    useLocalSearchParams: () => ({ username: 'TestUser' }),
+    useLocalSearchParams: () => ({ username: "TestUser" }),
     __esModule: true, // Ensure ES module compatibility
     pushMock, // Export mock for testing
   };
@@ -27,13 +26,29 @@ jest.mock("@/constants/faq-data", () => ({
     {
       title: "Getting started",
       items: [
-        { id: "q1", tag: "Basics", question: "What is this app?", answer: "It is a demo app." },
-        { id: "q2", question: "How do I sign in?", answer: "Use email and password." },
+        {
+          id: "q1",
+          tag: "Basics",
+          question: "What is this app?",
+          answer: "It is a demo app.",
+        },
+        {
+          id: "q2",
+          question: "How do I sign in?",
+          answer: "Use email and password.",
+        },
       ],
     },
     {
       title: "Privacy",
-      items: [{ id: "q3", tag: "Important", question: "Do you track me?", answer: "No tracking." }],
+      items: [
+        {
+          id: "q3",
+          tag: "Important",
+          question: "Do you track me?",
+          answer: "No tracking.",
+        },
+      ],
     },
   ],
 }));
@@ -42,11 +57,12 @@ describe("<FAQ />", () => {
   it("renders the header texts", async () => {
     render(<FAQ />);
 
-    screen.getByLabelText("FAQ main text")
+    screen.getByLabelText("FAQ main text");
     expect(screen.getByLabelText("FAQ subtitle text")).toBeTruthy();
     expect(screen.getByText("FAQ")).toBeTruthy();
-    expect(screen.getByText("Quick answers to common questions for you!")).toBeTruthy();
-
+    expect(
+      screen.getByText("Quick answers to common questions for you!"),
+    ).toBeTruthy();
   });
 
   it("renders section headers and questions", () => {

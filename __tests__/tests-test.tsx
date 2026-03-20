@@ -1,21 +1,21 @@
 import React from "react";
 import { render, screen } from "@testing-library/react-native";
-import Tests from '@/app/(tabs)/test';
+import Tests from "@/app/(tabs)/test";
 
 // Mock navigation functions
-jest.mock('expo-router', () => {
+jest.mock("expo-router", () => {
   const pushMock = jest.fn(); // Define inside factory function
   return {
     useRouter: () => ({ push: pushMock }),
     Link: ({ children }: any) => <>{children}</>,
-    useLocalSearchParams: () => ({ username: 'TestUser' }),
+    useLocalSearchParams: () => ({ username: "TestUser" }),
     __esModule: true, // Ensure ES module compatibility
     pushMock, // Export mock for testing
   };
 });
 
 // Mock data
-jest.mock("@/constants/tests-data.ts", () => ([
+jest.mock("@/constants/tests-data.ts", () => [
   {
     title: "Emergency Kit",
     data: [
@@ -47,7 +47,7 @@ jest.mock("@/constants/tests-data.ts", () => ([
       },
     ],
   },
-]));
+]);
 
 describe("<Tests />", () => {
   it("renders the header texts", async () => {
@@ -55,7 +55,7 @@ describe("<Tests />", () => {
 
     expect(await screen.findByText("Now test your knowledge...")).toBeTruthy();
     expect(
-      screen.getByText("We have tests for you: click on the images and try!")
+      screen.getByText("We have tests for you: click on the images and try!"),
     ).toBeTruthy();
   });
 

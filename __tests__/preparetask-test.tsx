@@ -18,11 +18,11 @@ jest.mock("@expo/vector-icons", () => ({
 }));
 
 // Mock data/images
-jest.mock("@/constants/prepare-tasks-images", () => ([
+jest.mock("@/constants/prepare-tasks-images", () => [
   { uri: "img-1" },
   { uri: "img-2" },
   { uri: "img-3" },
-]));
+]);
 
 jest.mock("@/constants/prepare-tasks-data", () => ({
   PREPARE_TASK_DATA: [

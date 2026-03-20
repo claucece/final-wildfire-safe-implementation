@@ -1,12 +1,22 @@
 import React from "react";
 
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 import { useRouter } from "expo-router";
 
 import Login from "@/app/auth/login";
 import { useOrientation } from "@/hooks/useOrientation";
 
-let mockFormData = { email: "", password: "", confirmPassword: "", username: "" };
+let mockFormData = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  username: "",
+};
 let mockSetFormData = jest.fn();
 
 jest.mock("@/hooks/useForm", () => ({
@@ -47,14 +57,22 @@ describe("<Login />", () => {
     // Try login attempt with empty fields
     fireEvent.press(screen.getByLabelText("Login button"));
 
-    await waitFor(() => expect(screen.getByText("Please fill in all fields.")).toBeTruthy());
+    await waitFor(() =>
+      expect(screen.getByText("Please fill in all fields.")).toBeTruthy(),
+    );
   });
 
   it("fills form with correct email and password", async () => {
     render(<Login />);
 
-    fireEvent.changeText(screen.getByPlaceholderText("Your Email"), "test@example.com");
-    fireEvent.changeText(screen.getByPlaceholderText("Your Password"), "password123");
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Your Email"),
+      "test@example.com",
+    );
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Your Password"),
+      "password123",
+    );
     await waitFor(() => {
       expect(mockFormData.password).toBe("password123");
       expect(mockFormData.email).toBe("test@example.com");
@@ -72,7 +90,7 @@ describe("<Login />", () => {
 
     render(<Login />);
 
-    const backButton = screen.getByLabelText('Go back');
+    const backButton = screen.getByLabelText("Go back");
 
     fireEvent.press(backButton);
 

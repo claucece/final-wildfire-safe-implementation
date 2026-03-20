@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import Home from "@/app/(tabs)/home";
 
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
 
 // Mock native/visual dependencies
 jest.mock("lottie-react-native", () => "LottieView");
@@ -34,17 +34,17 @@ jest.mock("@/constants/prepare-tasks-data", () => ({
 }));
 
 // Mock images lookup
-jest.mock("@/constants/prepare-tasks-images", () => ([
+jest.mock("@/constants/prepare-tasks-images", () => [
   { uri: "mock-image-1" },
   { uri: "mock-image-2" },
-]));
+]);
 
 // Mock navigation functions
-jest.mock('expo-router', () => {
+jest.mock("expo-router", () => {
   const pushMock = jest.fn(); // Define inside factory function
   return {
     useRouter: () => ({ push: pushMock }),
-    useLocalSearchParams: () => ({ username: 'TestUser' }),
+    useLocalSearchParams: () => ({ username: "TestUser" }),
     __esModule: true, // Ensure ES module compatibility
     pushMock, // Export mock for testing
   };
@@ -69,7 +69,7 @@ describe("<Home />", () => {
     render(<Home />);
 
     const item = screen.getByLabelText(
-      "Prepare Task: Understanding Wildfire Risk"
+      "Prepare Task: Understanding Wildfire Risk",
     );
     expect(item).toBeTruthy();
 
@@ -79,7 +79,7 @@ describe("<Home />", () => {
     expect(push).toHaveBeenCalledWith("/prepare/1");
 
     const item2 = screen.getByLabelText(
-      "Prepare Task: Create an Emergency Kit"
+      "Prepare Task: Create an Emergency Kit",
     );
     expect(item2).toBeTruthy();
 

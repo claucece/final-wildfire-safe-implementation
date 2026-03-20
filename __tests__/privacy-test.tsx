@@ -27,9 +27,7 @@ describe("<PrivacyPolicy />", () => {
       screen.getByText(/do not store or transmit your location/i),
     ).toBeTruthy();
 
-    expect(
-      screen.getByText(/All calculations/i),
-    ).toBeTruthy();
+    expect(screen.getByText(/All calculations/i)).toBeTruthy();
   });
 
   it("marks the title as a header for accessibility", () => {
@@ -42,12 +40,12 @@ describe("<PrivacyPolicy />", () => {
   it("includes the key client-side privacy guarantee", () => {
     render(<PrivacyPolicy />);
 
-    expect(
-      screen.getByText(/performed entirely on your device/i),
-    ).toBeTruthy();
+    expect(screen.getByText(/performed entirely on your device/i)).toBeTruthy();
 
     expect(
-      screen.getByText(/We do not store or transmit your location, preferences, badges/i),
+      screen.getByText(
+        /We do not store or transmit your location, preferences, badges/i,
+      ),
     ).toBeTruthy();
   });
 
@@ -58,9 +56,7 @@ describe("<PrivacyPolicy />", () => {
       screen.getByText(/only personal information stored remotely/i),
     ).toBeTruthy();
 
-    expect(
-      screen.getByText(/email address, username/i),
-    ).toBeTruthy();
+    expect(screen.getByText(/email address, username/i)).toBeTruthy();
   });
 
   it("matches snapshot", () => {

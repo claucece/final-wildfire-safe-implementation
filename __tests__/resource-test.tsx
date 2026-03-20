@@ -1,6 +1,6 @@
 import React from "react";
-import { render, screen, fireEvent} from "@testing-library/react-native";
-import Resource from '@/app/(tabs)/resources';
+import { render, screen, fireEvent } from "@testing-library/react-native";
+import Resource from "@/app/(tabs)/resources";
 
 import * as ExpoLinking from "expo-linking";
 
@@ -17,17 +17,17 @@ jest.mock("expo-linking", () => ({
 
 const mockPush = jest.fn();
 // Mock navigation functions
-jest.mock('expo-router', () => {
+jest.mock("expo-router", () => {
   return {
     __esModule: true, // Ensure ES module compatibility
     useRouter: () => ({ push: mockPush }),
     Link: ({ children }: any) => <>{children}</>,
-    useLocalSearchParams: () => ({ username: 'TestUser' }),
+    useLocalSearchParams: () => ({ username: "TestUser" }),
   };
 });
 
 // Mock the Resources data
-jest.mock("@/constants/resources-data.ts", () => ([
+jest.mock("@/constants/resources-data.ts", () => [
   {
     title: "General",
     items: [
@@ -47,7 +47,7 @@ jest.mock("@/constants/resources-data.ts", () => ([
       },
     ],
   },
-]));
+]);
 
 describe("<Resource />", () => {
   it("renders header texts", () => {
@@ -58,7 +58,9 @@ describe("<Resource />", () => {
 
     expect(screen.getByText("We have recommendations!")).toBeTruthy();
     expect(
-      screen.getByText("Browse guides by category: quick, practical, and easy to follow.")
+      screen.getByText(
+        "Browse guides by category: quick, practical, and easy to follow.",
+      ),
     ).toBeTruthy();
   });
 
@@ -69,11 +71,17 @@ describe("<Resource />", () => {
     expect(screen.getByText("Breathing guide")).toBeTruthy();
     expect(screen.getByText("External guide")).toBeTruthy();
 
-    expect(screen.getByLabelText("Open resource: Breathing guide")).toBeTruthy();
+    expect(
+      screen.getByLabelText("Open resource: Breathing guide"),
+    ).toBeTruthy();
     expect(screen.getByLabelText("Open resource: External guide")).toBeTruthy();
 
-    expect(screen.getByLabelText("Resource image: Breathing guide")).toBeTruthy();
-    expect(screen.getByLabelText("Resource image: External guide")).toBeTruthy();
+    expect(
+      screen.getByLabelText("Resource image: Breathing guide"),
+    ).toBeTruthy();
+    expect(
+      screen.getByLabelText("Resource image: External guide"),
+    ).toBeTruthy();
   });
 
   it("pressing a resource calls router", () => {
@@ -92,6 +100,8 @@ describe("<Resource />", () => {
     fireEvent.press(screen.getByLabelText("Open resource: External guide"));
 
     expect(ExpoLinking.openURL).toHaveBeenCalledTimes(1);
-    expect(ExpoLinking.openURL).toHaveBeenCalledWith("https://example.com/guide");
+    expect(ExpoLinking.openURL).toHaveBeenCalledWith(
+      "https://example.com/guide",
+    );
   });
 });

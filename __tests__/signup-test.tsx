@@ -1,12 +1,22 @@
 import React from "react";
 
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 import { useRouter } from "expo-router";
 
 import SignUp from "@/app/auth/signup";
 import { useOrientation } from "@/hooks/useOrientation";
 
-let mockFormData = { email: "", password: "", confirmPassword: "", username: "" };
+let mockFormData = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  username: "",
+};
 let mockSetFormData = jest.fn();
 
 jest.mock("@/hooks/useForm", () => ({
@@ -49,16 +59,30 @@ describe("<SignUp />", () => {
     // Try signup attempt with empty fields
     fireEvent.press(screen.getByLabelText("Sign Up button"));
 
-    await waitFor(() => expect(screen.getByText("Please fill in all fields.")).toBeTruthy());
+    await waitFor(() =>
+      expect(screen.getByText("Please fill in all fields.")).toBeTruthy(),
+    );
   });
 
   it("fills form with correct email and password", async () => {
     render(<SignUp />);
 
-    fireEvent.changeText(screen.getByPlaceholderText("Your Username"), "testuser");
-    fireEvent.changeText(screen.getByPlaceholderText("Your Email"), "test@example.com");
-    fireEvent.changeText(screen.getByPlaceholderText("Your Password"), "password123");
-    fireEvent.changeText(screen.getByPlaceholderText("Confirm Password"), "password123");
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Your Username"),
+      "testuser",
+    );
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Your Email"),
+      "test@example.com",
+    );
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Your Password"),
+      "password123",
+    );
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Confirm Password"),
+      "password123",
+    );
 
     await waitFor(() => {
       expect(mockFormData.username).toBe("testuser");
@@ -79,7 +103,7 @@ describe("<SignUp />", () => {
 
     render(<SignUp />);
 
-    const backButton = screen.getByLabelText('Go back');
+    const backButton = screen.getByLabelText("Go back");
 
     fireEvent.press(backButton);
 

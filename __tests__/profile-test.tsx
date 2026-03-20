@@ -6,12 +6,16 @@ import Profile from "@/app/personalised/profile";
 import { useRouter } from "expo-router";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 import * as Location from "expo-location";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
-
 
 jest.mock("@/components/CustomGradient", () => {
   const React = require("react");
@@ -28,7 +32,6 @@ const pushMock = jest.fn();
 jest.mock("expo-router", () => ({
   useRouter: jest.fn(),
 }));
-
 
 // AsyncStorage
 jest.mock("@react-native-async-storage/async-storage", () => ({
@@ -144,7 +147,10 @@ describe("<Profile />", () => {
     fireEvent(nightSwitch, "valueChange", true);
 
     await waitFor(() => {
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.nightMode", "true");
+      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+        "prefs.nightMode",
+        "true",
+      );
     });
   });
 
@@ -156,7 +162,10 @@ describe("<Profile />", () => {
     fireEvent(notifSwitch, "valueChange", true);
 
     await waitFor(() => {
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowNotifications", "true");
+      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+        "prefs.allowNotifications",
+        "true",
+      );
     });
   });
 
@@ -180,7 +189,10 @@ describe("<Profile />", () => {
 
     await waitFor(() => {
       expect(Location.requestForegroundPermissionsAsync).toHaveBeenCalled();
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "true");
+      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+        "prefs.allowLocation",
+        "true",
+      );
       expect(AsyncStorage.setItem).toHaveBeenCalledWith(
         "prefs.lastCoarseLocation",
         expect.stringContaining('"latitude"'),
@@ -202,7 +214,10 @@ describe("<Profile />", () => {
 
     await waitFor(() => {
       expect(Location.requestForegroundPermissionsAsync).toHaveBeenCalled();
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "false");
+      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+        "prefs.allowLocation",
+        "false",
+      );
       expect(Alert.alert).toHaveBeenCalledWith(
         "Location not enabled",
         expect.stringContaining("near me"),
@@ -231,7 +246,10 @@ describe("<Profile />", () => {
         expect.any(String),
         expect.any(Array),
       );
-      expect(AsyncStorage.setItem).toHaveBeenCalledWith("prefs.allowLocation", "false");
+      expect(AsyncStorage.setItem).toHaveBeenCalledWith(
+        "prefs.allowLocation",
+        "false",
+      );
     });
   });
 

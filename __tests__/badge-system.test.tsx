@@ -1,9 +1,18 @@
 import React from "react";
 import { Text, Pressable } from "react-native";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BadgeProvider, BadgeList, useBadges } from "@/components/badges/BadgeSystem";
+import {
+  BadgeProvider,
+  BadgeList,
+  useBadges,
+} from "@/components/badges/BadgeSystem";
 
 // Mock AsyncStorage
 jest.mock("@react-native-async-storage/async-storage", () => ({
@@ -99,7 +108,7 @@ describe("BadgeSystem", () => {
     expect(screen.getByText("Checklist finished")).toBeTruthy();
 
     // Toast appears
-    screen.findByLabelText("Badge unlocked: Checklist 1. Tap to dismiss.")
+    screen.findByLabelText("Badge unlocked: Checklist 1. Tap to dismiss.");
     expect(await screen.findByText("Badge Unlocked: Checklist 1")).toBeTruthy();
 
     // Persisted
@@ -153,7 +162,9 @@ describe("BadgeSystem", () => {
 
     fireEvent.press(screen.getByLabelText("Award badge"));
 
-    const toast = await screen.findByLabelText("Badge unlocked: Checklist 1. Tap to dismiss.")
+    const toast = await screen.findByLabelText(
+      "Badge unlocked: Checklist 1. Tap to dismiss.",
+    );
     expect(toast).toBeTruthy();
 
     fireEvent.press(toast);

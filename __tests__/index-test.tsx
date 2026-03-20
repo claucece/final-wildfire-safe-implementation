@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  render,
-  screen,
-  fireEvent,
-} from "@testing-library/react-native";
+import { render, screen, fireEvent } from "@testing-library/react-native";
 import { useRouter } from "expo-router";
 
 import App from "@/app/index";
@@ -100,9 +96,7 @@ describe("<App />", () => {
     render(<App />);
 
     expect(screen.getByText("Wildfire Safe")).toBeTruthy();
-    expect(
-      screen.getByText("Wildfire preparedness, simplified"),
-    ).toBeTruthy();
+    expect(screen.getByText("Wildfire preparedness, simplified")).toBeTruthy();
     expect(screen.getByLabelText("Log In")).toBeTruthy();
     expect(screen.getByLabelText("Sign Up")).toBeTruthy();
   });
