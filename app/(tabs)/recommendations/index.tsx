@@ -307,7 +307,7 @@ const Recommendations = () => {
                   style={[styles.profileButton, { marginTop: 10 }]}
                   accessibilityRole="button"
                   accessibilityLabel="Open profile settings"
-                  onPress={() => router.push("/profile")}
+                  onPress={() => router.push("personalised/profile")}
                 >
                   <Text style={styles.profileButtonText}>Open profile</Text>
                 </Pressable>
