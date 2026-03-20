@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { ScrollView, Text, View, Platform, Pressable } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
