@@ -11,6 +11,7 @@ import { useRouter } from "expo-router";
 import Login from "@/app/auth/login";
 import { useOrientation } from "@/hooks/useOrientation";
 
+// Mock the data for login
 let mockFormData = {
   email: "",
   password: "",
@@ -37,9 +38,10 @@ beforeEach(() => {
   mockSetFormData = jest.fn();
 });
 
+// Login Tests
 describe("<Login />", () => {
   beforeEach(() => {
-    useOrientation.mockReturnValue("PORTRAIT"); // or "LANDSCAPE" for different cases
+    useOrientation.mockReturnValue("PORTRAIT");
     useRouter.mockReturnValue({ push: jest.fn() });
   });
 

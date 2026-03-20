@@ -22,6 +22,7 @@ jest.mock("expo-notifications", () => ({
   getAllScheduledNotificationsAsync: jest.fn().mockResolvedValue([]),
 }));
 
+// Test button
 describe("<CustomNavigationButton />", () => {
   it("renders the button with correct title", () => {
     render(
@@ -83,9 +84,11 @@ describe("<CustomNavigationButton />", () => {
   });
 });
 
+// Test index
 describe("<App />", () => {
   const push = jest.fn();
 
+  // Mock before
   beforeEach(() => {
     (useOrientation as jest.Mock).mockReturnValue("PORTRAIT");
     (useRouter as jest.Mock).mockReturnValue({ push });

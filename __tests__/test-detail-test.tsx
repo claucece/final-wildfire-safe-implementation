@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import TestDetail from "@/app/test/[itemId]";
 
-// Icons
+// Mock icons
 jest.mock("@expo/vector-icons", () => ({
   Feather: () => null,
   Ionicons: () => null,
@@ -69,6 +69,7 @@ jest.mock("@/components/badges/BadgeSystem", () => {
   };
 });
 
+// Test tests
 describe("<TestDetail />", () => {
   beforeEach(() => {
     const { mockParams } = require("expo-router");
@@ -112,7 +113,7 @@ describe("<TestDetail />", () => {
     fireEvent.press(screen.getByText("Water"));
     fireEvent.press(screen.getByText("Mask"));
 
-    // Now all correct are checked and incorrect is unchecked: success
+    // Now all correct are checked and incorrect is unchecked
     expect(
       await screen.findByText("Great job: checklist completed correctly!"),
     ).toBeTruthy();
@@ -132,14 +133,14 @@ describe("<TestDetail />", () => {
     fireEvent.press(screen.getByText("Water"));
     fireEvent.press(screen.getByText("Mask"));
 
-    // success message proves checklistCorrect
+    // Success message proves checklistCorrect
     expect(
       await screen.findByText("Great job: checklist completed correctly!"),
     ).toBeTruthy();
 
     const { awardBadge } = require("@/components/badges/BadgeSystem");
 
-    // It should have awarded exactly once
+    // Badge should have awarded exactly once
     expect(awardBadge).toHaveBeenCalledTimes(1);
 
     const arg = awardBadge.mock.calls[0][0];

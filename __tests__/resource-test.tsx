@@ -1,10 +1,11 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
-import Resource from "@/app/(tabs)/resources";
 
 import * as ExpoLinking from "expo-linking";
 
-// Icons
+import Resource from "@/app/(tabs)/resources";
+
+// Mock icons
 jest.mock("@expo/vector-icons", () => ({
   Feather: () => null,
   Ionicons: () => null,
@@ -49,6 +50,7 @@ jest.mock("@/constants/resources-data.ts", () => [
   },
 ]);
 
+// Resources test
 describe("<Resource />", () => {
   it("renders header texts", () => {
     render(<Resource />);

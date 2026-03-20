@@ -1,11 +1,9 @@
 import React from "react";
 import { Alert } from "react-native";
 
-import Profile from "@/app/personalised/profile";
-
 import { useRouter } from "expo-router";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   render,
   screen,
@@ -17,6 +15,9 @@ import * as Location from "expo-location";
 import { onAuthStateChanged } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
 
+import Profile from "@/app/personalised/profile";
+
+// Mock styles and orientation
 jest.mock("@/components/CustomGradient", () => {
   const React = require("react");
   const { View } = require("react-native");
@@ -27,7 +28,7 @@ jest.mock("@/hooks/useOrientation", () => ({
   useOrientation: () => "PORTRAIT",
 }));
 
-// Router
+// Mock router
 const pushMock = jest.fn();
 jest.mock("expo-router", () => ({
   useRouter: jest.fn(),
@@ -80,6 +81,7 @@ jest.mock("@expo/vector-icons", () => {
 
 const asMock = <T,>(fn: T) => fn as unknown as jest.Mock;
 
+// Profile tests
 describe("<Profile />", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -253,7 +255,7 @@ describe("<Profile />", () => {
     });
   });
 
-  it("Help & info links navigate correctly", async () => {
+  it("Help and info links navigate correctly", async () => {
     render(<Profile />);
 
     // Wait for screen

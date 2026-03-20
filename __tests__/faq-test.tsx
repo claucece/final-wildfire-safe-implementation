@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import FAQ from "@/app/resource/faq";
 
-// Icons
+// Mock icons
 jest.mock("@expo/vector-icons", () => ({
   Feather: () => null,
   Ionicons: () => null,
@@ -53,6 +53,7 @@ jest.mock("@/constants/faq-data", () => ({
   ],
 }));
 
+// FAQ tests
 describe("<FAQ />", () => {
   it("renders the header texts", async () => {
     render(<FAQ />);

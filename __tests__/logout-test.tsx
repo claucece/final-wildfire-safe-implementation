@@ -32,6 +32,7 @@ jest.mock("@/app/firebaseConfig", () => ({
   auth: { mock: "auth-instance" },
 }));
 
+// Logout test
 describe("<Logout />", () => {
   const pushMock = jest.fn();
   const backMock = jest.fn();

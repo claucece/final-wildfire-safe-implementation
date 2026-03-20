@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react-native";
 import About from "@/app/info/about";
-import * as Linking from "react-native/Libraries/Linking/Linking";
 import { useOrientation } from "@/hooks/useOrientation";
+
+import * as Linking from "react-native/Libraries/Linking/Linking";
 
 // Mock the orientation hook
 jest.mock("@/hooks/useOrientation", () => ({
@@ -11,6 +12,7 @@ jest.mock("@/hooks/useOrientation", () => ({
 // Mock Linking.openURL
 jest.spyOn(Linking, "openURL").mockImplementation(jest.fn());
 
+// About tests
 describe("<About />", () => {
   beforeEach(() => {
     (useOrientation as jest.Mock).mockReturnValue("PORTRAIT");

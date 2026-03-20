@@ -66,6 +66,7 @@ jest.mock("expo-brightness", () => ({
   setBrightnessAsync: jest.fn().mockResolvedValue(undefined), // Mock setting brightness
 }));
 
+// The setup
 describe("Jest Setup", () => {
   it("should run without errors", () => {
     expect(true).toBe(true); // Dummy test that always passes

@@ -4,7 +4,7 @@ import Home from "@/app/(tabs)/home";
 
 import { useRouter } from "expo-router";
 
-// Mock native/visual dependencies
+// Mock lottie and gradient
 jest.mock("lottie-react-native", () => "LottieView");
 
 jest.mock("expo-linear-gradient", () => {
@@ -50,11 +50,12 @@ jest.mock("expo-router", () => {
   };
 });
 
+// Home tests
 describe("<Home />", () => {
   it("renders the welcome message with username", () => {
     render(<Home />);
 
-    // Since your Text includes a newline + exclamation, use a regex
+    // Since the text includes a newline and exclamation, use a regex
     expect(screen.getByText(/Welcome,\s*TestUser!/)).toBeTruthy();
   });
 

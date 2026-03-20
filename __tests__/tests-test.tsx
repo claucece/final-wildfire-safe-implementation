@@ -49,6 +49,7 @@ jest.mock("@/constants/tests-data.ts", () => [
   },
 ]);
 
+// Test index tests
 describe("<Tests />", () => {
   it("renders the header texts", async () => {
     render(<Tests />);

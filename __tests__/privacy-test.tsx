@@ -8,6 +8,7 @@ jest.mock("@/hooks/useOrientation", () => ({
   useOrientation: jest.fn(),
 }));
 
+// Privacy Policy test
 describe("<PrivacyPolicy />", () => {
   beforeEach(() => {
     (useOrientation as jest.Mock).mockReturnValue("PORTRAIT");

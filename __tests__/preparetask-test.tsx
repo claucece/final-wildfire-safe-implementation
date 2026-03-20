@@ -11,7 +11,7 @@ jest.mock("@/components/HighlightedText", () => {
   return ({ text, style }: any) => <Text style={style}>{text}</Text>;
 });
 
-// Icons
+// Mock icons
 jest.mock("@expo/vector-icons", () => ({
   Feather: () => null,
   Ionicons: () => null,
@@ -24,6 +24,7 @@ jest.mock("@/constants/prepare-tasks-images", () => [
   { uri: "img-3" },
 ]);
 
+// Mock some prepare tasks data
 jest.mock("@/constants/prepare-tasks-data", () => ({
   PREPARE_TASK_DATA: [
     {
@@ -55,6 +56,7 @@ jest.mock("expo-router", () => {
   };
 });
 
+// Prepare task tests
 describe("<PrepareTask />", () => {
   beforeEach(() => {
     const { paramsMock, pushMock, backMock } = require("expo-router");

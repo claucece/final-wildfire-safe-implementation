@@ -105,10 +105,11 @@ jest.mock("expo-notifications", () => ({
 
 const flushPromises = () => new Promise((resolve) => setImmediate(resolve));
 
+// Recommendations test
 describe("<Recommendations />", () => {
   const pushMock = jest.fn();
 
-  // Pull mocks from the mocked modules (no outside undefined vars)
+  // Pull mocks from the mocked modules
   const AsyncStorage = require("@react-native-async-storage/async-storage");
   const Location = require("expo-location");
   const Auth = require("firebase/auth");
@@ -226,7 +227,7 @@ describe("<Recommendations />", () => {
       return null;
     });
 
-    // Mock FIRMS fetch
+    // Mock FIRMS API fetch
     const fetchMock = jest.spyOn(global, "fetch" as any).mockResolvedValue({
       ok: true,
       text: async () =>

@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import {
   BadgeProvider,
   BadgeList,
@@ -23,6 +24,7 @@ jest.mock("@react-native-async-storage/async-storage", () => ({
 
 const asMock = <T,>(fn: T) => fn as unknown as jest.Mock;
 
+// award function
 function AwardButton() {
   const { awardBadge } = useBadges();
   return (
@@ -41,6 +43,7 @@ function AwardButton() {
   );
 }
 
+// clear button
 function ClearButton() {
   const { clearBadges } = useBadges();
   return (
@@ -50,6 +53,7 @@ function ClearButton() {
   );
 }
 
+// Badges tests
 describe("BadgeSystem", () => {
   beforeEach(() => {
     jest.clearAllMocks();
