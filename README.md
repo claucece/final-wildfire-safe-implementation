@@ -107,11 +107,10 @@ One can also build with `expo go`.
 
 - **`app/`** → Contains all app screens and navigation logic:
   - **`_layout.tsx`** → Defines the overall layout and navigation structure.
-  - **`index.tsx`** → The entry screen (Home screen).
+  - **`index.tsx`** → The entry screen (Home screen with prepare tasks).
   - **`firebaseConfig.ts`** → Configuration file for Firebase integration.
   - **`auth/`** → Contains authentication screens (login, signup, logout).
-  - **`info/`** → Holds the about screen.
-  - **`(modal)/`** → Stores modal components for overlays and pop-ups.
+  - **`info/`** → Holds the about and privacy policy screen.
   - **`(tabs)/`** → Contains screens managed within the tab navigation system.
 - **`components/`** → Houses reusable UI elements (e.g., buttons).
 - **`constants/`** → Stores global configuration values like API URLs, data and color themes.
@@ -121,8 +120,9 @@ One can also build with `expo go`.
 - **`scripts/`** → Includes automation scripts (e.g., setup, deployment).
 - **`coverage/`** → Generated reports from code coverage tools.
 - **`debug/`** → Temporary debugging logs or profiling outputs.
+- **`utils/`** → Utils functions.
 
 # See it in your device
 
-To see it in iOS or Android (beware you are not in "silent mode", if you are disable it):
+To see it in iOS or Android:
 <img width="488" alt="Screenshot 2025-03-09 at 23 50 00" src="https://github.com/user-attachments/assets/039ca5ed-f651-4628-8cfc-5a14188d193a" />
