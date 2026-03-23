@@ -127,5 +127,5 @@ One can also build with `expo go`.
 # See it in your device
 
 To see it in iOS or Android:
-<img width="488" height="533" alt="Screenshot 2026-03-20 at 18 56 47" src="https://github.com/user-attachments/assets/d331b904-39ea-4e96-934a-1bd5b7f221e8" />
+<img width="478" height="648" alt="Screenshot 2026-03-23 at 13 40 19" src="https://github.com/user-attachments/assets/e0faf2f8-aa6f-4b0a-aa16-6a68eaefd721" />
 
