@@ -17,8 +17,9 @@ In order to build the app, you will need to:
    ```bash
     npx expo start
    ```
-
-You will also need an `.env` file with credentials. Instructions and credentials are found in a document shared on the first page of the final report. 
+   
+> [!IMPORTANT]
+> You will also need an `.env` file with credentials. Instructions and credentials are found in a document shared on the first page of the final report.
 
 In the output, you'll find options to open the app in a:
 
